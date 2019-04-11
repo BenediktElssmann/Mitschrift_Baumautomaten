@@ -276,7 +276,7 @@ Beispiellauf:\\
 \Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ $q_0$ ] [.$\lor$ $q_1$ $q_0$ ] ] ] $\rightarrow$
 \Tree [.$\lnot$ [.$\land$ $q_0$ $q_1$ ] ] $\rightarrow$
 \Tree [.$\lnot$ $q_0$ ] $\rightarrow$
-\Tree [.$q_1$ ] \\
+\Tree [.$q_1$ ] \\ \\
 
 2. $(a^nb^n light)$\\
 
@@ -297,7 +297,74 @@ $\mathcal{A}$ akzeptiert also alle B\"aume der Form:\\
 
 3. Simulation eines Wortautomaten: (siehe \"Ubung)\\
 
-%2 weitere Seiten vom 10. April
+Betrachtet man $\Sigma =\{a^{(0)}, f^{(2)}, g^{(1)}\}$. Dann ist $L = \{f(g^i(a), g^i(a)) | i \geq 0\}$ nicht erkennbar.
+
+\subsection{Determinismus}
+
+Ein Automat $\mathcal{A} (Q, \Sigma,  F, \Delta)$ hei\ss t deterministisch, falls: aus
+$ f(q_1, \dots, q_n) \rightarrow q $ und \\
+$ f(q_1, \dots, q_n) \rightarrow q' $ folgt $ q = q'$
+
+\subsection{Satz}
+
+Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat, dann existiert ein deterministischer Baumautomat $\mathcal{A}_d$, 
+so dass $L(\mathcal{A}) = L(\mathcal{A}_d)$.\\ \\
+
+Beweis: Setze $\mathcal{A}_d = (Q_d, \Sigma, F_d, \Delta_d)$ \\
+mit $Q_d = 2^Q$ $(\ast)$\\
+und $f(s_1, \dots, s_n) \rightarrow s \in \Delta_d$\\
+$\Leftrightarrow s = \{ q \in Q | \exists q_1 \in s_1 \dots q_n \in s_n: (f(q_1, \dots, q_n) \rightarrow q) \in \Delta\}$ \\
+und $F_d = \{ s \in Q_d | s \cap F \neq \emptyset\}$.\\ \\
+Wir zeigen:\\
+1. $\mathcal{A}$ ist deterministisch \\
+2. $L(\mathcal{A}) \subset L(\mathcal{A}_d)$ \\
+3. $L(\mathcal{A}_d) \subset L(\mathcal{A})$ \\ \\
+
+1. ist klar, denn $(\ast)$ ist mit einer \"Aquivalenz definiert.\\
+2. \glqq$L(\mathcal{A}) \subseteq L(\mathcal{A}_d)$\grqq:\\
+
+Wir zeigen hierzu: Ist $Z = \{ q | t \rightarrow ^\ast_\mathcal{A} q\}$, dann $ t \rightarrow ^\ast_{\mathcal{A}_d} z$.\\ \\
+
+Induktionsannahme:\\
+Angenommen $a \rightarrow _\mathcal{A} q_a$, dann ist $q_a \in \{ q \in Q | q \rightarrow ^\ast_\mathcal{A} q\}$, das hei\ss t\\
+$a \rightarrow ^\ast_\mathcal{A} q_a \Leftrightarrow q_a \in \{ q \in Q | a \rightarrow ^\ast_\mathcal{A} q \}$\\
+$\Leftrightarrow q_a \in \{ q \in Q | (a \rightarrow q) \in \Delta \}$\\
+also $a \rightarrow ^\ast_\mathcal{A} q_a \Leftrightarrow q_a \in \{ q \in Q | (a \rightarrow q) \in \Delta \}$, das hei\ss t\\
+$z := \{ q_a \in Q | a \rightarrow ^\ast_\mathcal{A} q_a \} = \{ q \in Q | (a \rightarrow q) \in \Delta \} =: s$\\
+
+Nun ist $( a \rightarrow s) \in \Delta_d$ per Definition, also auch $( a \rightarrow z) \in \Delta_d$, damit: $a \rightarrow ^\ast_{\mathcal{A}_d} z$.\\
+
+Betrachten wir nun $ t = \sigma(t_1, \dots , t_n) $ \\
+
+Induktionsvoraussetzung:\\
+$t_i \rightarrow ^\ast_{\mathcal{A}_d} z_i$ mit $Z_i = \{q \in Q | t_i \rightarrow ^\ast_\mathcal{A} q\}$\\
+Das hei\ss t, es existieren L\"aufe $r_i$ f\"ur $t_i$ von $\mathcal{A}_d$ mit $r_i(\varepsilon) = z_i$\\
+
+Induktionsschritt:\\
+zu zeigen: $ t \rightarrow ^\ast_\mathcal{A} z$ mit $Z = \{ q \in Q | t \rightarrow ^\ast_\mathcal{A} q \} $ \\
+Das hei\ss t, es existiert ein Lauf $r$ f\"ur $t$ von $\mathcal{A}_d$ mit $r(\varepsilon) = z$\\
+Das hei\ss t, $\exists r :$\\
+
+\begin{itemize}
+	\item $r (\varepsilon) = z$
+	\item $r (i) = z_i$
+	\item $\sigma (z_1, \dots, z_n) \rightarrow z \in \Delta_d$
+\end{itemize}
+
+Setze nun $r_{ |i } = r_i$, damit ist insbesondere $r(i) = r_i(\varepsilon) = z := \{q | t_i \rightarrow ^\ast_{\mathcal{A}_d} q \}$\\
+
+Es bleibt also zu zeigen: $ \exists$ Regel $\sigma (z_i, \dots, z_m) \rightarrow z \in \Delta_d$.\\
+Es ist nun $ z \in Z \Leftrightarrow t \rightarrow ^\ast_\mathcal{A} z$ \\
+$\Leftrightarrow \exists q_i \in Q: t_i \rightarrow ^\ast_\mathcal{A} q_i, \sigma(q_1, \dots, q_m) \rightarrow z \in \Delta$\\
+$\Leftrightarrow \exists z_i \in Z_i$ und $\sigma/z_1, \dots , z_m) \rightarrow z \in \Delta$ \\
+Also $Z= \{z\in Q | \exists z_i \in Z_i : (\sigma/z_1, \dots , z_m) \rightarrow z ) \in \Delta)$ also per Definition
+$\sigma/z_1, \dots , z_m) \rightarrow z \in \Delta_d$\\ \\
+
+2. \glqq$L(\mathcal{A}_d) \subseteq L(\mathcal{A})$\grqq:\\
+
+Sei $t \in T_\Sigma$ mit $t \notin L(\mathcal{A})$, dann ist $Z \cap F = \{ q \in Q | t \rightarrow^\ast_\mathcal{A} q \} \cap F = \emptyset$\\
+Laut 2. ist $t \rightarrow ^\ast_{\mathcal{A}_d} z$ (und $\mathcal{A}$ ist deterministisch)
+Wegen $Z \cap F = \emptyset$ ist $Z \notin F_d$, also $t \notin L(\mathcal{A}_d)$
 
 \end{document}
 
