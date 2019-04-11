@@ -1,6 +1,7 @@
 
 \documentclass[titlepage]{article}
 
+%Paket-Liste
 \usepackage{geometry}
 \usepackage[german]{babel}
 \usepackage{mathtools}
@@ -70,7 +71,7 @@ Wir betrachten \"uber $ A = \{a,b\} $ den Automaten $ \mathcal{A} $:
 	\path[->]	(q2)	edge	[loop above]	node	{a}	();
 \end{tikzpicture}
 
-mit $ L(\mathcal{A} = b\ast ab a\ast $ .
+mit $ L(\mathcal{A}) = b^\ast ab a^\ast $ .
 
 Betrachtung des Wortes $ w = baba \in L(\mathcal{A}) $:\\
 
@@ -139,7 +140,7 @@ Daf\"ur ordenen wir den Knoten Positionen zu. Das geht induktiv wie foelgt:
 Sei $(\Sigma, rk)$ ein Rangalphabet. Die Positionenmenge ist definiert durch:
 
 \begin{itemize}
-	\item f\"ur $a^{(0)} \in T_{\Sigma} ist Pos(a) = \{\varepsilon\}$
+	\item f\"ur $a^{(0)} \in T_{\Sigma}$ ist $Pos(a) = \{\varepsilon\}$
 	\item f\"ur $f(t_1, \dots, t_n) \in T_{\Sigma}$ ist $Pos(f(t_1, \dots, t_n)) = \{\varepsilon\}1 \cdot Pos(t_1) \cup \dots \cup n \cdot Pos(t_n)$
 \end{itemize}
 
@@ -190,9 +191,9 @@ $t[u]_{|1} = f(g(b,a),b)$ \Tree [.f [.g b a ] [.b ] ]
 
 Ein Buamautomat $ \mathcal{A}$ ist ein 4-Tupel $(Q,\Sigma,F,\Delta)$, wobei:\\
 $Q \dots$ endliche Menge an Zus\"anden\\
-$\Sigma \dots$ Rangalphabet\\
-$F \dots \subset Q$ Finalzust\"ande\\
-$\Delta \dots$ Menge von regeln\\
+$\Sigma \dots$ Rangalphabet, wobei $\Sigma \cup Q \neq \emptyset$\\
+$F \dots \subseteq Q$ Finalzust\"ande\\
+$\Delta \dots$ Menge von Regeln\\
 
 $r: f(q_1 \dots q_n) \rightarrow q$\\
 f\"ur $q, q_1, \dots , q_n \in Q$, f\"ur $a^{(0)} \in T_{\Sigma} : a \rightarrow q$\\
@@ -201,6 +202,102 @@ Beispiel:\\
 $\mathcal{A} = \{\{q_a, q_b, q_f\},\{a^{(0)},b^{(0)},f^{(2)}\},\{q_f\}, \Delta\}$ \\
 mit $\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a,q_b) \rightarrow q_a, f(q_a, q_b), f(q_a,q_b) \rightarrow q_f\}$
 
-\end{document}
+\subsection{Definition Lauf/Run}
 
+Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat und $t\in T_{\Sigma}$. 
+Ein Lauf r f\"ur $t$ von $\mathcal{A}$ ist ein Term mit
+
+\begin{itemize}
+	\item $Pos(r) = Pos(t)$
+	\item Ist $t(p) = a$ ein Blatt, dann ist $r(p) = q_a$, nur wenn $(a\rightarrow q_a) \in \Delta$ 
+	\item Ist $t(p)=f^{(m)}$, dann ist $r(p) = q$, wenn $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$ und $r(p_i) = q_i$, $i \in \{1, \dots, n\}$
+\end{itemize}
+
+Ein Lauf ist erfolgreich, wenn $r(\varepsilon) \in F$. Der Automat $\mathcal{A}$ akzeptiert $t$, falls es einen erfolgreichen Lauf
+f\"ur $t$ von $\mathcal{A}$ gibt.\\
+Wir bezeichnen mit $L(\mathcal{A}) = \{t \in T_{\Sigma} | \mathcal{A}$ akzeptiert $t\}$ die von $\mathcal{A}$ erkannte Baumsprache. Eine Sprache $L \subseteq T_{\Sigma}$ hei\ss t erkennbar, falls ein Baumautomat $\mathcal{A}$ existiert mit $L=L(\mathcal{A})$.\\
+
+Um einzelne Schritte von Baumautomaten zu formalisieren, betrachten wir die \textit{move relation} $\rightarrow_{\mathcal{A}}$, 
+definiert wie folgt:\\
+Gegeben sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$, dann ist $t \rightarrow _{\mathcal{A}} t'$ mit $t, t' \in T_{\Sigma \cup Q}$, falls
+
+\begin{itemize}
+	\item $t(p) = f^{(n)}$
+	\item $t(pi) = q_i$ f\"ur $i \in \{1, \dots, n\}$ und $p_i$ sind Bl\"atter
+	\item $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$
+	\item und $t' = t[q]_p$
+\end{itemize}
+
+Mit $\rightarrow^\ast_{\mathcal{A}}$ bezeichnen wir die transitive H\"ulle von $\rightarrow_{\mathcal{A}}$.
+
+\subsection{Lemma}
+
+Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat. Dann ist 
+$L(\mathcal{A}) = \{t \in T_{\Sigma} | t \rightarrow^\ast_{\mathcal{A}} q$ mit $q \in F\} (=Z)$\\
+
+Beweis: \glqq$L(\mathcal{A}) \subseteq Z$\grqq:\\
+
+Wir zeigen: Es existiert ein Run $r$ f\"ur $t$ von $\mathcal{A}$ mit $r(\varepsilon) = q$, dann ist $t \rightarrow ^\ast_{\mathcal{A}} q$\\ \\
+Inuktionsannahme:\\
+$t=a^{(0)} \in T_{\Sigma}$. Dann gilt $a \in L({\mathcal{A}})$, falls ein Lauf $r$ existiert mit $r(a) = q_a$ und $(a \rightarrow q_a) \in \Delta$. Dann folgt $a \rightarrow^\ast_{{\mathcal{A}}} q_a$.\\
+Sei nun $t=f(t_1, \dots, t_n)$\\ \\
+
+Induktionsvoraussetzung:\\
+Falls f\"ur $t_1, \dots , t_n$ L\"aufe $r_i$ existieren mit $r_i(\varepsilon) = q_i$, dann gilt auch $t_i \rightarrow ^\ast_{\mathcal{A}} q_i$ mit $i\in \{1, \dots , n\}$\\ \\
+
+Induktionsschritt:\\
+zu zeigen: Es existiert ein Lauf $r$ f\"ur $t$ mit $r(\varepsilon) = q$, dann $t \rightarrow ^\ast_\mathcal{A} q$.\\
+Sei also $r$ ein Lauf mit $r(\varepsilon) = q$. Dann ist $r(i) = q_i$, $i \in \{1, \dots, n\}$, mit
+$(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$. Laut Induktionsvoraussetzung gilt nun,
+$t_i \rightarrow ^\ast_\mathcal{A} q_i$, $i \in \{1, \dots, n\}$.\\
+Damit $t = f(t_1, \dots, t_n) 
+\rightarrow ^\ast_\mathcal{A} f(q_1, t_2, \dots, t_n)
+\rightarrow ^\ast_\mathcal{A} \dots
+\rightarrow ^\ast_\mathcal{A} f(q_1, \dots, q_n)$\\
+Des weiteren haben wir die regel $f(q_1, \dots, q_n) \rightarrow q$, das hei\ss t $f(q_1, \dots, q_n) \rightarrow ^\ast_\mathcal{A} q$.\\ \\
+
+Insgesamt also $t \rightarrow ^\ast_\mathcal{A} q$ \\
+
+Beweis: \glqq$L(Z \subseteq \mathcal{A})$\grqq: analog\\ \\
+
+Einige Beispiele f\"ur Baumautomaten:\\
+
+1. Sei $B = (\{q_0, q_1\}, \{0^{(0)},1^{(0)},\lnot^{(1)},\land^{(2)},\lor^{(2)}\,\{q_1\},\Delta\}$ mit\\
+$\Delta = \{ 0 \rightarrow q_0, 1 \rightarrow q_1,\\
+\lnot (q_0) \rightarrow q_1, \lnot (q_1) \rightarrow q_0,\\
+\land (q_0, q_0) \rightarrow q_0, \land (q_0, q_1) \rightarrow q_0, \land (q_1, q_0) \rightarrow q_0, \land (q_1, q_1) \rightarrow q_1\\
+\lor (q_0, q_0) \rightarrow q_0, \lor (q_0, q_1) \rightarrow q_1, \lor (q_1, q_0) \rightarrow q_1, \lor (q_1, q_1) \rightarrow q_1\}$\\
+
+Beispiellauf:\\
+
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ 0 [.$\lnot$ 1 ] ] [.$\lor$ 1 [.$\land$ 0 0 ] ] ] ] $\rightarrow$
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$\lnot$ $q_1$ ] ] [.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] $\rightarrow$
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$q_0$ ] ] [.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] $\rightarrow$ \\ \\
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ $q_0$ ] [.$\lor$ $q_1$ $q_0$ ] ] ] $\rightarrow$
+\Tree [.$\lnot$ [.$\land$ $q_0$ $q_1$ ] ] $\rightarrow$
+\Tree [.$\lnot$ $q_0$ ] $\rightarrow$
+\Tree [.$q_1$ ] \\
+
+2. $(a^nb^n light)$\\
+
+Betrachten $\mathcal{A} = (\{q_a, q_b, q_f\}, \{a^{(0)}, b^{(0)}, f^{(3)}, g^{(2)}\}, \{q_f\}, \Delta)$\\
+mit $\Delta = \\
+\{a \rightarrow q_a, b \rightarrow q_b, g (q_a, q_b) \rightarrow q_f, f (q_a, q_f, q_b) \rightarrow q_f\}$\\
+
+Beispiellauf:\\
+
+\Tree [.$f$ $a$ [.$f$ $a$ [.$g$ $a$ $b$ ] $b$ ] $b$ ] $\rightarrow$
+\Tree [.$f$ $q_a$ [.$f$ $q_a$ [.$g$ $q_a$ $q_b$ ] $q_b$ ] $q_b$ ] $\rightarrow$
+\Tree [.$f$ $q_a$ [.$f$ $q_a$ $q_f$ $q_b$ ] $q_b$ ] $\rightarrow$
+\Tree [.$f$ $q_a$ $q_f$ $q_b$ ] $\rightarrow$
+\Tree [.$q_f$ ] \\
+
+$\mathcal{A}$ akzeptiert also alle B\"aume der Form:\\
+\Tree [.$f$ $a$ [.$f$ $a$ [.... [.$g$ $a$ $b$ ] ] $b$ ] $b$ ]\\
+
+3. Simulation eines Wortautomaten: (siehe \"Ubung)\\
+
+%2 weitere Seiten vom 10. April
+
+\end{document}
 
