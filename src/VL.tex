@@ -364,7 +364,99 @@ $\sigma/z_1, \dots , z_m) \rightarrow z \in \Delta_d$\\ \\
 
 Sei $t \in T_\Sigma$ mit $t \notin L(\mathcal{A})$, dann ist $Z \cap F = \{ q \in Q | t \rightarrow^\ast_\mathcal{A} q \} \cap F = \emptyset$\\
 Laut 2. ist $t \rightarrow ^\ast_{\mathcal{A}_d} z$ (und $\mathcal{A}$ ist deterministisch)
-Wegen $Z \cap F = \emptyset$ ist $Z \notin F_d$, also $t \notin L(\mathcal{A}_d)$
+Wegen $Z \cap F = \emptyset$ ist $Z \notin F_d$, also $t \notin L(\mathcal{A}_d)$ \\ \\
+
+Wir vereinbaren Abk\"urzungen: NBA/NTA nichtdeterministischer Baumautomat und DBA/DTA deterministischer Baumautomat.\\
+Wie im Wortfall ist die Konstruktion exponentiell, das hei\ss t wir ben\"otigen expontntiell viele Zust\"ande ($Q_d = 2^|Q|$).
+Und wie im Wortfall l\"asst sich das im Allgemeinen nicht vermeiden.\\ \\
+Beispiel: Betrachtet man $\Sigma = \{ f^{(1)}, g^{(1)}, a^{(0)}\}$ und
+sei $L_n = \{ f \in T_\Sigma | t( \underbrace{1 \dots 1}_\text{n-mal} ) = f \}$ \\
+
+Ein NTA ben\"otigt $n+2$ Zust\"ande:\\
+$\mathcal{A} = (Q, \Sigma, F, \Delta)$ mit $Q = \{q, q_1, \dots , q_{n+1} \}$, $F = \{q_{n+1}\}$ mit \"Uberg\"angen
+$\Delta = \{a \rightarrow q, f(q) \rightarrow q, g(q) \rightarrow q, f(q) \rightarrow q_1, \\
+f(q_i) \rightarrow q_{i+1}, g(q_i) \rightarrow q_{i+1}$ f\"ur $i \in \{1, \dots ,n\}$\\
+
+Man kann zeigen: Ein DTA $\mathcal{A}'$ mit $L(\mathcal{A}') = L_n$ hat mindestens $2^{n+1}$ Zust\"ande.
+
+\section{Definition vollst\"anding und reduziert}
+
+Ein Automat $\mathcal{A} = Q, \Sigma, F, \Delta)$ hei\ss t:
+
+\begin{itemize}
+	\item vollst\"andig, falls f\"ur jedes $f^{(n)} \in \Sigma$ und alle $q_1, \dots , q_n \in Q$ eine Regel 
+		$f(q_1, \dots, q_n) \rightarrow q \in \Delta$ existiert.
+	\item reduziert, falls f\"ur jeden Zustand $q \in Q$ ein Term $t \in T_\Sigma$ exisitert mit $f \rightarrow ^\ast_\mathcal{A} q$
+\end{itemize}
+
+\section{Satz}
+
+Sei $\mathcal{A}$ ein Baumautomat. Dann existiert ein vollst\"andiger, reduzierter Baumautomat 
+$\mathcal{A}'$ mit $L(\mathcal{A} = L(\mathcal{A}'$.\\
+
+F\"ur Wortautomaten gibt es das Pumping-Lemma, das die Ged\"achtnislosigkeit der Automaten formalisiert.
+Formal besagt es: Ist $L$ eine regul\"are Wortsprache, dann existiert ein $n \in \mathbb{N}$, so dass sich $w \in L$ mit $|w| > n$ 
+zerlegen l\"asst in $w = xyz$, $y \neq \varepsilon$ und $\forall i \geqq 0$ ist $xy^iz \in L$. \\ \\
+
+Baumautomaten haben auch kein Ged\"achtnis, also erwarten wir ein analoges Resultat.
+Dazu m\"ussen wir formalisierten, was \glqq aufgepumpt \grqq werden soll.
+
+\section{Definition Kontext}
+
+Es sei $\Sigma$ ein Fangalphabet und $x^{(0)} \notin \Sigma$. Es sei $C \in T_{\Sigma \cup \{x\}}$.
+Falls es genau eine Position $p \in Pos(C)$ gibt mit $C(p) = x$, dann hei\ss t $C$ ein Kontext.\\
+
+Beispiel: \Tree [.f [.f x b ] [.b ] ] ist ein Kontext.\\
+
+Wir schreiben $T_\Sigma(x)$ f\"ur die Menge aller solcher Kontexte.\\
+
+Ist $C \in T_\Sigma(x)$ mit $C(p) = x$, dann schreiben wir $C[u]$ statt $C[u]_p$ f\"ur den Baum, der entsteht, 
+wenn wir $x$ durch $u$ ersetzen.\\
+Wir schreiben $C^0 = x$, $C^1 = C$, $C^n = C^{n-1} [C]$\\
+
+Beispiel: Betrachtet $t = $ \Tree [.f [.f a b ] [.b ] ]\\
+
+Setze $u = f(a,b)$ und $C = f(x,b)$.\\
+Dann ist $t = C[u]$ und $C^2[u] = $
+\Tree [.f [.f [.f a b ] b ] [.b ] ]
+
+\section{Pumping-Lemma}
+
+Sei $L \subseteq t_\Sigma$ erkennbar, dann existiert ein $k \in \mathbb{N}$, so dass:\\
+F\"ur alle $t \in L$ mit $ht(t) > k$ gibt es einen Kontext $C \in T_\Sigma (x)$, einen nicht-trivialen Kontext $C' \in T_\Sigma (x)$
+und einen Term $u \in T_\Sigma$ mit $t = C[C'[u]]$ und $C[(C')^n[u]] \in L$ f\"ur alle $n \ge 0$.\\ \\
+
+Beweis: Sei $L$ erkennbar, das hei\ss t $\exists$Baumautomat$\mathcal{A} = (Q, \Sigma, F, \Delta)$ mit $L = L(\mathcal{A})$.
+Setze $|Q| = k$ und betrachte $t \in L$ mit $ht(t) > k$. Betrachte nun einen Lauf $r$ und einen Pfad in $t$, der l\"anger als $k$ ist.
+Nun gibt es $p_1,p_2 \in Pos(r)$ mit $r(p_1) = r(p_2) = q \in Q$.
+Sei nun $u = t_{|p_2}$ der Sub-Baum von $t$ bei $p_2$ und $u' = t_{|p_1}$.
+Dann existiert $C'$ mit $C'[u] = u'$ und es existiert $C$ mit $t=C[C'[u]]$.
+Es ist wegen $t \in L$\\
+$C[C'[u]] \rightarrow ^\ast_\mathcal{A} C[C'[q]] \rightarrow ^\ast_\mathcal{A} C[q] \rightarrow ^\ast_\mathcal{A} q_f \in F$, also auch\\
+$C[(C')^n[u]] \rightarrow ^\ast_\mathcal{A} C[(C')^n[q]] \rightarrow ^\ast_\mathcal{A} CC[(C')^{(n-1)}[q]] 
+\\rightarrow ^\ast_\mathcal{A} \dots rightarrow ^\ast_\mathcal{A} C[q] \rightarrow ^\ast_\mathcal{A} q_f \in F$. q.e.d.\\ \\
+
+Beispiel: Betrachte den Baumautomaten 
+$\mathcal{A} = (\{q_a, q_b, q_g, q_f\}, \{a^{(0)}, b^{(0)}, g^{(1)}, f^{(2)}\}, \{q_f\}, \Delta)$ mit\\
+$\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a, q_b) \rightarrow q_g, g(q_g) \rightarrow q_f\}$ \\
+
+\Tree [.g [.f [.f [.f a b ] b ] b ] ] \\
+$u = f(a, b)$, $u' = C'[u] = f(f(a,b),b)$ \\
+$C = g(f(x, b))$, $C' = f(x, b)$ \\
+
+$C[(C')^n[u]] = $ \Tree [.g [.f [.f [.... [.f a b ] ] b ] b ] ] \\
+
+Die Sprache $L = \{ f(g^i(a),g^i(a) | i \geq 0\}$ kann nicht erkennbar sein, denn f\"ur gro\ss e $i$ w\"urde man ein $k$ finden,
+so dass ein gegebener Baumautomat auch $f(g^{i+lk}(a), g^i(a))$ für alle $l \geq 0$ akzeptiert.
+
+\section{Korollar}
+
+F\"ur $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ist $L(\mathcal{A} \neq \emptyset \Leftrightarrow \exists t \in L$ mit 
+$ht(t) \leq |Q|$:
+
+\begin{itemize}
+	\item $L(\mathcal{A} |$ nicht endlich $\Leftrightarrow \exists t \in L$ mit $|Q| < ht(t) \leq 2 |Q|$
+\end{itemize}
 
 \end{document}
 
