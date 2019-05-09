@@ -1,7 +1,6 @@
 
 \documentclass[titlepage]{article}
 
-%Paket-Liste
 \usepackage{geometry}
 \usepackage[german]{babel}
 \usepackage{mathtools}
@@ -19,7 +18,10 @@
 \begin{document}
 
 \title{\huge{Vorlesung Baumautomaten (Mitschrift)}}
-\author{Benedikt El\ss mann (3720358)\\be57xocu@studserv.uni-leipzig.de\\\\Universit\"at Leipzig}
+
+\author{Benedikt El\ss mann (3720358)\\
+		be57xocu@studserv.uni-leipzig.de\\\\
+		Universit\"at Leipzig}
 
 \maketitle
 
@@ -78,7 +80,8 @@ Betrachtung des Wortes $ w = baba \in L(\mathcal{A}) $:\\
 
 Der eindeutige erfolgreiche Lauf f\"ur $ w $ l\"asst sich darstellen als:\\
 
-$q_0 baba \rightarrow b q_0 aba \rightarrow ba q_1 ba \rightarrow bab q_2 a \rightarrow baba q_2 \in F$ (Finalzustand)\\
+$q_0 baba \rightarrow b q_0 aba \rightarrow ba q_1 ba \rightarrow bab q_2 a \rightarrow 
+baba q_2 \in F$ (Finalzustand)\\
 
 Baumautomaten funktionieren analog. Unser erstes Beispiel wird
 
@@ -95,7 +98,8 @@ mit $q_f \in F$
 
 \subsection{Definition Rangalphabet}
 
-Ein paar $(\Sigma, rk)$, wobei $\Sigma$ eine endliche Menge von Symbolen und $rk : \Sigma \rightarrow \mathbb{N}$ eine Abbildung ist, hei\ss t Rangalphabet.\\
+Ein paar $(\Sigma, rk)$, wobei $\Sigma$ eine endliche Menge von Symbolen und 
+$rk : \Sigma \rightarrow \mathbb{N}$ eine Abbildung ist, hei\ss t Rangalphabet.\\
 F\"ur $f\in \Sigma$ hei\ss t $rk(f)$ der Rang (oder die Stelligkeit) von $f$.\\ \\
 Intuitiv: $rk(f)$ ist die Anzhal der Kinder von $f$ in einem Baum.\\
 Insbesondere ist die Anzahl der Kinder f\"ur jedes Symbol fest.\\ \\
@@ -114,11 +118,13 @@ ist also $rk(f) = 2, rk(b) = 0$\\
 
 \subsection{Definition Term, Tree}
 
-Sei $(\Sigma, rk)$ ein Rangalphabet. Die Menge $T_{\Sigma}$ der B\"aume \"ueber $\Sigma$ ist induktiv definiert durch:
+Sei $(\Sigma, rk)$ ein Rangalphabet.
+Die Menge $T_{\Sigma}$ der B\"aume \"ueber $\Sigma$ ist induktiv definiert durch:
 
 \begin{itemize}
 	\item $\Sigma^0 \subseteq T_{\Sigma}$
-	\item $f^{(n)} \in \Sigma$ . $t_1, \dots, t_n \in T_{\Sigma}$, dann ist $f(t_1, \dots, t_n) \in T_{\Sigma}$
+	\item $f^{(n)} \in \Sigma$ . $t_1, \dots, t_n \in T_{\Sigma}$, 
+		dann ist $f(t_1, \dots, t_n) \in T_{\Sigma}$
 \end{itemize}
 
 Intuitiv sind $t_1, \dots, t_n$ die Kinder von $f$.\\
@@ -130,7 +136,8 @@ Sei $(\Sigma, rk)$ ein Rangalphabet. Die H\"ohe $ht$ ist gegeben durch:
 
 \begin{itemize}
 	\item f\"ur $a^{(0)} \in \Sigma: ht(a) = 1$.
-	\item f\"ur $f(t_1, \dots , t_n) \in T_{\Sigma} : ht(f) = 1 + max\{ ht(t_i) | i \in \{i, \dots, n\}\}$
+	\item f\"ur $f(t_1, \dots , t_n) \in T_{\Sigma} : 
+		ht(f) = 1 + max\{ ht(t_i) | i \in \{i, \dots, n\}\}$
 \end{itemize}
 
 Ziel: Zugriff auf einen Knoten innterhalb eines Baumes und deren Label.\\
@@ -142,7 +149,9 @@ Sei $(\Sigma, rk)$ ein Rangalphabet. Die Positionenmenge ist definiert durch:
 
 \begin{itemize}
 	\item f\"ur $a^{(0)} \in T_{\Sigma}$ ist $Pos(a) = \{\varepsilon\}$
-	\item f\"ur $f(t_1, \dots, t_n) \in T_{\Sigma}$ ist $Pos(f(t_1, \dots, t_n)) = \{\varepsilon\}1 \cdot Pos(t_1) \cup \dots \cup n \cdot Pos(t_n)$
+	\item f\"ur $f(t_1, \dots, t_n) \in T_{\Sigma}$ ist 
+	$Pos(f(t_1, \dots, t_n)) = \{\varepsilon\} \cup 1 \cdot Pos(t_1) \cup 
+		\dots \cup n \cdot Pos(t_n)$
 \end{itemize}
 
 Beispiel:\\
@@ -152,7 +161,8 @@ $Pos(f) = \{\varepsilon, 1, 2, 1.1, 1.2\}$
 
 \subsection{Definition der Label an den Positionen}
 
-F\"ur einen Term der Form $t = f(t_1, \dots, t_n)$ ist das Symbol $t(p)$ in $t$ an p-ter Position induktiv definert durch:
+F\"ur einen Term der Form $t = f(t_1, \dots, t_n)$ ist das Symbol $t(p)$ in $t$ an p-ter 
+Position induktiv definert durch:
 
 \begin{itemize}
 	\item $t(\varepsilon) = f$
@@ -176,7 +186,8 @@ F\"ur $T_{\Sigma}$ ist ein Sub-Baum $t_{|p}$ an p-ter Position wie folgt definie
 	\item $\forall q \in Pos(t_{|p}$ ist $t_{|p}(q) = t(pq)$
 \end{itemize}
 
-Wir schreiben $t[u]_p$ f\"ur den Baum, der entsteht, wenn man in $t$ den sub-Baum $t_{|p}$ durch $n$ ersetzt.\\
+Wir schreiben $t[u]_p$ f\"ur den Baum, der entsteht, wenn man in $t$ den sub-Baum 
+$t_{|p}$ durch $n$ ersetzt.\\
 
 Beispiel: $f(f(a,b),b)$ bzw. \Tree [.f [.f a b ] [.b ] ]
 
@@ -190,7 +201,7 @@ $t[u]_{|1} = f(g(b,a),b)$ \Tree [.f [.g b a ] [.b ] ]
 
 \subsection{Definition Baumautomat}
 
-Ein Buamautomat $ \mathcal{A}$ ist ein 4-Tupel $(Q,\Sigma,F,\Delta)$, wobei:\\
+Ein Baumautomat $ \mathcal{A}$ ist ein 4-Tupel $(Q,\Sigma,F,\Delta)$, wobei:\\
 $Q \dots$ endliche Menge an Zus\"anden\\
 $\Sigma \dots$ Rangalphabet, wobei $\Sigma \cup Q \neq \emptyset$\\
 $F \dots \subseteq Q$ Finalzust\"ande\\
@@ -201,7 +212,8 @@ f\"ur $q, q_1, \dots , q_n \in Q$, f\"ur $a^{(0)} \in T_{\Sigma} : a \rightarrow
 
 Beispiel:\\
 $\mathcal{A} = \{\{q_a, q_b, q_f\},\{a^{(0)},b^{(0)},f^{(2)}\},\{q_f\}, \Delta\}$ \\
-mit $\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a,q_b) \rightarrow q_a, f(q_a, q_b), f(q_a,q_b) \rightarrow q_f\}$
+mit $\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a,q_b) \rightarrow q_a, 
+f(q_a, q_b), f(q_a,q_b) \rightarrow q_f\}$
 
 \subsection{Definition Lauf/Run}
 
@@ -210,17 +222,26 @@ Ein Lauf r f\"ur $t$ von $\mathcal{A}$ ist ein Term mit
 
 \begin{itemize}
 	\item $Pos(r) = Pos(t)$
-	\item Ist $t(p) = a$ ein Blatt, dann ist $r(p) = q_a$, nur wenn $(a\rightarrow q_a) \in \Delta$ 
-	\item Ist $t(p)=f^{(m)}$, dann ist $r(p) = q$, wenn $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$ und $r(p_i) = q_i$, $i \in \{1, \dots, n\}$
+	\item Ist $t(p) = a$ ein Blatt, dann ist $r(p) = q_a$, nur wenn 
+		$(a\rightarrow q_a) \in \Delta$ 
+	\item Ist $t(p)=f^{(m)}$, dann ist $r(p) = q$, wenn 
+		$(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$ und 
+		$r(p_i) = q_i$, $i \in \{1, \dots, n\}$
 \end{itemize}
 
-Ein Lauf ist erfolgreich, wenn $r(\varepsilon) \in F$. Der Automat $\mathcal{A}$ akzeptiert $t$, falls es einen erfolgreichen Lauf
+Ein Lauf ist erfolgreich, wenn $r(\varepsilon) \in F$. 
+Der Automat $\mathcal{A}$ akzeptiert $t$, falls es einen erfolgreichen Lauf
 f\"ur $t$ von $\mathcal{A}$ gibt.\\
-Wir bezeichnen mit $L(\mathcal{A}) = \{t \in T_{\Sigma} | \mathcal{A}$ akzeptiert $t\}$ die von $\mathcal{A}$ erkannte Baumsprache. Eine Sprache $L \subseteq T_{\Sigma}$ hei\ss t erkennbar, falls ein Baumautomat $\mathcal{A}$ existiert mit $L=L(\mathcal{A})$.\\
+Wir bezeichnen mit $L(\mathcal{A}) = \{t \in T_{\Sigma} | \mathcal{A}$ akzeptiert $t\}$ 
+die von $\mathcal{A}$ erkannte Baumsprache. 
+Eine Sprache $L \subseteq T_{\Sigma}$ hei\ss t erkennbar, falls ein Baumautomat 
+$\mathcal{A}$ existiert mit $L=L(\mathcal{A})$.\\
 
-Um einzelne Schritte von Baumautomaten zu formalisieren, betrachten wir die \textit{move relation} $\rightarrow_{\mathcal{A}}$, 
+Um einzelne Schritte von Baumautomaten zu formalisieren, betrachten wir die 
+\textit{move relation} $\rightarrow_{\mathcal{A}}$, 
 definiert wie folgt:\\
-Gegeben sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$, dann ist $t \rightarrow _{\mathcal{A}} t'$ mit $t, t' \in T_{\Sigma \cup Q}$, falls
+Gegeben sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$, dann ist 
+$t \rightarrow _{\mathcal{A}} t'$ mit $t, t' \in T_{\Sigma \cup Q}$, falls
 
 \begin{itemize}
 	\item $t(p) = f^{(n)}$
@@ -229,33 +250,42 @@ Gegeben sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$, dann ist $t \rightarrow _{\m
 	\item und $t' = t[q]_p$
 \end{itemize}
 
-Mit $\rightarrow^\ast_{\mathcal{A}}$ bezeichnen wir die transitive H\"ulle von $\rightarrow_{\mathcal{A}}$.
+Mit $\rightarrow^\ast_{\mathcal{A}}$ bezeichnen wir die transitive H\"ulle von 
+$\rightarrow_{\mathcal{A}}$.
 
 \subsection{Lemma}
 
 Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat. Dann ist 
-$L(\mathcal{A}) = \{t \in T_{\Sigma} | t \rightarrow^\ast_{\mathcal{A}} q$ mit $q \in F\} (=Z)$\\
+$L(\mathcal{A}) = \{t \in T_{\Sigma} | t \rightarrow^\ast_{\mathcal{A}} q$ mit 
+$q \in F\} (=Z)$\\
 
 Beweis: \glqq$L(\mathcal{A}) \subseteq Z$\grqq:\\
 
-Wir zeigen: Es existiert ein Run $r$ f\"ur $t$ von $\mathcal{A}$ mit $r(\varepsilon) = q$, dann ist $t \rightarrow ^\ast_{\mathcal{A}} q$\\ \\
+Wir zeigen: Es existiert ein Run $r$ f\"ur $t$ von $\mathcal{A}$ mit 
+$r(\varepsilon) = q$, dann ist $t \rightarrow ^\ast_{\mathcal{A}} q$\\ \\
 Inuktionsannahme:\\
-$t=a^{(0)} \in T_{\Sigma}$. Dann gilt $a \in L({\mathcal{A}})$, falls ein Lauf $r$ existiert mit $r(a) = q_a$ und $(a \rightarrow q_a) \in \Delta$. Dann folgt $a \rightarrow^\ast_{{\mathcal{A}}} q_a$.\\
+$t=a^{(0)} \in T_{\Sigma}$. Dann gilt $a \in L({\mathcal{A}})$, falls ein Lauf $r$ 
+existiert mit $r(a) = q_a$ und $(a \rightarrow q_a) \in \Delta$. 
+Dann folgt $a \rightarrow^\ast_{{\mathcal{A}}} q_a$.\\
 Sei nun $t=f(t_1, \dots, t_n)$\\ \\
 
 Induktionsvoraussetzung:\\
-Falls f\"ur $t_1, \dots , t_n$ L\"aufe $r_i$ existieren mit $r_i(\varepsilon) = q_i$, dann gilt auch $t_i \rightarrow ^\ast_{\mathcal{A}} q_i$ mit $i\in \{1, \dots , n\}$\\ \\
+Falls f\"ur $t_1, \dots , t_n$ L\"aufe $r_i$ existieren mit $r_i(\varepsilon) = q_i$, 
+dann gilt auch $t_i \rightarrow ^\ast_{\mathcal{A}} q_i$ mit $i\in \{1, \dots , n\}$\\ \\
 
 Induktionsschritt:\\
-zu zeigen: Es existiert ein Lauf $r$ f\"ur $t$ mit $r(\varepsilon) = q$, dann $t \rightarrow ^\ast_\mathcal{A} q$.\\
-Sei also $r$ ein Lauf mit $r(\varepsilon) = q$. Dann ist $r(i) = q_i$, $i \in \{1, \dots, n\}$, mit
+zu zeigen: Es existiert ein Lauf $r$ f\"ur $t$ mit $r(\varepsilon) = q$, dann 
+$t \rightarrow ^\ast_\mathcal{A} q$.\\
+Sei also $r$ ein Lauf mit $r(\varepsilon) = q$. Dann ist $r(i) = q_i$, 
+$i \in \{1, \dots, n\}$, mit
 $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$. Laut Induktionsvoraussetzung gilt nun,
 $t_i \rightarrow ^\ast_\mathcal{A} q_i$, $i \in \{1, \dots, n\}$.\\
 Damit $t = f(t_1, \dots, t_n) 
 \rightarrow ^\ast_\mathcal{A} f(q_1, t_2, \dots, t_n)
 \rightarrow ^\ast_\mathcal{A} \dots
 \rightarrow ^\ast_\mathcal{A} f(q_1, \dots, q_n)$\\
-Des weiteren haben wir die regel $f(q_1, \dots, q_n) \rightarrow q$, das hei\ss t $f(q_1, \dots, q_n) \rightarrow ^\ast_\mathcal{A} q$.\\ \\
+Des weiteren haben wir die regel $f(q_1, \dots, q_n) \rightarrow q$, das hei\ss t 
+$f(q_1, \dots, q_n) \rightarrow ^\ast_\mathcal{A} q$.\\ \\
 
 Insgesamt also $t \rightarrow ^\ast_\mathcal{A} q$ \\
 
@@ -263,27 +293,41 @@ Beweis: \glqq$L(Z \subseteq \mathcal{A})$\grqq: analog\\ \\
 
 Einige Beispiele f\"ur Baumautomaten:\\
 
-1. Sei $B = (\{q_0, q_1\}, \{0^{(0)},1^{(0)},\lnot^{(1)},\land^{(2)},\lor^{(2)}\,\{q_1\},\Delta\}$ mit\\
+1. Sei $B = (\{q_0, q_1\}, \{0^{(0)},1^{(0)},\lnot^{(1)},\land^{(2)},\lor^{(2)}\,
+\{q_1\},\Delta\}$ mit\\
 $\Delta = \{ 0 \rightarrow q_0, 1 \rightarrow q_1,\\
 \lnot (q_0) \rightarrow q_1, \lnot (q_1) \rightarrow q_0,\\
-\land (q_0, q_0) \rightarrow q_0, \land (q_0, q_1) \rightarrow q_0, \land (q_1, q_0) \rightarrow q_0, \land (q_1, q_1) \rightarrow q_1\\
-\lor (q_0, q_0) \rightarrow q_0, \lor (q_0, q_1) \rightarrow q_1, \lor (q_1, q_0) \rightarrow q_1, \lor (q_1, q_1) \rightarrow q_1\}$\\
+\land (q_0, q_0) \rightarrow q_0, \land (q_0, q_1) \rightarrow q_0, 
+\land (q_1, q_0) \rightarrow q_0, \land (q_1, q_1) \rightarrow q_1\\
+\lor (q_0, q_0) \rightarrow q_0, \lor (q_0, q_1) \rightarrow q_1, 
+\lor (q_1, q_0) \rightarrow q_1, \lor (q_1, q_1) \rightarrow q_1\}$\\
 
 Beispiellauf:\\
 
-\Tree [.$\lnot$ [.$\land$ [.$\lor$ 0 [.$\lnot$ 1 ] ] [.$\lor$ 1 [.$\land$ 0 0 ] ] ] ] $\rightarrow$
-\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$\lnot$ $q_1$ ] ] [.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] $\rightarrow$
-\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$q_0$ ] ] [.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] $\rightarrow$ \\ \\
-\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ $q_0$ ] [.$\lor$ $q_1$ $q_0$ ] ] ] $\rightarrow$
-\Tree [.$\lnot$ [.$\land$ $q_0$ $q_1$ ] ] $\rightarrow$
-\Tree [.$\lnot$ $q_0$ ] $\rightarrow$
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ 0 [.$\lnot$ 1 ] ] [.$\lor$ 1 [.$\land$ 0 0 ] ] ] ] 
+	$\rightarrow$
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$\lnot$ $q_1$ ] ] 
+[.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] 
+	$\rightarrow$
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$q_0$ ] ] 
+[.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] 
+	$\rightarrow$ \\ \\
+\Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ $q_0$ ] [.$\lor$ $q_1$ $q_0$ ] ] ] 
+	$\rightarrow$
+\Tree [.$\lnot$ [.$\land$ $q_0$ $q_1$ ] ] 
+	$\rightarrow$
+\Tree [.$\lnot$ $q_0$ ] 
+	$\rightarrow$
 \Tree [.$q_1$ ] \\ \\
 
 2. $(a^nb^n light)$\\
 
-Betrachten $\mathcal{A} = (\{q_a, q_b, q_f\}, \{a^{(0)}, b^{(0)}, f^{(3)}, g^{(2)}\}, \{q_f\}, \Delta)$\\
+Betrachten 
+$\mathcal{A} = (\{q_a, q_b, q_f\}, \{a^{(0)}, b^{(0)}, f^{(3)}, g^{(2)}\}, \{q_f\}, 
+\Delta)$\\
 mit $\Delta = \\
-\{a \rightarrow q_a, b \rightarrow q_b, g (q_a, q_b) \rightarrow q_f, f (q_a, q_f, q_b) \rightarrow q_f\}$\\
+\{a \rightarrow q_a, b \rightarrow q_b, g (q_a, q_b) \rightarrow q_f, f (q_a, 
+q_f, q_b) \rightarrow q_f\}$\\
 
 Beispiellauf:\\
 
@@ -298,7 +342,8 @@ $\mathcal{A}$ akzeptiert also alle B\"aume der Form:\\
 
 3. Simulation eines Wortautomaten: (siehe \"Ubung)\\
 
-Betrachtet man $\Sigma =\{a^{(0)}, f^{(2)}, g^{(1)}\}$. Dann ist $L = \{f(g^i(a), g^i(a)) | i \geq 0\}$ nicht erkennbar.
+Betrachtet man $\Sigma =\{a^{(0)}, f^{(2)}, g^{(1)}\}$. 
+Dann ist $L = \{f(g^i(a), g^i(a)) | i \geq 0\}$ nicht erkennbar.
 
 \subsection{Definition Determinismus}
 
@@ -308,13 +353,15 @@ $ f(q_1, \dots, q_n) \rightarrow q' $ folgt $ q = q'$
 
 \subsection{Satz}
 
-Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat, dann existiert ein deterministischer Baumautomat $\mathcal{A}_d$, 
+Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat, dann existiert ein 
+deterministischer Baumautomat $\mathcal{A}_d$, 
 so dass $L(\mathcal{A}) = L(\mathcal{A}_d)$.\\ \\
 
 Beweis: Setze $\mathcal{A}_d = (Q_d, \Sigma, F_d, \Delta_d)$ \\
 mit $Q_d = 2^Q$ $(\ast)$\\
 und $f(s_1, \dots, s_n) \rightarrow s \in \Delta_d$\\
-$\Leftrightarrow s = \{ q \in Q | \exists q_1 \in s_1 \dots q_n \in s_n: (f(q_1, \dots, q_n) \rightarrow q) \in \Delta\}$ \\
+$\Leftrightarrow s = \{ q \in Q | \exists q_1 \in s_1 \dots q_n \in s_n: 
+(f(q_1, \dots, q_n) \rightarrow q) \in \Delta\}$ \\
 und $F_d = \{ s \in Q_d | s \cap F \neq \emptyset\}$.\\ \\
 Wir zeigen:\\
 1. $\mathcal{A}$ ist deterministisch \\
@@ -324,26 +371,36 @@ Wir zeigen:\\
 1. ist klar, denn $(\ast)$ ist mit einer \"Aquivalenz definiert.\\
 2. \glqq$L(\mathcal{A}) \subseteq L(\mathcal{A}_d)$\grqq:\\
 
-Wir zeigen hierzu: Ist $Z = \{ q | t \rightarrow ^\ast_\mathcal{A} q\}$, dann $ t \rightarrow ^\ast_{\mathcal{A}_d} z$.\\ \\
+Wir zeigen hierzu: Ist $Z = \{ q | t \rightarrow ^\ast_\mathcal{A} q\}$, 
+dann $ t \rightarrow ^\ast_{\mathcal{A}_d} z$.\\ \\
 
 Induktionsannahme:\\
-Angenommen $a \rightarrow _\mathcal{A} q_a$, dann ist $q_a \in \{ q \in Q | q \rightarrow ^\ast_\mathcal{A} q\}$, das hei\ss t\\
-$a \rightarrow ^\ast_\mathcal{A} q_a \Leftrightarrow q_a \in \{ q \in Q | a \rightarrow ^\ast_\mathcal{A} q \}$\\
+Angenommen $a \rightarrow _\mathcal{A} q_a$, dann ist 
+$q_a \in \{ q \in Q | q \rightarrow ^\ast_\mathcal{A} q\}$, das hei\ss t\\
+$a \rightarrow ^\ast_\mathcal{A} q_a \Leftrightarrow q_a \in 
+\{ q \in Q | a \rightarrow ^\ast_\mathcal{A} q \}$\\
 $\Leftrightarrow q_a \in \{ q \in Q | (a \rightarrow q) \in \Delta \}$\\
-also $a \rightarrow ^\ast_\mathcal{A} q_a \Leftrightarrow q_a \in \{ q \in Q | (a \rightarrow q) \in \Delta \}$, das hei\ss t\\
-$z := \{ q_a \in Q | a \rightarrow ^\ast_\mathcal{A} q_a \} = \{ q \in Q | (a \rightarrow q) \in \Delta \} =: s$\\
+also $a \rightarrow ^\ast_\mathcal{A} q_a \Leftrightarrow q_a \in 
+\{ q \in Q | (a \rightarrow q) \in \Delta \}$, das hei\ss t\\
+$z := \{ q_a \in Q | a \rightarrow ^\ast_\mathcal{A} q_a \} = 
+\{ q \in Q | (a \rightarrow q) \in \Delta \} =: s$\\
 
-Nun ist $( a \rightarrow s) \in \Delta_d$ per Definition, also auch $( a \rightarrow z) \in \Delta_d$, damit: $a \rightarrow ^\ast_{\mathcal{A}_d} z$.\\
+Nun ist $( a \rightarrow s) \in \Delta_d$ per Definition, also auch 
+$( a \rightarrow z) \in \Delta_d$, damit: $a \rightarrow ^\ast_{\mathcal{A}_d} z$.\\
 
 Betrachten wir nun $ t = \sigma(t_1, \dots , t_n) $ \\
 
 Induktionsvoraussetzung:\\
-$t_i \rightarrow ^\ast_{\mathcal{A}_d} z_i$ mit $Z_i = \{q \in Q | t_i \rightarrow ^\ast_\mathcal{A} q\}$\\
-Das hei\ss t, es existieren L\"aufe $r_i$ f\"ur $t_i$ von $\mathcal{A}_d$ mit $r_i(\varepsilon) = z_i$\\
+$t_i \rightarrow ^\ast_{\mathcal{A}_d} z_i$ mit $Z_i = 
+\{q \in Q | t_i \rightarrow ^\ast_\mathcal{A} q\}$\\
+Das hei\ss t, es existieren L\"aufe $r_i$ f\"ur $t_i$ von $\mathcal{A}_d$ mit 
+$r_i(\varepsilon) = z_i$\\
 
 Induktionsschritt:\\
-zu zeigen: $ t \rightarrow ^\ast_\mathcal{A} z$ mit $Z = \{ q \in Q | t \rightarrow ^\ast_\mathcal{A} q \} $ \\
-Das hei\ss t, es existiert ein Lauf $r$ f\"ur $t$ von $\mathcal{A}_d$ mit $r(\varepsilon) = z$\\
+zu zeigen: $ t \rightarrow ^\ast_\mathcal{A} z$ mit $Z = 
+\{ q \in Q | t \rightarrow ^\ast_\mathcal{A} q \} $ \\
+Das hei\ss t, es existiert ein Lauf $r$ f\"ur $t$ von $\mathcal{A}_d$ mit 
+$r(\varepsilon) = z$\\
 Das hei\ss t, $\exists r :$\\
 
 \begin{itemize}
@@ -352,68 +409,84 @@ Das hei\ss t, $\exists r :$\\
 	\item $\sigma (z_1, \dots, z_n) \rightarrow z \in \Delta_d$
 \end{itemize}
 
-Setze nun $r_{ |i } = r_i$, damit ist insbesondere $r(i) = r_i(\varepsilon) = z := \{q | t_i \rightarrow ^\ast_{\mathcal{A}_d} q \}$\\
+Setze nun $r_{ |i } = r_i$, damit ist insbesondere 
+$r(i) = r_i(\varepsilon) = z := \{q | t_i \rightarrow ^\ast_{\mathcal{A}_d} q \}$\\
 
-Es bleibt also zu zeigen: $ \exists$ Regel $\sigma (z_i, \dots, z_m) \rightarrow z \in \Delta_d$.\\
+Es bleibt also zu zeigen: $ \exists$ Regel $\sigma (z_i, \dots, z_m) \rightarrow z 
+\in \Delta_d$.\\
 Es ist nun $ z \in Z \Leftrightarrow t \rightarrow ^\ast_\mathcal{A} z$ \\
-$\Leftrightarrow \exists q_i \in Q: t_i \rightarrow ^\ast_\mathcal{A} q_i, \sigma(q_1, \dots, q_m) \rightarrow z \in \Delta$\\
-$\Leftrightarrow \exists z_i \in Z_i$ und $\sigma/z_1, \dots , z_m) \rightarrow z \in \Delta$ \\
-Also $Z= \{z\in Q | \exists z_i \in Z_i : (\sigma/z_1, \dots , z_m) \rightarrow z ) \in \Delta)$ also per Definition
+$\Leftrightarrow \exists q_i \in Q: t_i \rightarrow ^\ast_\mathcal{A} q_i, 
+\sigma(q_1, \dots, q_m) \rightarrow z \in \Delta$\\
+$\Leftrightarrow \exists z_i \in Z_i$ und $\sigma/z_1, \dots , z_m) \rightarrow z 
+\in \Delta$ \\
+Also $Z= \{z\in Q | \exists z_i \in Z_i : (\sigma/z_1, \dots , z_m) \rightarrow z ) 
+\in \Delta)$ also per Definition
 $\sigma/z_1, \dots , z_m) \rightarrow z \in \Delta_d$\\ \\
 
 2. \glqq$L(\mathcal{A}_d) \subseteq L(\mathcal{A})$\grqq:\\
 
-Sei $t \in T_\Sigma$ mit $t \notin L(\mathcal{A})$, dann ist $Z \cap F = \{ q \in Q | t \rightarrow^\ast_\mathcal{A} q \} \cap F = \emptyset$\\
+Sei $t \in T_\Sigma$ mit $t \notin L(\mathcal{A})$, 
+dann ist $Z \cap F = \{ q \in Q | t \rightarrow^\ast_\mathcal{A} q \} \cap F = \emptyset$\\
 Laut 2. ist $t \rightarrow ^\ast_{\mathcal{A}_d} z$ (und $\mathcal{A}$ ist deterministisch)
 Wegen $Z \cap F = \emptyset$ ist $Z \notin F_d$, also $t \notin L(\mathcal{A}_d)$ \\ \\
 
-Wir vereinbaren die Abk\"urzungen: NBA/NTA f\"ur nichtdeterministischer Baumautomat und DBA/DTA f\"ur deterministischer Baumautomat.\\
-Wie im Wortfall ist die Konstruktion exponentiell, das hei\ss t wir ben\"otigen expontntiell viele Zust\"ande ($Q_d = 2^{|Q|}$).
+Wir vereinbaren die Abk\"urzungen: NBA/NTA f\"ur nichtdeterministischer Baumautomat 
+und DBA/DTA f\"ur deterministischer Baumautomat.\\
+Wie im Wortfall ist die Konstruktion exponentiell, das hei\ss t wir ben\"otigen 
+expontntiell viele Zust\"ande ($Q_d = 2^{|Q|}$).
 Und wie im Wortfall l\"asst sich das im Allgemeinen nicht vermeiden.\\ \\
 Beispiel: Betrachtet man $\Sigma = \{ f^{(1)}, g^{(1)}, a^{(0)}\}$ und
 sei $L_n = \{ f \in T_\Sigma | t( \underbrace{1 \dots 1}_\text{n-mal} ) = f \}$ \\
 
 Ein NTA ben\"otigt $n+2$ Zust\"ande:\\
-$\mathcal{A} = (Q, \Sigma, F, \Delta)$ mit $Q = \{q, q_1, \dots , q_{n+1} \}$, $F = \{q_{n+1}\}$ \\
-mit \"Uberg\"angen
+$\mathcal{A} = (Q, \Sigma, F, \Delta)$ mit $Q = \{q, q_1, \dots , q_{n+1} \}$, 
+$F = \{q_{n+1}\}$ \\ mit \"Uberg\"angen
 $\Delta = \{a \rightarrow q, f(q) \rightarrow q, g(q) \rightarrow q, f(q) \rightarrow q_1, \\
 f(q_i) \rightarrow q_{i+1}, g(q_i) \rightarrow q_{i+1} \}$ f\"ur $i \in \{1, \dots ,n\}$\\
 
-Man kann zeigen: Ein DTA $\mathcal{A}'$ mit $L(\mathcal{A}') = L_n$ hat mindestens $2^{n+1}$ Zust\"ande.
+Man kann zeigen: Ein DTA $\mathcal{A}'$ mit $L(\mathcal{A}') = L_n$ hat mindestens 
+$2^{n+1}$ Zust\"ande.
 
 \subsection{Definition vollst\"anding und reduziert}
 
 Ein Automat $(\mathcal{A} = Q, \Sigma, F, \Delta)$ hei\ss t:
 
 \begin{itemize}
-	\item vollst\"andig, falls f\"ur jedes $f^{(n)} \in \Sigma$ und alle $q_1, \dots , q_n \in Q$ eine Regel 
+	\item vollst\"andig, falls f\"ur jedes $f^{(n)} \in \Sigma$ und alle 
+		$q_1, \dots , q_n \in Q$ eine Regel 
 		$f(q_1, \dots, q_n) \rightarrow q \in \Delta$ existiert.
-	\item reduziert, falls f\"ur jeden Zustand $q \in Q$ ein Term $t \in T_\Sigma$ exisitert mit $f \rightarrow ^\ast_\mathcal{A} q$
+	\item reduziert, falls f\"ur jeden Zustand $q \in Q$ ein Term $t \in T_\Sigma$ 
+		exisitert mit $f \rightarrow ^\ast_\mathcal{A} q$
 \end{itemize}
 
 \subsection{Satz}
 
-Sei $\mathcal{A}$ ein Baumautomat. Dann existiert ein vollst\"andiger, reduzierter Baumautomat 
-$\mathcal{A}'$ mit $L(\mathcal{A}) = L(\mathcal{A}')$.\\
+Sei $\mathcal{A}$ ein Baumautomat. Dann existiert ein vollst\"andiger, reduzierter 
+Baumautomat $\mathcal{A}'$ mit $L(\mathcal{A}) = L(\mathcal{A}')$.\\
 
-F\"ur Wortautomaten gibt es das Pumping-Lemma, das die Ged\"achtnislosigkeit der Automaten formalisiert.
-Formal besagt es: Ist $L$ eine regul\"are Wortsprache, dann existiert ein $n \in \mathbb{N}$, so dass sich $w \in L$ mit $|w| > n$ 
-zerlegen l\"asst in $w = xyz$, $y \neq \varepsilon$ und $\forall i \geq 0$ ist $xy^iz \in L$. \\ \\
+F\"ur Wortautomaten gibt es das Pumping-Lemma, das die Ged\"achtnislosigkeit der 
+Automaten formalisiert.
+Formal besagt es: Ist $L$ eine regul\"are Wortsprache, dann existiert ein 
+$n \in \mathbb{N}$, so dass sich $w \in L$ mit $|w| > n$ 
+zerlegen l\"asst in $w = xyz$, $y \neq \varepsilon$ und 
+$\forall i \geq 0$ ist $xy^iz \in L$. \\ \\
 
 Baumautomaten haben auch kein Ged\"achtnis, also erwarten wir ein analoges Resultat.
 Dazu m\"ussen wir formalisierten, was \glqq aufgepumpt \grqq werden soll.
 
 \subsection{Definition Kontext}
 
-Es sei $\Sigma$ ein Rangalphabet und $x^{(0)} \notin \Sigma$. Es sei $C \in T_{\Sigma \cup \{x\}}$.
-Falls es genau eine Position $p \in Pos(C)$ gibt mit $C(p) = x$, dann hei\ss t $C$ ein Kontext.\\
+Es sei $\Sigma$ ein Rangalphabet und $x^{(0)} \notin \Sigma$. Es sei 
+$C \in T_{\Sigma \cup \{x\}}$.
+Falls es genau eine Position $p \in Pos(C)$ gibt mit $C(p) = x$, dann hei\ss t $C$ 
+ein Kontext.\\
 
 Beispiel: \Tree [.f [.f x b ] [.b ] ] ist ein Kontext.\\
 
 Wir schreiben $T_\Sigma(x)$ f\"ur die Menge aller solcher Kontexte.\\
 
-Ist $C \in T_\Sigma(x)$ mit $C(p) = x$, dann schreiben wir $C[u]$ statt $C[u]_p$ f\"ur den Baum, der entsteht, 
-wenn wir $x$ durch $u$ ersetzen.\\
+Ist $C \in T_\Sigma(x)$ mit $C(p) = x$, dann schreiben wir $C[u]$ statt $C[u]_p$ 
+f\"ur den Baum, der entsteht, wenn wir $x$ durch $u$ ersetzen.\\
 Wir schreiben $C^0 = x$, $C^1 = C$, $C^n = C^{n-1} [C]$\\
 
 Beispiel: Betrachtet $t = $ \Tree [.f [.f a b ] [.b ] ]\\
@@ -425,22 +498,31 @@ Dann ist $t = C[u]$ und $C^2[u] = $
 \subsection{Pumping-Lemma}
 
 Sei $L \subseteq t_\Sigma$ erkennbar, dann existiert ein $k \in \mathbb{N}$, so dass:\\
-F\"ur alle $T \in L$ mit $ht(t) > k$ gibt es einen Kontext $C \in T_\Sigma (x)$, einen nicht-trivialen Kontext $C' \in T_\Sigma (x)$
-und einen Term $u \in T_\Sigma$ mit $t = C[C'[u]]$ und $C[(C')^n[u]] \in L$ f\"ur alle $n \ge 0$.\\ \\
+F\"ur alle $T \in L$ mit $ht(t) > k$ gibt es einen Kontext $C \in T_\Sigma (x)$, einen 
+nicht-trivialen Kontext $C' \in T_\Sigma (x)$
+und einen Term $u \in T_\Sigma$ mit $t = C[C'[u]]$ und 
+$C[(C')^n[u]] \in L$ f\"ur alle $n \ge 0$.\\ \\
 
-Beweis: Sei $L$ erkennbar, das hei\ss t $\exists$ Baumautomat $\mathcal{A} = (Q, \Sigma, F, \Delta)$ mit $L = L(\mathcal{A})$.
-Setze $|Q| = k$ und betrachte $t \in L$ mit $ht(t) > k$. Betrachte nun einen Lauf $r$ und einen Pfad in $t$, der l\"anger als $k$ ist.
+Beweis: Sei $L$ erkennbar, das hei\ss t $\exists$ Baumautomat 
+$\mathcal{A} = (Q, \Sigma, F, \Delta)$ mit $L = L(\mathcal{A})$.
+Setze $|Q| = k$ und betrachte $t \in L$ mit $ht(t) > k$. 
+Betrachte nun einen Lauf $r$ und einen Pfad in $t$, der l\"anger als $k$ ist.
 Nun gibt es $p_1,p_2 \in Pos(r)$ mit $r(p_1) = r(p_2) = q \in Q$.
 Sei nun $u = t_{|p_2}$ der Sub-Baum von $t$ bei $p_2$ und $u' = t_{|p_1}$.
 Dann existiert $C'$ mit $C'[u] = u'$ und es existiert $C$ mit $t=C[C'[u]]$.
 Es ist wegen $t \in L$\\
-$C[C'[u]] \rightarrow ^\ast_\mathcal{A} C[C'[q]] \rightarrow ^\ast_\mathcal{A} C[q] \rightarrow ^\ast_\mathcal{A} q_f \in F$, also auch\\
-$C[(C')^n[u]] \rightarrow ^\ast_\mathcal{A} C[(C')^n[q]] \rightarrow ^\ast_\mathcal{A} CC[(C')^{(n-1)}[q]] 
-\rightarrow ^\ast_\mathcal{A} \dots \rightarrow ^\ast_\mathcal{A} C[q] \rightarrow ^\ast_\mathcal{A} q_f \in F$. q.e.d.\\ \\
+$C[C'[u]] \rightarrow ^\ast_\mathcal{A} C[C'[q]] \rightarrow ^\ast_\mathcal{A} C[q] 
+\rightarrow ^\ast_\mathcal{A} q_f \in F$, also auch\\
+$C[(C')^n[u]] \rightarrow ^\ast_\mathcal{A} C[(C')^n[q]] 
+\rightarrow ^\ast_\mathcal{A} CC[(C')^{(n-1)}[q]] 
+\rightarrow ^\ast_\mathcal{A} \dots \rightarrow ^\ast_\mathcal{A} C[q] 
+\rightarrow ^\ast_\mathcal{A} q_f \in F$. q.e.d.\\ \\
 
 Beispiel: Betrachte den Baumautomaten 
-$\mathcal{A} = (\{q_a, q_b, q_g, q_f\}, \{a^{(0)}, b^{(0)}, g^{(1)}, f^{(2)}\}, \{q_f\}, \Delta)$ mit\\
-$\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a, q_b) \rightarrow q_g, g(q_g) \rightarrow q_f\}$ \\
+$\mathcal{A} = (\{q_a, q_b, q_g, q_f\}, \{a^{(0)}, b^{(0)}, g^{(1)}, f^{(2)}\}, \{q_f\}, 
+\Delta)$ mit\\
+$\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a, q_b) \rightarrow q_g, g(q_g) 
+\rightarrow q_f\}$ \\
 
 \Tree [.g [.f [.f [.f a b ] b ] b ] ] \\
 $u = f(a, b)$, $u' = C'[u] = f(f(a,b),b)$ \\
@@ -448,28 +530,35 @@ $C = g(f(x, b))$, $C' = f(x, b)$ \\
 
 $C[(C')^n[u]] = $ \Tree [.g [.f [.f [.... [.f a b ] ] b ] b ] ] \\
 
-Die Sprache $L = \{ f(g^i(a),g^i(a)) | i \geq 0\}$ kann nicht erkennbar sein, denn f\"ur gro\ss e $i$ w\"urde man ein $k$ finden,
-so dass ein gegebener Baumautomat auch $f(g^{i+lk}(a), g^i(a))$ für alle $l \geq 0$ akzeptiert.
+Die Sprache $L = \{ f(g^i(a),g^i(a)) | i \geq 0\}$ kann nicht erkennbar sein, 
+denn f\"ur gro\ss e $i$ w\"urde man ein $k$ finden,
+so dass ein gegebener Baumautomat auch $f(g^{i+lk}(a), g^i(a))$ f\"ur alle $l \geq 0$ 
+akzeptiert.
 
 \subsection{Korollar}
 
-F\"ur $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ist $L(\mathcal{A}) \neq \emptyset \Leftrightarrow \exists t \in L$ mit 
-$ht(t) \leq |Q|$:
+F\"ur $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ist 
+$L(\mathcal{A}) \neq \emptyset \Leftrightarrow \exists t \in L$ mit $ht(t) \leq |Q|$:
 
 \begin{itemize}
-	\item $L(\mathcal{A}) |$ nicht endlich $\Leftrightarrow \exists t \in L$ mit $|Q| < ht(t) \leq 2 |Q|$
+	\item $L(\mathcal{A}) |$ nicht endlich 
+		$\Leftrightarrow \exists t \in L$ mit $|Q| < ht(t) \leq 2 |Q|$
 \end{itemize}
 
 \subsection{Abschlusseigenschaften}
 
-Erkennbare Sprachen sind abgeschlossen unter Vereinigung, Schnitt und Komplement. Das hei\ss t, sind $L_1$ und $L_2$ erkennbar, dann auch
+Erkennbare Sprachen sind abgeschlossen unter Vereinigung, Schnitt und Komplement. 
+Das hei\ss t, sind $L_1$ und $L_2$ erkennbar, dann auch
 $L_1 \cup L_2$, $L_1 \cap L_2$ und $L_1^c$ (in $T_\Sigma$).\\
 
 Beweis:\\
-Seien $\mathcal{A}_1$ und $\mathcal{A}_2$ vollst\"andige DTA. Betrachte f\"ur die Vereinigung\\
-$\mathcal{A}_\cup = (Q_1 \times Q_2, \Sigma, F_1 \times Q_2 \cup Q_1 \times F_2, \Delta_1 \times \Delta_2)$ mit \\
+Seien $\mathcal{A}_1$ und $\mathcal{A}_2$ vollst\"andige DTA. 
+Betrachte f\"ur die Vereinigung\\
+$\mathcal{A}_\cup = (Q_1 \times Q_2, \Sigma, F_1 \times Q_2 \cup Q_1 \times F_2, 
+\Delta_1 \times \Delta_2)$ mit \\
 $\Delta_1 \times \Delta_2 = \{ f((q_1, q'_1), \dots, (q_n, q'_n)) \rightarrow (q, q') |
-f(q_1, \dots, q_n) \rightarrow q \in \Delta_1, f(q'_1, \dots, q'_n) \rightarrow q' \in \Delta_2 \}$
+f(q_1, \dots, q_n) \rightarrow q \in \Delta_1, f(q'_1, \dots, q'_n) \rightarrow q' \in 
+\Delta_2 \}$
 
 Dann akzeptiert $\mathcal{A}_\cup$ die Sprache $L(\mathcal{A}_1) \cup L(\mathcal{A}_2)$.\\ \\
 
@@ -488,11 +577,14 @@ Beispiel:\\
 Betrachte $\Sigma = \{ a^{(0)}, g^{(1)}, f^{(2)}\}$ und 
 $L = \{ f(g^i(a),g^j(a)) | i \leq j \}$
 
-Dann ist $L$ nicht erkennbar, denn: W\"are $L$ erkennbar, dann auch $L'$ mit $L' = \{ f(g^i(a), g^j(a) | i \geq j \}$, 
+Dann ist $L$ nicht erkennbar, denn: W\"are $L$ erkennbar, dann auch $L'$ mit 
+$L' = \{ f(g^i(a), g^j(a) | i \geq j \}$, 
 also auch $L \cap L' \lightning$. \\
 
-Bemerkung: Wenn $\mathcal{A}$ deterministisch und vollst\"andig ist, dann k\"onnen wir eine \"Ubergangsfunktion 
-$\delta: T_\Sigma \rightarrow Q$ definieren mit $\delta (t) = q$, fals $t \rightarrow_\mathcal{A}^\ast q$.\\
+Bemerkung: Wenn $\mathcal{A}$ deterministisch und vollst\"andig ist, 
+dann k\"onnen wir eine \"Ubergangsfunktion 
+$\delta: T_\Sigma \rightarrow Q$ definieren mit $\delta (t) = q$, falls 
+$t \rightarrow_\mathcal{A}^\ast q$.\\
 
 Wiederholung - \"Aquivalenzrelation:\\
 
@@ -504,14 +596,18 @@ Eine \"Aquivalenzrelation $\sim $ auf einer Menge $M$ ist eine Relation mit
 	\item $\forall l, m, n \in M: l\sim m, m\sim n \Rightarrow l\sim n$
 \end{itemize}
 
-Insbesondere: Ist $\sim $ eine \"Aquivalenzrelation auf $M$, so induziert $\sim $ eine Partition auf und umgekehrt, das hei\ss t Mengen 
-$(M_i)_{i \in I}$ mit $M_i \cup M_j = \emptyset$ f\"ur $i \neq j$ und $M = \underset{i \in I}{\cup} M_i$
+Insbesondere: Ist $\sim $ eine \"Aquivalenzrelation auf $M$, so induziert $\sim $ eine 
+Partition auf und umgekehrt, das hei\ss t Mengen 
+$(M_i)_{i \in I}$ mit $M_i \cup M_j = \emptyset$ f\"ur $i \neq j$ und 
+$M = \underset{i \in I}{\cup} M_i$
 
 \subsection{Definition Kongruenz}
 
-Eine \"Aquivalenzrelation $\equiv$ auf $T_\Sigma$ hei\ss t Kongruenz, falls f\"ur alle $f^{(n)} \in \Sigma$: \\
+Eine \"Aquivalenzrelation $\equiv$ auf $T_\Sigma$ hei\ss t Kongruenz, 
+falls f\"ur alle $f^{(n)} \in \Sigma$: \\
 
-$v_1 \equiv u_1, \dots, v_n \equiv u_n \Rightarrow f(v_1, \dots, v_n) \equiv f(u_1, \dots, u_n)$.
+$v_1 \equiv u_1, \dots, v_n \equiv u_n \Rightarrow f(v_1, \dots, v_n) \equiv 
+f(u_1, \dots, u_n)$.
 
 Beispiel:\\
 Die Relation $t \equiv t'$, falls $t$ und $t'$ die gleiche Anzahl Bl\"atter modulo 2 haben.
@@ -523,29 +619,35 @@ Die Relation $t \equiv t'$, falls $t$ und $t'$ die gleiche Anzahl Bl\"atter modu
 
 \subsection{Definition}
 
-Eine Kongruenz $\equiv$ hat endlichen Index, falls $\equiv$ endlich viele \"Aquivalenzklassen indiziert.
+Eine Kongruenz $\equiv$ hat endlichen Index, falls $\equiv$ endlich viele 
+\"Aquivalenzklassen indiziert.
 
 \subsection{Lemma}
 
-Sei $\Sigma$ ein Rangalphabet. Dann ist $\equiv$ genau dann eine Konguenz auf $T_\Sigma$, wenn $\equiv$ eine \"Aquivalenzrelation ist mit
+Sei $\Sigma$ ein Rangalphabet. Dann ist $\equiv$ genau dann eine Konguenz auf $T_\Sigma$, 
+wenn $\equiv$ eine \"Aquivalenzrelation ist mit
 $u \equiv v \Rightarrow C[u] \equiv C[v]$ f\"ur alle Kontexte.\\
 
 Beweis:\\
 \glqq $\Rightarrow$ \grqq Induktion:\\
 Induktionsannahme: $C = x$, dann ist $u \equiv v \Rightarrow C[u] \equiv C[v]$ klar.\\
 Sei nun $C = f(C_1, \dots C_n)$. Sei $x = C[ip] = C_i[p]$.\\
-Dann ist $C[u]_{ip} = f(C_1, \dots, C_{i-1}, C_i[p], C_{i+1}, \dots, C_n) = C[u]_{ip} = f(C_1, \dots, C_{i-1}, C_i[v], C_{i+1}, \dots, C_n)$
+Dann ist $C[u]_{ip} = f(C_1, \dots, C_{i-1}, C_i[p], C_{i+1}, \dots, C_n) = C[u]_{ip} = 
+f(C_1, \dots, C_{i-1}, C_i[v], C_{i+1}, \dots, C_n)$
 \\
 
-\glqq $\Leftarrow$ \grqq: Angenommen $u \equiv v$ und $C[u] \equiv C[v]$ f\"ur alle Kontexte.\\
+\glqq $\Leftarrow$ \grqq: Angenommen $u \equiv v$ und $C[u] \equiv C[v]$ f\"ur alle 
+Kontexte.\\
 Sei $f^{(n)} \in \Sigma$. Dann ist:\\
 $f(u_1, \dots u_n)\\
 = C^1[u_1] \equiv C^1[v_1] = f(v_1, u_2, \dots, u_n)\\
 = \dots\\
 = C^1[u_n] \equiv C^1[v_n] = f(v_1, \dots, v_n)$
 
-Betrachte nun eine Sprache $L \subseteq T_\Sigma$ von B\"aumen. Wir definieren $\equiv_L$ als:\\
-$u \equiv_L v \Leftrightarrow \forall C \in T_\Sigma (x): C[u] \in L \Leftrightarrow C[v] \in L$.\\
+Betrachte nun eine Sprache $L \subseteq T_\Sigma$ von B\"aumen. Wir definieren 
+$\equiv_L$ als:\\
+$u \equiv_L v \Leftrightarrow \forall C \in T_\Sigma (x): C[u] \in L \Leftrightarrow 
+C[v] \in L$.\\
 
 Beispiel: Betrachte alle B\"aume der Form \Tree [.f [.f [.... [.f a b ] ] b ] b ]
 
@@ -581,9 +683,11 @@ Nun ist $L$ Vereinigung aller Klassen $[u]_{\equiv_\mathcal{A}}$ mit $\delta(u) 
 Sei $\sim $ eine Kongruenz mit dnlichem Index. Sei $u \sim  v$.
 Wegen Lemma 1.20 gilt \\
 $C[u] \sim  C[v] \forall C \in T_\Sigma (x)$.
-Nun ist aer $L$ die Vereinigung von \"Aquivalenzklassen von $\sim $, das hei\ss t $C[u] \in L \Leftrightarrow C[v] \in L$.
+Nun ist aer $L$ die Vereinigung von \"Aquivalenzklassen von $\sim $, das hei\ss t 
+$C[u] \in L \Leftrightarrow C[v] \in L$.
 Insbesondere ist also $u \equiv_L v$\\
-Wir haben gezeigt: $v \in [u]_\sim  \Rightarrow v \in [u]_{\equiv_L}$, also $[u]_\sim  \leq [u]_{\equiv_L}$\\
+Wir haben gezeigt: $v \in [u]_\sim  \Rightarrow v \in [u]_{\equiv_L}$, also 
+$[u]_\sim  \leq [u]_{\equiv_L}$\\
 (Also ist $\sim $ eine Verfeinerung von $\equiv_L$\\
 Insbesondere hat $\equiv_L$ kleinern Index als $\sim $, also endlichen.\\
 
@@ -593,30 +697,207 @@ Die Zust\"ande $Q_\text{min}$ sind die \"Aquivalenzklassen bez\"uglich $\equiv_L
 $f([u_1], \dots, [u_n]) \rightarrow [f(u_1, \dots, u_n)]$.\\
 Das ist wohldefiniert, weil $\equiv_L$ eine Kompetenz ist.
 Finalzust\"ande $F_\text{min}$ sind $\{ [u]_{\equiv_L} | u \in L \}$.\\
-Dann akzeptiert $\mathcal{A}_\text{min} = (Q_\text{min}, \Sigma, F_\text{min}, \Delta_\text{min})$ die Sprache $L$.\\
+Dann akzeptiert $\mathcal{A}_\text{min} = (Q_\text{min}, \Sigma, F_\text{min}, 
+\Delta_\text{min})$ die Sprache $L$.\\
 
 Beispeiel:\\
 Betrachte $\Sigma = \{a^{(0)}, g^{(1)}, f^{(2)} \}$ und \\
 $L = \{ f(g^i(a), g^i(a)) | i \geq 0\}$\\
 
 Betrachte $g^i(a)$ und $g^j(a)$ mit $i \neq j$.
-Dann ist $C^i = f(x, g^i(a))$ ein Kontext mit $C^i[g^i(a)] \in L$, aber $C^i[g^j(a)] \notin L$.
-Da ex unenlich viele $g^i(a)$ gibt, hat die Kongruenz bez\"uglich $L$ unendlichen Index, also ist $L$ nicht erkennbar.
+Dann ist $C^i = f(x, g^i(a))$ ein Kontext mit $C^i[g^i(a)] \in L$, aber 
+$C^i[g^j(a)] \notin L$.
+Da es unenlich viele $g^i(a)$ gibt, hat die Kongruenz bez\"uglich $L$ unendlichen Index, 
+also ist $L$ nicht erkennbar.
 
 \subsection{Korollar}
 
-Ist $L$ erkennbar, gibt es einen bis auf Umbenennung der Zust\"ande eindeutigen, vollst\"andigen DBA $\mathcal{A}$ mit $L = L(\mathcal{A})$.
+Ist $L$ erkennbar, gibt es einen bis auf Umbenennung der Zust\"ande eindeutigen, 
+vollst\"andigen DBA $\mathcal{A}$ mit $L = L(\mathcal{A})$.
 Dieser ist $\mathcal{A}_\text{min}$ aus obigem Beweis.\\
 Beweis:\\
 Sei $L = L(\mathcal{A})$. Vorher gesehen:\\
 $\equiv_\mathcal{A}$ ist Verfeinerung von $\equiv_L$\\
 Also ist $|Q| \geq |Q_\text{min}|$. Wir nehmen OBDA an:
 beide reduziert. Sei nun $q in Q$. Getrachte ein $u \in T_\Sigma$ mit $\delta(u) = q$.
-Betrachte die Funktion $\rho : Q \to Q_\text{min}$ mit $\delta(u) = q \mapsto \delta_\text{min}(u)$\\
+Betrachte die Funktion $\rho : Q \to Q_\text{min}$ mit 
+$\delta(u) = q \mapsto \delta_\text{min}(u)$\\
 Die Abbildung $\rho$ ist wohldefiniert, denn falls $\delta (u) = \delta (v)$, dann 
-$u \equiv_\mathcal{A} v \Rightarrow u \equiv_L v \Leftrightarrow \delta_\text{min} (u) = \delta_\text{min} (v)$.
+$u \equiv_\mathcal{A} v \Rightarrow u \equiv_L v \Leftrightarrow \delta_\text{min} (u) = 
+\delta_\text{min} (v)$.
 Au\ss erdem ist $\rho$ surjektiv, denn $\delta_\text{min} (u)$ hat das Urbild $\delta(u)$.\\
 Also: $|Q| = |Q_\text{min}| \Rightarrow \rho$ ist Bijektion. $\Box$
+
+\subsection{Einschub - Homomorphismen von Baumsprachen}
+
+\subsubsection{Allgemeine Homomorphismen}
+
+$(M, \cdot), (N, \ast); h: M \to N$ hei\ss t Homomorphismus, falls \\
+$\forall m, \hat{m}: h(m \cdot \hat{m}) = h(m) \ast h(\hat{m})$
+
+\subsubsection{Worthomomorphismen}
+
+$(A^\ast, \cdot), (B^\ast, \cdot); h: A^\ast \to B^\ast$ ist Homomorphismus, falls
+$h(w \cdot \hat{w}) = h(w) \cdot h(\hat{w})$.
+(zus\"atzlich $h(\varepsilon) = \varepsilon$)\\
+
+Nutze f\"ur die Definition des Homomorphismus die induktive Definition von W\"ortern aus 
+$A^\ast$.
+
+0.) $\varepsilon \in A^\ast$\\
+1.) $a \in A^\ast$ $\forall a \in A$\\
+2.) $a \cdot w \in A^\ast$ $\forall a \in A, w \in A^\ast$\\
+
+Ein Wort-Homomorphismus entsteht deshalb aus einer Abbildung $\bar{h}: A \to B$
+wie folgt:
+
+0.) $h(\varepsilon) = \varepsilon$\\
+1.) $h(a) = \bar{h}(a)$ $\forall a \in A$\\
+2.) $h(a \cdot w) = h(a) \cdot h(w) = \bar{h}(a) \cdot h(w)$ $\forall a \in A, w \in A^\ast$\\
+
+\subsubsection{Baumhomomorphismen}
+
+$T_\Sigma:$\\
+1.) $a \in T_\Sigma$ $\forall a^{(0)} \in \Sigma$\\
+2.) $f(t_1, \dots, t_n) \in T_\Sigma$ $\forall f^{(n)} \in T_\Sigma$\\
+
+Zun\"achst: Schreibe $\Sigma = \bigcup\limits_{n=0}^{r} \Sigma^{(n)}$, wobei
+$\Sigma^{(n)} = rk^{-1}(n)$.
+
+Sei $X = \{x_1, \dots, x_n\}$ und $X_n = \{x_1, \dots, x_n\}, X_0 = \emptyset$\\
+
+Dann ist f\"ur ein Rangalphabet $\Gamma$ auch $\Gamma \cup X_n$ ein Rangalphabet mit 
+$rk(x_i) = 0$\\
+
+Nachtrag - Substitution:\\
+$t, s \in T_{\Sigma \cup X_n}$ (f\"ur ein $n \in \mathbb{N}$)\\
+Sei $P \subseteq pos(t), P = \{ p \in pos(t) | t(p) = x_i\}$ f\"ur ein $i \in \{1, \dots, n\}$\\
+Etwa $P = \{p_1, \dots, p_m\}$\\
+Dann ist $t_{[x_i \leftarrow s]} = t[s]_{p_1} \cdot \dots \cdot t[s]_{p_m}$.\\
+
+Definition von Homomorphismen f\"ur jeden Rang $n = 0, \dots, r$\\
+W\"ahle eine Funktion $\bar{h}_n: \Sigma^{(n)} \to T_{\Gamma \cup X_n}$\\
+Der von $\bar{h}_0, \dots, \bar{h}_r$ erzeugte Homomorphismus $h: T_\Sigma \to T_\Gamma$\\
+
+1.) $h(a) = \bar{h}_0(a)$ $\forall a \in \Sigma$\\
+2.) $h( f(t_1, \dots, t_n)) = \bar{h}_n (f) [x_1 \leftarrow h(t_1)] \dots [x_n \leftarrow h(t_n)]$\\
+
+Beispiel:\\
+
+$\Sigma = \{ a^{(0)}, g^{(1)}, f^{(2)} \}$\\
+$\Gamma = \{ \alpha^{(0)}, \delta^{(2)}, \tau^{(2)} \}$\\
+
+$\bar{h}_0: a \rightarrow $ \Tree [.$\tau$ $\alpha$ $\alpha$ ] ;
+$\bar{h}_1: g \rightarrow $ \Tree [.$\rho$ [.$\rho$ $\alpha$ $x_1$ ] $x_1$ ] ;
+$\bar{h}_2: f \rightarrow $ \Tree [.$\tau$ [.$\tau$ $x_2$ $\alpha$ ] $x_2$ ] \\
+
+Gegenbeispiel:\\
+
+$\bar{h}_0: a \rightarrow $ \Tree [.$\tau$ $\alpha$ $x_1$ ] ;
+$\bar{h}_1: g \rightarrow $ \Tree [.$\rho$ [.$\rho$ $\alpha$ $x_2$ ] $x_1$ ] ;
+$\bar{h}_2: f \rightarrow $ \Tree [.$\tau$ $x_5$ $\alpha$ ] \\
+
+Erzeugter Homomorphismus $h: T_\Sigma \to T_\Gamma$ wie oben\\
+
+$h($ \Tree [.f a [.g a ] ] $)$\\
+$h(a) = \bar{h}_0(a) = $ \Tree [.$\tau$ $\alpha$ $\alpha$ ]\\
+$h(g(a)) = \bar{h}_1(g)[x_1 \leftarrow h(a)] = $ 
+\Tree [.$\rho$ [.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] [.$\tau$ $\alpha$ $\alpha$ ] ]\\
+$h(f(a, g(a))) = \bar{h}_2(f)[x_1 \leftarrow h(a)][x_2 \leftarrow h(g(a))]$
+\Tree [.$\tau$ 
+	[.$\tau$ 
+		[.$\rho$ [.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] [.$\tau$ $\alpha$ $\alpha$ ] ] 
+		$\alpha$ ] 
+	[.$\rho$ 
+		[.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] 
+		[.$\tau$ $\alpha$ $\alpha$ ] ] ]\\
+
+\subsubsection{lineare Terme}
+
+Ein Term $t \in T_{\Sigma \cup X_n}$ hei\ss t linear, falls jede Variable h\"ochstens einmal 
+vorkommt, \\
+d.h. falls $\forall i \in \{1, \dots , n\}: | \{ p \in pos (t) | t(p) = x_i \} | \leq 1$
+
+\subsubsection{linearer Homomorphismus}
+
+Ein Homomorphismen $h: T_\Sigma \to T_\Gamma$ erzeugt von $\bar{h}_0 , \dots, \bar{h}_r$ 
+hei\ss t linear, falls $\forall f^{(n)} \in T_\Sigma$ gilt:
+$\bar{h}_n(f) \in T_{\Gamma \cup X_n}$ ist linear.\\
+
+Beispiel: im Allgemeinen erhalten Homomorphismen die Erkennbarkeit nicht.\\
+Betrachte\\ 
+	$\Sigma = \{ f^{(1)}, g^{(1)}, a^{(0)} \}, 
+	\Gamma = \{ \hat{f}^{(2)}, g^{(1)}, a^{(0)} \}\\
+	\bar{h}_0: a \to a, \bar{h}_1: g \to g(x_1), \bar{h}_1: f \to \hat{f}(x_1, x_1)$
+
+F\"ur $L \subseteq T_\Sigma, L = \{f(g^i(a)) | i \in \mathbb{N} \}$ ist
+$h(L) = \{\hat{f}(g^i(a), g^i(a)) | i \in \mathbb{N} \}$ nicht erkennbar, 
+obwohl $L$ erkennbar ist.
+
+\subsubsection{Satz}
+
+Sei $L \subseteq T_\Sigma$ erkennbar, $h: T_\Sigma \to T_\Gamma$ ein linearer Homomorphismen,
+dann ist $h(L) \subseteq T_\Gamma$ erkennbar.\\
+
+Beweisskizze:\\
+Sei $A = (Q, \Sigma, F, \Delta)$ ein reduzierter DFTA mit $L(A) = L$
+
+\begin{itemize}
+	\item Seien $(\bar{h}_n)_{n=0}^r$ die erzeugenden Funktionen von $h$
+	\item Definiere NFTA $A' = (Q', \Gamma, F', \Delta)$ wie folgt:\\
+		f\"ur jede Regel $\rho: f(q_1, \dots , q_n) \to q \in \Delta:$\\
+			Setze $Q^\rho = \{ q_p^\rho | q \in pos(\bar{h}_n(f))\}$ und\\
+			$\Delta ^\rho$ f\"ur jedes $p \in pos(\bar{h}_n(f))$\\
+			falls $(\bar{h}_n f)(p) = g^{(k)} \in \Gamma^{(k)}$ f\"ur ein $k$,\\
+			$g(q_{p \cdot 1}^\rho, \dots, q_{p \cdot k}^\rho) \to q_p \in \Delta^\rho$\\
+			falls $(\bar{h}_n f)(g) = x_i$ f\"ur ein $i$\\
+			$q_i \to q_p^\rho \in \Delta^\rho$\\
+			$q_\varepsilon^\rho \to q \in \Delta^\rho$\\
+			OBdA $Q^\rho$ paarweise disjukt auch mit $Q$\\
+	\item $Q' = \bigcup\limits_{\rho \in \Delta} Q^\rho \cup Q$
+	\item $\Delta = \bigcup\limits_{\rho \in \Delta} \Delta^\rho \cup Q$
+	\item $F' = F$ 
+\end{itemize}
+
+\subsubsection{Satz}
+
+Sei $h: T_\Sigma \to T_\Gamma$ beliebiger Homomorphismus und $L \subseteq T_\Gamma$ erkennbar.
+Dann ist auch $h^{-1}(L) \subseteq T_\Sigma$ erkennbar.\\
+
+Beweis:\\
+Sei $A' = (Q', \Gamma, F', \Delta')$ ein vollst\"andiger DFTA mit $L(A') = L$.\\
+Definiere $A = (Q, \Sigma, F, \Delta)$ wie folgt:\\
+$Q = Q', F = F'$\\
+$f(q_1, \dots, q_n) \to q \in \Delta \\
+\Leftrightarrow \bar{h}_n (f)[x_1 \leftarrow q_1] \cdot \dots \cdot 
+[x_n \leftarrow q_n] \to_{\mathcal{A}'}^\ast q$\\
+
+Beweis der Korrektheit (strukturelle Induktion):\\
+Zeige die st\"arkere Aussage: f\"ur $q \in Q = Q'$ gilt \\
+$t \to_\mathcal{A}^\ast q \Leftrightarrow h(t) \to_{\mathcal{A}'}^\ast q$\\
+($h^{-1}(s) \to_\mathcal{A}^\ast q \Leftrightarrow s \to_{\mathcal{A}'}^\ast q$)\\
+
+Induktionsannahme:\\
+Sei $t = a \in \Sigma^{(0)}$. Dann gilt
+$h(a) \to_{\mathcal{A}'}^\ast q \Leftrightarrow
+\bar{h}_0(a) \to_{\mathcal{A}'}^\ast q \Leftrightarrow
+a \to q \in \Delta \Leftrightarrow a \to_\mathcal{A}^\ast q$\\
+
+Induktionsvoraussetzung:\\
+Die Aussage gelte f\"ur Terme mit H\"ohe $\leq k$\\
+
+Induktionsschritt: Dann gilt sie auf f\"ur $t$ mit H\"ohe $k+1$.\\
+Sei $t = f(t_1, \dots, t_n)$ mit $ht(t_i) \leq k$ $\forall i \in \{1, \dots, m\}$\\
+
+$t \to_\mathcal{A}^\ast q \Leftrightarrow \exists q_1, \dots, q_n: t_i \to_\mathcal{A}^\ast q_1$
+und $f(q_1, \dots, q_n) \to q \in \Delta$\\
+$\Leftrightarrow \exists q_1, \dots, q_n: h(t_i) \to_{\mathcal{A}'}^\ast q_i$ und
+$f(q_1, \dots, q_n) \to q \in \Delta$ \\
+$\Leftrightarrow \exists q_1, \dots, q_n: h(t_i) \to_{\mathcal{A}'}^\ast q_i$ und
+$\bar{h}_n(f)[x \leftarrow q_i] \cdot \dots \cdot [x_n \leftarrow q_n] \to_{\mathcal{A}'}^\ast q$\\
+$\Leftrightarrow \bar{h}_n(f)[x_1 \leftarrow h(t_1)] \cdot \dots \cdot 
+[x_n \leftarrow h(t_n)] \to_{\mathcal{A}'}^\ast q$\\
+$\Leftrightarrow h(f(t_1, \dots, t_n)) (=h(t)) \to_{\mathcal{A}'}^\ast q$
 
 \end{document}
 
