@@ -899,5 +899,114 @@ $\Leftrightarrow \bar{h}_n(f)[x_1 \leftarrow h(t_1)] \cdot \dots \cdot
 [x_n \leftarrow h(t_n)] \to_{\mathcal{A}'}^\ast q$\\
 $\Leftrightarrow h(f(t_1, \dots, t_n)) (=h(t)) \to_{\mathcal{A}'}^\ast q$
 
+\subsection{Top-Down Baumautomaten}
+
+Bisher: Bottom-Up TA - laufen B\"aume von den Bl\"attern zu der Wurzel nach oben.\\
+Nun: Top-Down TA - umgekehrt\\
+
+Definition:\\
+Ein nicht-deterministischer Top-Down Baumautomat ist ein Tupel 
+$\mathcal{A} = (Q, \Sigma, I, \Delta)$ , wobei:
+
+\begin{itemize}
+	\item $Q$ eine enliche Menge Zust\"ande
+	\item $\Sigma$ ein Rangalphabet
+	\item $I \subseteq Q$ Initialzust\"ande
+	\item $\Delta$ eine endliche Menge Regeln der Form\\
+	$q(f(x_1, \dots, x_n)) \to f(q_1(x_1), \dots, q_n(x_n))$\\
+	bzw. f\"ur $n = 0$: $q(a) \to a$
+\end{itemize}
+ist.\\
+
+Beispiel:\\
+Wir betrachten wieder $\Sigma = \{a^{(0)}, b^{(0)}, f^{(2)}\}$ und $t =$
+\Tree [.f [.f a b ] b ]
+
+Setze \\
+$Q = \{ q_f(f(x_1, x_2)) \to f(q_f(x_1),q_b(x_2)),
+        q_f(f(x_1, x_2)) \to f(q_a(x_1),q_b(x_2)),
+        q_a(a) \to a, q_b(b) \to b\}$\\
+
+Run f\"ur $t$ (intuitiv):\\
+
+\Tree [.$q_f$ [.f [.f a b ] b ] ] $\to$
+\Tree [.f [.$q_f$ [.f a b ] [.$q_b$ b ] ] ] $\to$
+\Tree [.f [.f [.$q_a$ a ] [.$q_b$ b ] ] b ] $\to$
+\Tree [.f [.f a b ] b ]\\
+
+Betrachte folgende \"Ubergangsrelation:\\
+$C[q(f(t_1, \dots, t_n))] \to C[f(q_1(t_1), \dots, q_n(t_n))]$, $C \in T_{\Sigma \cup Q} (x)$,\\
+falls $q(f(x_1, \dots, x_n)) \to f(q_1(x_1), \dots, q_n(x_n)) \in \Delta$\\
+
+$\to^\ast$ transitive H\"ulle\\
+
+$L(\mathcal{A}) = \{t \in T_\Sigma | q(t) \to^\ast, q \in I\}$\\
+
+\subsection{Satz}
+
+Eine Sprache $L \subseteq T_\Sigma$ ist genau dann erkennbar, wenn es einen nichtdeterministischen
+Top-Down TA $\mathcal{A}$ gibt mit $L = L(\mathcal{A})$.\\
+
+Bemerkung: \\
+Top-Down Automaten sind nicht determinisierbar. Deterministische Top-Down TA erkennen 
+\glqq path closed\grqq \ Sprachen.\\
+
+\section{Grammatiken}
+
+\subsection{Definition - Grammatik}
+
+Eine Grammatik ist ein Tupel $G = (S, N, \Sigma, R)$. Dabei ist:
+
+\begin{itemize}
+	\item $S$ Startsymbol ($S = S^{(0)}, S \in N$)
+	\item $N$ (Rangalphabet) nichtterminale Symbole
+	\item $\Sigma$ (Rangalphabet) terminale Symbole ($\Sigma \cap N = \emptyset$)
+	\item $R$ Regeln der Form $\alpha \to \beta$ mit:\\
+		$\alpha, \beta \in T_{\Sigma \cup N \cup X}$ ($X \cap (\Sigma \cup N) = \emptyset$ Variablen),\\
+		$\alpha$ enth\"alt mindestens ein Nichtterminal-Symbol
+\end{itemize}
+
+Eine regul\"are Grammatik enth\"alt nur Regelnd der Form
+$A \to B$, wobei $A$ den Rang $0$ hat und $b \in T_{\Sigma \cup N}$.
+Insbesondere enth\"alt $N$ nur Symbole mit Rang $0$.\\
+
+Beispiel: Betrachte $G = (S, \{S, A\},\{a^{(0)}, b^{(0)}, f^{(2)}\},R)$ mit\\
+$R = \{S \to f(A, b), A \to a, A \to f(A, b)\}$\\
+zum Beispiel haben wir:\\
+
+$S$ $\to$
+\Tree [.f A b ] $\to$
+\Tree [.f [.f A b ] b ] $\to$
+\Tree [.f [.f a b ] b ]
+
+Beispiel: Betrachte $G = (S, \{S, A\},\{a^{(0)}, g^{(3)}, f^{(2)}\},R)$ mit\\
+$R = \{S \to A, A \to f(a, b), A \to g(a, A, b)\}$\\
+zum Beispiel:\\
+
+$S$ $\to$
+$A$ $\to$
+\Tree [.g a A b ] $\to$
+\Tree [.g a [.g a A b ] b ] $\to$
+\Tree [.g a [.g a [.f a b ] b ] b ]\\
+
+Bemerkung - kontextfreie Baumgrammatik:\\
+$F(x_1, \dots, x_n) \to t$, $t \in T_{\Sigma \cup N \cup \{x_1, \dots, x_n\}}$\\
+z.B. $S \to F(a,a), F(x,x) \to F(G(x),G(x)), F(x,x) \to f(x,x), G(x) \to g(x)$\\
+
+Damit k\"onnen wir erzeugen:\\
+$S \to F(a,a) \to F(G(a),G(a)) \to F(G(G(a)),G(G(a))) \to \dots \to f(g(g(a)),g(g(a)))$\\
+\Tree [.f [.g [.g a ] ] [.g [.g a ] ] ]\\
+
+Betrachte nun folgende Ableitungsrelation f\"ur regul\"are Grammatiken:\\
+Wir schreiben $s \to_G$ genau dann wenn ein Kontext $C \in T_{\Sigma \cup N}(x)$ existiert,
+sodass\\ $s = C[A], t = C[\alpha], A \to \alpha \in R$ f\"ur $G = (S, N, \Sigma, R)$.\\
+Mit $\to_G^\ast$ bezeichnen wir die transitive H\"ulle von $\to_G$.
+
+\subsection{Definition}
+
+Ist $G$ eine regul\"are Grammatik, dann hei\ss t $L(G) = \{t \in T_\Sigma | S \to_G^\ast t\}$
+die von $G$ akzeptierte Sprache. Eine Sprache $L \subseteq T_\Sigma$ hei\ss t regul\"ar, falls
+$L = L(G)$ f\"ur eine regul\"are Grammatik.
+
 \end{document}
 
