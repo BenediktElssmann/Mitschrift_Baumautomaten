@@ -213,12 +213,12 @@ f\"ur $q, q_1, \dots , q_n \in Q$, f\"ur $a^{(0)} \in T_{\Sigma} : a \rightarrow
 Beispiel:\\
 $\mathcal{A} = \{\{q_a, q_b, q_f\},\{a^{(0)},b^{(0)},f^{(2)}\},\{q_f\}, \Delta\}$ \\
 mit $\Delta = \{ a \rightarrow q_a, b \rightarrow q_b, f(q_a,q_b) \rightarrow q_a, 
-f(q_a, q_b), f(q_a,q_b) \rightarrow q_f\}$
+f(q_a,q_b) \rightarrow q_f\}$
 
 \subsection{Definition Lauf/Run}
 
 Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat und $t\in T_{\Sigma}$. 
-Ein Lauf r f\"ur $t$ von $\mathcal{A}$ ist ein Term mit
+Ein Lauf $r$ f\"ur $t$ von $\mathcal{A}$ ist ein Term mit
 
 \begin{itemize}
 	\item $Pos(r) = Pos(t)$
@@ -578,7 +578,7 @@ Betrachte $\Sigma = \{ a^{(0)}, g^{(1)}, f^{(2)}\}$ und
 $L = \{ f(g^i(a),g^j(a)) | i \leq j \}$
 
 Dann ist $L$ nicht erkennbar, denn: W\"are $L$ erkennbar, dann auch $L'$ mit 
-$L' = \{ f(g^i(a), g^j(a) | i \geq j \}$, 
+$L' = \{ f(g^i(a), g^j(a)) | i \geq j \}$, 
 also auch $L \cap L' \lightning$. \\
 
 Bemerkung: Wenn $\mathcal{A}$ deterministisch und vollst\"andig ist, 
@@ -688,7 +688,7 @@ $C[u] \in L \Leftrightarrow C[v] \in L$.
 Insbesondere ist also $u \equiv_L v$\\
 Wir haben gezeigt: $v \in [u]_\sim  \Rightarrow v \in [u]_{\equiv_L}$, also 
 $[u]_\sim  \leq [u]_{\equiv_L}$\\
-(Also ist $\sim $ eine Verfeinerung von $\equiv_L$\\
+(Also ist $\sim $ eine Verfeinerung von $\equiv_L$)\\
 Insbesondere hat $\equiv_L$ kleinern Index als $\sim $, also endlichen.\\
 
 \glqq c $\Rightarrow$ a \grqq:
@@ -1008,5 +1008,162 @@ Ist $G$ eine regul\"are Grammatik, dann hei\ss t $L(G) = \{t \in T_\Sigma | S \t
 die von $G$ akzeptierte Sprache. Eine Sprache $L \subseteq T_\Sigma$ hei\ss t regul\"ar, falls
 $L = L(G)$ f\"ur eine regul\"are Grammatik.
 
-\end{document}
+Betrachte regul\"are Grammatik $G = (S,N,\Sigma,R)$
+Wir bezeichnen mit $L_G(A)$, $A \in N$, die von $G$ erzeugte Sprache mit $A$ als Startsymbol.
 
+\subsection{Definition - reduziert}
+
+Sei $G = (S,N,\Sigma,R)$ eine regul\"are Grammatik und $ A \in N $.
+Dann hei\ss t $A$
+\begin{itemize}
+	\item erreichbar, falls ein Kontext $C \in T_\Sigma(x)$ existiert, so dass
+		$S \to_G^\ast C[A]$
+	\item produktiv, falls $L_G(A) \neq \emptyset$
+\end{itemize}
+
+G hei\ss t reduziert, falls alle $A \in N$ erreichbar und produktiv sind.
+
+\subsection{Satz}
+
+Ist $G$ eine regul\"are Grammatik mit $L(G) = L$, dann existiert eine reduzierte regul\"are 
+Grammatik $G'$ mit $L(G') = L$.\\
+
+Nun: zu $G$ eine \glqq Normalform \grqq konstruieren.
+
+\subsection{Definition - Normalisierung}
+
+Eine regul\"are Grammatik $G$ hei\ss t normalisiert, falls alle Regeln aus $R$ die Form
+\begin{itemize}
+	\item $A \to f(A_1, \dots, A_n)$, $A, A_1, \dots, A_n \in N$, $v \in \Sigma^{(n)}$
+	\item $A \to a$, $A \in N$, $a \in \Sigma$
+\end{itemize}
+
+\subsection{Satz}
+
+Ist $G$ eine regul\"are Grammatik mit $L(G) = L$, dann existiert eine normalisierte regul\"are 
+Grammatik $G'$ mit $L(G') = L$.\\
+
+Beweis: Wir ersetzen Regeln der Form 
+$A \to f(s_1, \dots, s_n)$ durch
+$A \to f(A_1, \dots, A_n)$ wobei:
+Ist $s_i \in N$, dann ist $A_i= s_i$, ansonsten ist $A_i$ ein neues Symbol und wir f\"ugen 
+$A_i \to s_i$ hinzu.\\
+...Iterieren...\\
+
+Es bleiben \"ubrig:\\
+$A \to f(A_1, \dots, A_n)$, $A \to a \in \Sigma$, $A_i \to A_j$ (letztere \"uberbr\"ucken)\\
+
+Wir erhalten nun:
+
+\subsection{Theorem}
+
+$L$ ist erkennbar $\Leftrightarrow$ $L$ ist regul\"ar.\\
+
+Beweis:\\
+\glqq $\Rightarrow$ \grqq
+Ist $L$ erkennbar, so existiert ein nicht-deterministischer Top-Down-TA 
+$\mathcal{A} = (Q, \Sigma, I, \Delta)$ mit $L = L(\mathcal{A})$.
+Betrachte eine Grammatik $G = (S, N, \Sigma, R)$ mit
+\begin{itemize}
+	\item $S$ ist ein neues Symbol
+	\item $N = \{ A_q | q \in Q\}$
+	\item $R = \{ A_q \to f(A_{q_1}, \dots, A_{q_n}) | 
+		q(f(x_1, \dots, x_n)) \to f(q_1(x_1)), \dots, q_n(x_n) \in \Delta \} \cup 
+		\{ S \to A_{q_i} | q_i \in I \}$
+\end{itemize}
+
+Offensichtlich ist $L(G) = L(A)$
+
+\glqq $\Leftarrow$ \grqq analog (gehe von normalisierter Grammatik aus) $\Box$\\
+
+Ziel: Definieren Konkatenation und Kleene-Stern
+
+Problem hierbei ist: Wir m\"ussen erkl\"aren, wie wir B\"aume zusammensetzen.
+
+Dazu definieren wir: Substitution von Sprachen.\\
+
+Betrachte $t \in T_{\Sigma \cup k}$, wobei $k = \{\Box_1, \dots, \Box_n\}$, 
+$\Box_i$ sind Konstanten.\\
+Es seien $L_i \subseteq T_{\Sigma \cup k}$ Sprachen. Dann ist die Substitution
+$t\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$ induktiv wie folgt definiert:
+\begin{itemize}
+	\item $\Box_i\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = L_i$
+	\item $a\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = \{a\}$, $a \neq \Box_i$, $a \in \Sigma^0$
+	\item $f(s_1, \dots, s_n)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = 
+		\{f(t_1, \dots, t_n) | t_i \in s_i\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \}$
+\end{itemize}
+
+Au\ss erdem setzen $L\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = 
+\bigcup\limits_{t \in \L} t\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$
+
+Beispiel: Betrachte $k = \{\Box_1, \Box_2\}$\\
+$t =$ \Tree [.f [.f $\Box_1$ $\Box_2$ ] $\Box_2$ ]\\
+$L_2 = \{a, b\}$
+
+Dann ist $t\{ \Box_2 \leftarrow L_2 \} = \{$
+\Tree [.f [.f $\Box_1$ a ] a ],
+\Tree [.f [.f $\Box_1$ a ] b ],
+\Tree [.f [.f $\Box_1$ b ] a ],
+\Tree [.f [.f $\Box_1$ b ] b ] $\}$\\
+
+Nun setzen wir f\"ur zwei Sprachen $L, M$:\\
+$L \cdot_\Box M = \bigcup\limits_{t \in L} t \{ \Box \leftarrow M\}$
+
+Des weiteren ergibt sich der Kleene-Stern:
+\begin{itemize}
+	\item $L^{0.\Box} = \{ \Box \}$
+	\item $L^{n+1.\Box} = L^{n.\Box} \cup L \cdot_\Box L^{n.\Box}$
+\end{itemize}
+
+$\Rightarrow L^{\ast.\Box} = \bigcup\limits_{n \geq L^{n.\Box}}$
+
+Beispiel: Betrachte $L = \{$\Tree [.f $\Box$ $\Box$ ]$, a\}$\\
+$L^{0.\Box} = \{\Box\}$\\
+$L^{1.\Box} = \{\Box\} \cup L \cdot_\Box \{ \Box \} = 
+\{\Box\} \cup \{$\Tree [.f $\Box$ $\Box$ ] $,a\}$\\
+$L^{2.\Box} = \{\Box, $\Tree [.f $\Box$ $\Box$ ] $,a\} \cup
+L \cdot_\Box \{\Box, $\Tree [.f $\Box$ $\Box$ ] $,a\} = \dots$
+
+Abschlusseingenschaften:
+
+\subsection{Satz}
+
+Es sei $L \subseteq T_{\Sigma \cup k}$ regul\"ar, sowie $\Box_1, \dots, \Box_n \in k$.
+Dann ist $L\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$ regul\"ar.\\
+
+Beweis:\\
+Betrachte normalisierte Grammatiken $G, G_1, \dots, G_n$ mit $L(G) = L, L(G_1) = L_1, \dots, L(G_n) = L_n$,
+$G = (S,N,\Sigma \cup k,R), G_i =  (S_i,N_i,\Sigma \cup k, R_i)$. (alle Nichtterminale paarweise disjunkt)\\
+Konstruiere $G' = (S,N',\Sigma \cup k,R')$ mit:
+\begin{itemize}
+	\item $N' = N \cup N_1, \cup \dots \cup N_n$
+	\item $R'$ enth\"alt alle Regeln in $R, R_1, \dots , R_n$, wobei $A \to \Box_i$ ersetzt werden durch
+		$A \to S_i$
+\end{itemize}
+
+Direkt zeigen: $L\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \subseteq L(G')$\\
+Wir zeigen \glqq $\supseteq$ \grqq\\
+Induktion: \"uber die Anzahl der Ableitungsschritte zeigen wir
+$A \to_{G'}^\ast s'$ mit $S \in T_{\Sigma \cup k}$ | s' enth\"alt keine Nichtterminale\\
+$\exists s$ mit $A_{G'}^\ast$ und $s' \in s\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$ |
+das hei\ss t $s" \in L_G(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$\\
+
+Induktionsannahme: Angenommen $A \to_G^\ast$ in einem Schritt, das hei\ss t $s' \in L$, die Regel
+kann nicht $A \to \Box_i$ sein (existiert nicht in $G'$) und auch nicht $A \to s_i$ 
+(kein $s' \in T_{\Sigma \cup k}$. Damit: $S' \in L$. Seze $s = s'$, damit enth\"alt $s$ kein $\Box_i$, also
+$\{s'\} = \{s\} = s\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$, also insbesondere
+$s' \in s\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \subseteq 
+L(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$\\
+Induktionsschritt: $A \to_{G'}^\ast s'$: zerlege $A \to){G'} s_1 \to^\ast_{G'} s'$
+F\"alle f\"ur $s_1$ (bzw. $A \to s_1$ )
+\begin{itemize}
+	\item $a \to f(A_1, \dots, A_m) \Rightarrow s' = f(t_1, \dots, t_n)$. Laut Induktionsvoraussetzung:
+		$t_i \in L(A_i)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \Rightarrow s' \in L(A)$
+	\item $A \to s_i \in R' \Rightarrow A \to \Box_i \in R$ (laut Konstruktion) 
+		$\Rightarrow \Box_i \in L(A) \Rightarrow s' \in L_i \Rightarrow s' \in 
+		L(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$
+\end{itemize}
+
+Aussage gilt f\"ur  alle Nichtterminale $A_i$, also auch f\"ur Startsymbol $S$. $\Box$
+
+\end{document} 
