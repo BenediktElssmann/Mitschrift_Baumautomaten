@@ -1164,6 +1164,85 @@ F\"alle f\"ur $s_1$ (bzw. $A \to s_1$ )
 		L(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$
 \end{itemize}
 
-Aussage gilt f\"ur  alle Nichtterminale $A_i$, also auch f\"ur Startsymbol $S$. $\Box$
+Aussage gilt f\"ur  alle Nichtterminale $A_i$, also auch f\"ur Startsymbol $S$ . $\Box$
+
+\subsection{Satz}
+
+Ist $L \subseteq T_{\Sigma \cup K}$ regul\"ar und $\Box \in K$, dann ist $L^{\ast . \Box}$ regul\"ar.\\
+Beweis: Betrachte normalisierte Grammatik $G = (S, N, \Sigma \cup K, R)$ mit $L(G) = L$.\\
+Konstriere $G' = (S', N \cup \{S'\}, \Sigma \cup K, R')$ (mit $S' \notin N$) wie folgt:\\
+$R'$ enth\"alte alle Regeln aus $R$, wobei:
+\begin{itemize}
+	\item $A \to \Box$ wird ersetzt durch $A \to S'$
+	\item $S' \to S$
+	\item $S' \to \Box$ (damit $\Box \in L(G')$)
+\end{itemize}
+
+Induktion liefert: $L(G') = L^{\ast . \Box}$
+
+\subsection{Definition}
+
+Wir formalisieren nun die rationalen Ausdr\"ucke:\\
+Sei $\Sigma$ ein Rangalphabet, $K$ eine Menge Konstanten mit $\Box \in K$:
+Dann ist $Rat(\Sigma, K)$ die kleinste Menge, sodass:
+\begin{itemize}
+	\item $\emptyset \in Rat(\Sigma, K)$
+	\item $a \in \Sigma^0 \cup K 'Rightarrow a \in Rat(\Sigma, K)$
+	\item $f \in \sigma^n, E_1, \dots, E_n \in Rat(\Sigma, K) \Rightarrow f(E_1, \dots, E_n) \in Rat(\Sigma, K)$
+	\item $E_1, E_2 \in Rat(\Sigma, K) \Rightarrow E_1 \cup E_2 \in Rat(\Sigma, K)$
+	\item $E_1, E_2 \in Rat(\Sigma, K), \Box \in K \Rightarrow E_1 \cdot _\Box E_2 \in Rat(\Sigma, K)$
+	\item $E_1 \in Rat(\Sigma, K), \Box \in K \Rightarrow E_1^{\ast . \Box} \in Rat(\Sigma, K)$
+\end{itemize}
+
+Die Ausdr\"ucke $Rat(\Sigma, K)$ hei\ss en rational \"uber $\Sigma$ und $K$.
+Ist $E$ ein ratoinaler Ausdruck in $Rat(\Sigma, K)$, dann repr\"asentiert $E$ eine Menge von Termen aus 
+$T_{\Sigma \cup K}$, bezeichnet mit $||E||$.
+
+\begin{itemize}
+	\item $||\emptyset|| = \emptyset$
+	\item $||a|| = \{a\}$
+	\item $f(E_1, \dots, E_n)|| = \{f(t_1, \dots, t_n) | t_i \in ||E_i||\}$
+	\item $||E_1 \cup E_2|| = ||E_1|| \cup ||E_2||$
+	\item $||E_1 \cdot E_2|| = ||E_1||\{\Box \Leftarrow ||E_2||\}$
+	\item $||E^{\ast . \Box}|| = ||E||^{\ast . \Box}$
+\end{itemize}
+
+Beispiel: Der Ausdruck $(f(\Box, b))^{\ast . \Box} \cdot_\Box a$ ist rational und repr\"asentiert 
+alle Terme der Form
+
+\Tree [.f a b ],
+\Tree [.f [.f a b ] b ],
+\Tree [.f [.f [.f a b ] b ] b ], ...
+
+Wir erhalten die \glqq Baumautomaten \grqq - Variante von Kleene:\\
+
+\subsection{Theorem}
+
+Rationale Ausdr\"ucke haben die selbe Ausdrucksst\"arke wie bottom-up Baumautomaten.\\
+Beweis: Ist $E$ ein rationaler Ausdruck, so existiert laut S\"atzen 2.8 und 2.9 und den 
+Abschlusseigenschaften von Baumautomaten einen Baumautomaten $\mathcal{A}$ mit $L(\mathcal{A}) = ||E||$.
+Umgekehrt: Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat.
+Wir zeigen: Es existiert ein rationaler Ausdruck $E$ aus $Rat(\Sigma. K)$ mit $||E|| = L(\mathcal{A})$.
+
+Betrachter hierzu f\"ur $1 \leq i,j \leq |Q|$ und $Z \subseteq Q$ Terme $T(i, j, Z)$ definiert wie folgt:
+$t \in T(i, j, Z)$, falls $t \in T_{\Sigma \cup K}$ mit einem Lauf $R$ in $t$, so dass:
+\begin{itemize}
+	\item $v(\varepsilon) = q_i$
+	\item ist $p \neq \varepsilon$ und $t(p) /in Z$, dann ist $r(p) \in \{q_1, \dots, q_j\}$
+\end{itemize}
+
+Damit: $L(\mathcal{A}) = \bigcup\limits_{q_i \in F} T(i, |Q|, \emptyset)$
+
+Induktion \"uber $j$: $T(i, j, Z) \in Rat(\Sigma, K)$
+$j = 0$: $t \in T(i, 0, Z)$ bedeutet, es existiert ein Lauf $r$
+\begin{itemize}
+	\item $r(\varepsilon) = q_i$
+	\item kein Symbol, das nicht nullstellig ist, darf gelabelt sein
+		$\Rightarrow t = a$ oder $t = f(a_1, \dots, a_n), a_1, \dots, a_n \in \Sigma^0$
+		$\Rightarrow$ endlich viele, also existiert ein rationaler Ausdruck
+\end{itemize}
+
+Induktionsschritt: Angenommen f\"ur $j' < j$ ist $T(i, j', Z) \in Rat(\Sigma, Q)$.\\
+Schreibe $T(i, j, Z) = T(i, j-1, Z) \cup T(i, j-1, Z \cup \{q_j\}) \cdot_{q_j} (T(j, j-1, Z \cup \{q_j\}))^{\ast . q_j} \cdot_{q_j} T(j, j-1, Z)$
 
 \end{document} 
