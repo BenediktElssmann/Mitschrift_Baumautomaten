@@ -1243,6 +1243,68 @@ $j = 0$: $t \in T(i, 0, Z)$ bedeutet, es existiert ein Lauf $r$
 \end{itemize}
 
 Induktionsschritt: Angenommen f\"ur $j' < j$ ist $T(i, j', Z) \in Rat(\Sigma, Q)$.\\
-Schreibe $T(i, j, Z) = T(i, j-1, Z) \cup T(i, j-1, Z \cup \{q_j\}) \cdot_{q_j} (T(j, j-1, Z \cup \{q_j\}))^{\ast . q_j} \cdot_{q_j} T(j, j-1, Z)$
+Schreibe $T(i, j, Z) = T(i, j-1, Z) \cup T(i, j-1, Z \cup \{q_j\}) \cdot_{q_j} (T(j, j-1, Z \cup \{q_j\}))^{\ast . q_j} \cdot_{q_j} T(j, j-1, Z)$\\
+
+Ziel: Zusammenhang zwischen Baum- und Wortsprachen\\
+Neben der Pfadsprache (siehe \"Ubung) betrachten wir den sogenannten Yield-Operator, definiert wie folgt:
+
+\begin{itemize}
+	\item $Yield(a^{(0)}) = a$ f\"ur eine Konstante $a^{(0)} \in \Sigma$
+	\item $Yield(f(t_1, \dots, t_n)) = Yield(t_1) \cdot \dots \cdot Yield(t_n)$
+		f\"ur $f^{(n)} \in \Sigma, t_i \in T_\Sigma$
+\end{itemize}
+
+F\"ur Sprache $L$ gilt: $Yield(L) = \bigcup\limits_{ t \in \Sigma } Yield(t)$
+
+Beispiel:
+$Yield(f(f(a,b),b)) = abb$ \Tree [.f [.f a b ] b ] \\
+$Yield(|| g(a, \Box, b)^{\ast . \Box} \cdot_{\Box} f*(a,b) ||) = \{ a^n b^n | n \in \mathbb{N}, n\geq 1 \}$\\
+
+Wir wolen regul\"are Baumsprachen mit Ableitungsb\"aumen von kontextfreien Wortgrammatiken \glqq vergleichen\grqq.
+Betrachte $G = (S,N,T,R)$ (kontextfreie Wortgrammatik, d.h. Regeln in $R$ haben die Form $A \to \alpha$, wobei
+$A \in N, \alpha \in (N \cup T)^+$).\\
+Betrachte zum Beispiel $G = (S,N,T,R)$ mit Regeln:\\
+$S \to aSb, S \to ab$ mit $L(G) = \{ a^n b^n | n \in \mathbb{N}, n \geq 1 \}$.\\
+Der Syntaxbaum f\"ur $aabb$ hat die Form \Tree [.S a [.s a b ] b ] , d.h. $S$ hat keinen festen Rang.\\
+
+Betrachte daher f\"ur gegebene Grammatik $G$ Tupel $(A, m)$ f\"ur jedes $A \in N$, sodass $A \to \alpha \in R$ 
+mit $|\alpha| = m$.\\
+Zu einem Symbol $a \in T \cup N$ definieren wir die Menge der von $a$ ausgehenden Ableitungsb\"aume in $G$, $D(G,a)$, wie folgt:
+
+\begin{itemize}
+	\item $D(G,a) = \{ a \}$ f\"ur $a \in T$
+	\item $(a,0) (\varepsilon) \in D(G,a)$, falls $a \to \varepsilon \in R$
+	\item $(a,m)i (t_1, \dots, t_m) \in D(G,a)$, falls 
+		$t_i \in (G,a_i), a_i \in T \cup N, a \to a_1, \dots, a_m \in R$
+	\item Ableitungsb\"aume f\"ur $G$ sind $D(G) = \bigcup\limits{a \in t \cup N} D(G, a)$
+\end{itemize}
+
+Beispiel: $G = (S,N,T,R)$ mit $S \to aSb, S \to ab$. Dann ist
+\Tree [.(S,3) a [.(S,2) a b ] b ] in $D(G)$
+
+Bemerkung: Ist $G$ eine kontextfreie Grammatik, so ist nat\"urlich $Yield(D(G)) = L(G)$.
+
+\subsection{Satz}
+
+1.) Ist $G = (S,N,T,R)$ eine kontextfreie Wortgrammatik, dann ist $D(G)$ regul\"are Baumsprache.\\
+2.) Ist $L$ regul\"are Baumsprache, dann ist $Yield(L)$ kontextfreie Wortsprache.\\
+3.) Es existieren regul\"are Baumsprachen, die nicht Ableitungsb\"aumen von kontextfreien Sprachen entsprechen.\\
+
+Beweis:\\
+1.) Erzeuge Grammatik $G' = (S,N,\Sigma,R')$ mit:\\
+\begin{itemize}
+	\item $\Sigma = T \cup \{\varepsilon\} \cup \{ (A,m) | A \in N, A \to \alpha \in R$ mit $|\alpha| = m \}$
+	\item $A \to (A,0) (\varepsilon) \in R'$, falls $A \to \varepsilon \in R$
+	\item $A \to (A,m) (A_1, \dots, A_m) \in R'$, falls $A \to A_1 \dots A_m \in R$
+\end{itemize}
+damit ist offensichtlich $Yield(L(G')) = L(G)$.
+
+2.) Betrachte normalisierte Grammatik $G = (S,N,\Sigma,R)$ mit $L(G) = L$.\\
+	Erzeuge Wortgrammatik $G' = (S,N,\Sigma^{(0)},R')$ mit folgenden Regeln:
+\begin{itemize}
+	\item $A \to A_1, \dots, A_m$ ($A \to a$) $\in R'$, falls $A \to f(A_1, \dots, A_n)$ ($A \to a$) $\in R$ f\"ur $f^{(m)} \in \Sigma$
+\end{itemize}
+
+3.) \"Ubung
 
 \end{document} 
