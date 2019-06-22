@@ -1276,7 +1276,7 @@ Zu einem Symbol $a \in T \cup N$ definieren wir die Menge der von $a$ ausgehende
 	\item $(a,0) (\varepsilon) \in D(G,a)$, falls $a \to \varepsilon \in R$
 	\item $(a,m)i (t_1, \dots, t_m) \in D(G,a)$, falls 
 		$t_i \in (G,a_i), a_i \in T \cup N, a \to a_1, \dots, a_m \in R$
-	\item Ableitungsb\"aume f\"ur $G$ sind $D(G) = \bigcup\limits{a \in t \cup N} D(G, a)$
+	\item Ableitungsb\"aume f\"ur $G$ sind $D(G) = \bigcup\limits_{a \in t \cup N} D(G, a)$
 \end{itemize}
 
 Beispiel: $G = (S,N,T,R)$ mit $S \to aSb, S \to ab$. Dann ist
@@ -1305,6 +1305,82 @@ damit ist offensichtlich $Yield(L(G')) = L(G)$.
 	\item $A \to A_1, \dots, A_m$ ($A \to a$) $\in R'$, falls $A \to f(A_1, \dots, A_n)$ ($A \to a$) $\in R$ f\"ur $f^{(m)} \in \Sigma$
 \end{itemize}
 
-3.) \"Ubung
+3.) \"Ubung\\
+
+Pfadsprache $\pi (n)$:
+
+\begin{itemize}
+	\item $a \in \Sigma ^ 0$ dann ist $\pi (a) = \{a\}$
+	\item $t = f(t_1, \dots, t_n)$, dann ist $\pi (t) = \bigcup\limits_{i=1}^n \{ fiw | w \in \pi (t_i) \}$
+\end{itemize}
+
+Beispiel: $t=$ \Tree [.f [.f a b ] b ]
+$\rightarrow \pi (t) = \{ f1f1a, f1f2b, f2b \}$ \\
+
+$\pi (L) = \bigcup\limits_{t \in L} \pi (t)$
+
+\subsection{Satz}
+
+Ist $L \subseteq T_\Sigma$ eine regul\"are Baumsprache, dann ist $\pi(L)$ eine regul\"are Wortsprache.\\
+
+Komplexit\"at\\
+
+Um den Input zu formalisieren, setze: (f\"ur $t \in T_\Sigma$)
+
+\begin{itemize}
+	\item $||t|| = 1$, falls $t$ Konstante
+	\item $||t|| = 1 + \sum\limits_{i = 1}^{n} ||t_i||$, falls $t = f(t_1, \dots, t_n)$\\
+		$\widehat{=} |Pos(t)|$
+	\item f\"ur einen Automaten $\mathcal{A}$: $||\mathcal{A}|| = |Q| + \sum\limits_{r \in \mathcal{A}} ||r||$,
+		wobei $||r|| = n + 2$ f\"ur $r = f(q_1, \dots, q_n) \to q$
+\end{itemize}
+
+Betrachte  nun:\\
+MEMBERSHIP
+\begin{itemize}
+	\item Input: $t \in T_\Sigma$
+	\item Output: \glqq Yes\grqq, dgw. $t \in L(\mathcal{A})$ f\"ur gegebenen Automaten $\mathcal{A}$
+\end{itemize}
+
+$\rightarrow$ linear\\
+
+UNIFORM MEMBERSHIP
+\begin{itemize}
+	\item Input: Input: $t \in T_\Sigma, \mathcal{A}$ bottom-up Baumautomat
+	\item Output: \glqq Yes\grqq, dgw. $t \in L(\mathcal{A})$
+\end{itemize}
+
+$\rightarrow$ deterministischer TA: $rightarrow$ linear\\
+$\rightarrow$ nichtdeterministischer TA: $rightarrow$ $O(||t|| \cdot ||\mathcal{A}||)$ (polynomiell)\\
+(\glqq on the fly\grqq alle erreichbaren Zust\"ande bestimmen)\\
+
+EMPTYNESS
+\begin{itemize}
+	\item Input: $\mathcal{A}$ bottom-up Baumautomat
+	\item Output: \glqq Yes\grqq gdw. $L(\mathcal{A}) = \emptyset$
+\end{itemize}
+
+$\rightarrow$ \"ubersetze in Horn-Formeln\\
+$\rightarrow$ linear\\
+
+UNIVERSALITY
+\begin{itemize}
+	\item Input: $\mathcal{A}$
+	\item Output: \glqq Yes\grqq gdw. $L(\mathcal{A}) = T_\Sigma$
+\end{itemize}
+
+$\rightarrow$ Exptime-vollst\"andig (Determinisierten, bevor $\mathcal{A}^c$ gebildet werden kann)\\
+
+FINITENESS
+\begin{itemize}
+	\item Input: $\mathcal{A}$
+	\item Output: \glqq Yes\grqq gdw. $L(\mathcal{A})$ endlich
+\end{itemize}
+
+$\rightarrow$ Pumping: Exptime\\
+$\rightarrow$ nach Loops suchen f\"ur Automat\\
+$q$ mit $C[q] \to^\ast q$ f\"ur $C \in T)\Sigma(x)$\\
+und $C'[q] \to^\ast q_f \in F$ f\"ur $C' \in T)\Sigma(x)$\\
+$\rightarrow$ polynomiell\\
 
 \end{document} 
