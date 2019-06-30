@@ -1383,4 +1383,99 @@ $q$ mit $C[q] \to^\ast q$ f\"ur $C \in T)\Sigma(x)$\\
 und $C'[q] \to^\ast q_f \in F$ f\"ur $C' \in T)\Sigma(x)$\\
 $\rightarrow$ polynomiell\\
 
+\section{Weitere Modelle, Ausblick}
+
+Wir betrachten 2 Modelle, die weniger ausdrucksstart als Baumautomaten sind.
+Dabei gehen wir nicht mehr von einem Rangalphabet aus, d.h. interne Symbole haben
+beliebig (endlich) viele Kinder.
+
+\subsection{Definition}
+
+Es sei $\Sigma$ eine endliche Menge (von Symbolen) und $Q$ ein Alphabet (von Bl\"attern) und
+$Q \cap \Sigma = \emptyset$.
+Die Menge $T_{\Sigma, Q}$ der $\Sigma$-B\"aume mit $Q$-Bl\"attern ist induktiv definiert wie folgt:
+\begin{itemize}
+	\item $q \in Q \Rightarrow q \in T_{\Sigma, Q}$
+	\item $n \geq 1, f \in \Sigma, t_1, \dots, t_n \in T_{\Sigma, Q}
+		\Rightarrow f(t_1, \dots, t_n) \in T_{\Sigma, Q}$
+\end{itemize}
+
+Die Menge $Pos(t)$ der Positionen eines Terms $t \in T_{\Sigma, Q}$ sowie Teilb\"aume etc. sind
+definiert wie bisher.\\
+Betrachte kontextfreie Grammatik $G = (\Sigma_0, \Sigma, Q, R)$.\\
+Dann haben wir Regeln der Form $A \in \Sigma \to \alpha \in (\Sigma \cup Q)^\ast$
+und erzeugen so Zeichenketten von W\"ortern.\\
+Wir fassen $G$ als Baumgrammatik auf:
+$A \to \alpha _1, \dots, \alpha _n \Rightarrow$ \Tree [.A $\alpha _1$ $\dots$ $\alpha _1$ ]
+
+\subsection{Definition}
+
+Eine lokale Baumgrammatik (LTG) ist eine kontextfreie Grammatik $G = (\Sigma _0 \Sigma, Q, R)$.
+Ein Term $t \in T_{\Sigma, Q}$ wird von $G$ erzeugt, falls
+\begin{itemize}
+	\item $t(\varepsilon) \in \Sigma _0$
+	\item Ist $w$ interene Posotion ($w \in Pos(t))$ mit $\{ i | wi \in Pos(t) \} = \{ 1, \dots, n \} \neq \emptyset$,\\
+		dann ist $t(w) \to t(w_1) \cdot \dots \cdot t(w_n) \in R$
+	\item Ist $w$ ein Blatt, dann ist $t(w) \in Q$
+\end{itemize}
+
+Lokale Baumsprache (LTL): $L(G) = \{ t \in T_{\Sigma, Q} | $G erzeugt t$ \}$\\
+
+Beispiel: Sei $\Sigma _0 = \{f\}, \Sigma = \{f\}, Q = \{a,b\}, R = \{f \to fb, f \to ab\}$\\
+Dann wird \Tree [.f [.f a b ] b ] von $G = (\Sigma _0, \Sigma, Q, R)$ erzeugt.\\
+
+Offensichtlich ist $Yield(L(G))$ kontextfrei f\"ur LTG $G$.
+
+\subsection{Satz}
+
+Sind $G, G'$ LTGs, dann existiert eine LTG $G \cap G'$ mit
+$L(G \cap G') = L(G) \cap L(G')$\\
+Beweis: Betrachte $\Sigma \cap \Sigma ', Q \cap Q', R \cap R', \Sigma _0 \cap \Sigma ' _0$\\
+Falls $Q \cap Q' \neq \emptyset$, ansonsten irgendeine Grammatik mit leerer Sprache, etwa $(\emptyset, \Sigma, Q, R)$\\
+Beispiel: LTL sind nicht abgeschlossen unter Vereinigung\\
+Betrachte Terme der Form\\
+\Tree [.g [.f [.$\dots$ [.f a ] ] ] [.f [.$\dots$ [.f a ] ] ] ]\\
+$\widehat{=} \{g(f^i(a),f^j(a)) | i,j \geq 1\}$\\
+$\to R = \{ g \to ff, f \to f, f \to a \}$\\
+$\Sigma _0 = \{g\}, Q = \{c\}$\\
+
+Betrachte\\
+\Tree [.g [.f [.$\dots$ [.f b ] ] ] [.f [.$\dots$ [.f b ] ] ] ]\\
+$\widehat{=} \{g(f^i(b),f^j(b)) | i,j \geq 1\}$\\
+
+Falls $G$ alle Terme aus $G_1$ und $G_2$ erzeugt, so auch gemischte, z.B. $g(f^i(a),f^j(b))$\\
+Demzufolge sind LTBs auch nicht abgeschlossen unter Komplement.\\
+
+Nun: Gr\"o\ss ere \glqq Bausteine\grqq f\"ur Ba\"ume
+
+\subsection{Definition}
+
+Eine Baumsubstitutionsgrammatik (TSG) ist ein Tupel $G = (\Sigma _0, \Sigma, Q, R)$, wobei
+$R \subseteq T_{\Sigma, Q}$ (mit nicht notwendigerweise $\Sigma \cap Q = \emptyset$ eine endliche
+(Menge von Fragmenten) ist.\\
+
+Wir setzen $t \to_{TSG} t'$, falls
+\begin{itemize}
+	\item $p \in R$ Fragment
+	\item $C \in T_{\Sigma,Q} (x)$ Kontext
+\end{itemize}
+
+existieren mit
+\begin{itemize}
+	\item $t = C[p(\varepsilon]$, $t' = C[p]$
+\end{itemize}
+
+Beispiel: \Tree [.f [.f a b ] b ] \\
+
+$R = \{\Tree[.f f b ], \Tree[.f a b ]\}$\\
+$\Sigma _0 = \{f\}$\\
+
+Ist $G$ eine TSG, dann ist $L(G) = \bigcup\limits_{t_0 \in \Sigma _0} \{ t \in T_{\Sigma, Q} | t_0 \to ^\ast _TSG t, $Bl\"atter von t in Q$ \}$\\
+Beispiel (Vereinigung): siehe oben, mit \glqq Pumping\grqq-Argument\\
+Beispiel (Schnitt): Seien $x_i \in \{a,b\}$\\
+
+$L_1=$ \Tree [.S $x_1$ [.S $x_1$ [.S $x_2$ [.S $x_2$ [.$\dots$ [.S $x_n$ c ] ] ] ] ] ] \\
+$L_2=$ \Tree [.S $x_1$ [.S $x_2$ [.S $x_2$ [.S $x_3$ [.$\dots$ [.S $x_{n + 1}$ c ] ] ] ] ] ] \\
+$L_1 \cap L_2=$ \Tree [.S $x_1$ [.S $x_1$ [.S $x_1$ [.S $x_1$ [.$\dots$ [.S $1$ c ] ] ] ] ] ] \\
+
 \end{document} 
