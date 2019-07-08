@@ -20,8 +20,8 @@
 \title{\huge{Vorlesung Baumautomaten (Mitschrift)}}
 
 \author{Benedikt El\ss mann (3720358)\\
-		be57xocu@studserv.uni-leipzig.de\\\\
-		Universit\"at Leipzig}
+        be57xocu@studserv.uni-leipzig.de\\\\
+        Universit\"at Leipzig}
 
 \maketitle
 
@@ -37,26 +37,26 @@ Automaten lesen W\"orter $ w = a_1 \dots a_n $ und geben ''accept'' aus oder nic
 Daf\"ur gibt es Erweiterungen, wie etwa:
 
 \begin{itemize}
-	\item gewichtete Automaten, das hei\ss t der Output ist ein Semiringelement
-	\item Automaten mit Ged\"achtnis (Stack)
-	\item Automaten \"uber anderen  Strukturen
+    \item gewichtete Automaten, das hei\ss t der Output ist ein Semiringelement
+    \item Automaten mit Ged\"achtnis (Stack)
+    \item Automaten \"uber anderen  Strukturen
 
-	\begin{itemize}
-		\item $\omega$-W\"orter $ w = a_1 \dots a_n $ 
-		\item Graphen
-		\item B\"aume\\
-		\item Kombinationen dieser
-	\end{itemize}
+    \begin{itemize}
+        \item $\omega$-W\"orter $ w = a_1 \dots a_n $ 
+        \item Graphen
+        \item B\"aume\\
+        \item Kombinationen dieser
+    \end{itemize}
 
 \end{itemize}
 
 Typische Fragestellungen:
 
 \begin{itemize}
-	\item Ausdrucksst\"arke
-	\item Darstellung als rationale Ausdr\"ucke (Kleene)
-	\item Darstellung als Grammatik
-	\item Darstellung als Logik
+    \item Ausdrucksst\"arke
+    \item Darstellung als rationale Ausdr\"ucke (Kleene)
+    \item Darstellung als Grammatik
+    \item Darstellung als Logik
 \end{itemize}
 
 \section{B\"aume und Baumautomaten}
@@ -64,14 +64,14 @@ Typische Fragestellungen:
 Wir betrachten \"uber $ A = \{a,b\} $ den Automaten $ \mathcal{A} $:
 
 \begin{tikzpicture}[shorten >= 1pt, node distance=2cm, on grid, auto]
-	\node[state, initial] (q0) {$ q_0 $};
-	\node[state] (q1) [right=of q0 ] {$ q_1 $};
-	\node[state, accepting] (q2) [right=of q1 ] {$ q_2 $};
+    \node[state, initial] (q0) {$ q_0 $};
+    \node[state] (q1) [right=of q0 ] {$ q_1 $};
+    \node[state, accepting] (q2) [right=of q1 ] {$ q_2 $};
 
-	\path[->]	(q0)	edge 					node	{a}	(q1);
-	\path[->]	(q0)	edge 	[loop above] 	node 	{b}	();
-	\path[->]	(q1)	edge					node 	{b}	(q2);
-	\path[->]	(q2)	edge	[loop above]	node	{a}	();
+    \path[->]   (q0)    edge                    node    {a} (q1);
+    \path[->]   (q0)    edge    [loop above]    node    {b} ();
+    \path[->]   (q1)    edge                    node    {b} (q2);
+    \path[->]   (q2)    edge    [loop above]    node    {a} ();
 \end{tikzpicture}
 
 mit $ L(\mathcal{A}) = b^\ast ab a^\ast $ .
@@ -106,8 +106,8 @@ Insbesondere ist die Anzahl der Kinder f\"ur jedes Symbol fest.\\ \\
 Gilt $rk(f) = n$, schreiben wir auch $f^{(n)}$ statt $f$. wir schreiben:
 
 \begin{itemize}
-	\item 0-stellige Symbole (Konstanten) $a, b, \dots$
-	\item un\"ar, bin\"ar, \dots $f, g, \dots$\\
+    \item 0-stellige Symbole (Konstanten) $a, b, \dots$
+    \item un\"ar, bin\"ar, \dots $f, g, \dots$\\
 \end{itemize}
 
 Wir setzen $\Sigma^{(n)} = \{f \in \Sigma | rk(f) = n\}$\\
@@ -122,9 +122,9 @@ Sei $(\Sigma, rk)$ ein Rangalphabet.
 Die Menge $T_{\Sigma}$ der B\"aume \"ueber $\Sigma$ ist induktiv definiert durch:
 
 \begin{itemize}
-	\item $\Sigma^0 \subseteq T_{\Sigma}$
-	\item $f^{(n)} \in \Sigma$ . $t_1, \dots, t_n \in T_{\Sigma}$, 
-		dann ist $f(t_1, \dots, t_n) \in T_{\Sigma}$
+    \item $\Sigma^0 \subseteq T_{\Sigma}$
+    \item $f^{(n)} \in \Sigma$ . $t_1, \dots, t_n \in T_{\Sigma}$, 
+        dann ist $f(t_1, \dots, t_n) \in T_{\Sigma}$
 \end{itemize}
 
 Intuitiv sind $t_1, \dots, t_n$ die Kinder von $f$.\\
@@ -135,9 +135,9 @@ Z.B. ist \Tree [.f [.f a b ] [.b ] ] der Term $f(f(a,b),b)$.
 Sei $(\Sigma, rk)$ ein Rangalphabet. Die H\"ohe $ht$ ist gegeben durch:
 
 \begin{itemize}
-	\item f\"ur $a^{(0)} \in \Sigma: ht(a) = 1$.
-	\item f\"ur $f(t_1, \dots , t_n) \in T_{\Sigma} : 
-		ht(f) = 1 + max\{ ht(t_i) | i \in \{i, \dots, n\}\}$
+    \item f\"ur $a^{(0)} \in \Sigma: ht(a) = 1$.
+    \item f\"ur $f(t_1, \dots , t_n) \in T_{\Sigma} : 
+        ht(f) = 1 + max\{ ht(t_i) | i \in \{i, \dots, n\}\}$
 \end{itemize}
 
 Ziel: Zugriff auf einen Knoten innterhalb eines Baumes und deren Label.\\
@@ -148,10 +148,10 @@ Daf\"ur ordnen wir den Knoten Positionen zu. Das geht induktiv wie folgt:
 Sei $(\Sigma, rk)$ ein Rangalphabet. Die Positionenmenge ist definiert durch:
 
 \begin{itemize}
-	\item f\"ur $a^{(0)} \in T_{\Sigma}$ ist $Pos(a) = \{\varepsilon\}$
-	\item f\"ur $f(t_1, \dots, t_n) \in T_{\Sigma}$ ist 
-	$Pos(f(t_1, \dots, t_n)) = \{\varepsilon\} \cup 1 \cdot Pos(t_1) \cup 
-		\dots \cup n \cdot Pos(t_n)$
+    \item f\"ur $a^{(0)} \in T_{\Sigma}$ ist $Pos(a) = \{\varepsilon\}$
+    \item f\"ur $f(t_1, \dots, t_n) \in T_{\Sigma}$ ist 
+    $Pos(f(t_1, \dots, t_n)) = \{\varepsilon\} \cup 1 \cdot Pos(t_1) \cup 
+        \dots \cup n \cdot Pos(t_n)$
 \end{itemize}
 
 Beispiel:\\
@@ -165,8 +165,8 @@ F\"ur einen Term der Form $t = f(t_1, \dots, t_n)$ ist das Symbol $t(p)$ in $t$ 
 Position induktiv definert durch:
 
 \begin{itemize}
-	\item $t(\varepsilon) = f$
-	\item $t(ip) = t_i(p), i\in \{1, \dots , n\}$
+    \item $t(\varepsilon) = f$
+    \item $t(ip) = t_i(p), i\in \{1, \dots , n\}$
 \end{itemize}
 
 Beispiel: Betrachtung von $f(f(a,b),b)$\\
@@ -182,8 +182,8 @@ $t(1.2) = t_2(1) = b$
 F\"ur $T_{\Sigma}$ ist ein Sub-Baum $t_{|p}$ an p-ter Position wie folgt definiert:
 
 \begin{itemize}
-	\item $Pos(t_{|p}) = \{ i | pi \ \in Pos(t)\}$
-	\item $\forall q \in Pos(t_{|p}$ ist $t_{|p}(q) = t(pq)$
+    \item $Pos(t_{|p}) = \{ i | pi \ \in Pos(t)\}$
+    \item $\forall q \in Pos(t_{|p}$ ist $t_{|p}(q) = t(pq)$
 \end{itemize}
 
 Wir schreiben $t[u]_p$ f\"ur den Baum, der entsteht, wenn man in $t$ den sub-Baum 
@@ -221,12 +221,12 @@ Sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ein Baumautomat und $t\in T_{\Sigma}$
 Ein Lauf $r$ f\"ur $t$ von $\mathcal{A}$ ist ein Term mit
 
 \begin{itemize}
-	\item $Pos(r) = Pos(t)$
-	\item Ist $t(p) = a$ ein Blatt, dann ist $r(p) = q_a$, nur wenn 
-		$(a\rightarrow q_a) \in \Delta$ 
-	\item Ist $t(p)=f^{(m)}$, dann ist $r(p) = q$, wenn 
-		$(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$ und 
-		$r(p_i) = q_i$, $i \in \{1, \dots, n\}$
+    \item $Pos(r) = Pos(t)$
+    \item Ist $t(p) = a$ ein Blatt, dann ist $r(p) = q_a$, nur wenn 
+        $(a\rightarrow q_a) \in \Delta$ 
+    \item Ist $t(p)=f^{(m)}$, dann ist $r(p) = q$, wenn 
+        $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$ und 
+        $r(p_i) = q_i$, $i \in \{1, \dots, n\}$
 \end{itemize}
 
 Ein Lauf ist erfolgreich, wenn $r(\varepsilon) \in F$. 
@@ -244,10 +244,10 @@ Gegeben sei $\mathcal{A} = (Q, \Sigma, F, \Delta)$, dann ist
 $t \rightarrow _{\mathcal{A}} t'$ mit $t, t' \in T_{\Sigma \cup Q}$, falls
 
 \begin{itemize}
-	\item $t(p) = f^{(n)}$
-	\item $t(pi) = q_i$ f\"ur $i \in \{1, \dots, n\}$ und $p_i$ sind Bl\"atter
-	\item $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$
-	\item und $t' = t[q]_p$
+    \item $t(p) = f^{(n)}$
+    \item $t(pi) = q_i$ f\"ur $i \in \{1, \dots, n\}$ und $p_i$ sind Bl\"atter
+    \item $(f(q_1, \dots, q_n) \rightarrow q) \in \Delta$
+    \item und $t' = t[q]_p$
 \end{itemize}
 
 Mit $\rightarrow^\ast_{\mathcal{A}}$ bezeichnen wir die transitive H\"ulle von 
@@ -305,19 +305,19 @@ $\Delta = \{ 0 \rightarrow q_0, 1 \rightarrow q_1,\\
 Beispiellauf:\\
 
 \Tree [.$\lnot$ [.$\land$ [.$\lor$ 0 [.$\lnot$ 1 ] ] [.$\lor$ 1 [.$\land$ 0 0 ] ] ] ] 
-	$\rightarrow$
+    $\rightarrow$
 \Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$\lnot$ $q_1$ ] ] 
 [.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] 
-	$\rightarrow$
+    $\rightarrow$
 \Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ [.$q_0$ ] ] 
 [.$\lor$ $q_1$ [.$\land$ $q_0$ $q_0$ ] ] ] ] 
-	$\rightarrow$ \\ \\
+    $\rightarrow$ \\ \\
 \Tree [.$\lnot$ [.$\land$ [.$\lor$ $q_0$ $q_0$ ] [.$\lor$ $q_1$ $q_0$ ] ] ] 
-	$\rightarrow$
+    $\rightarrow$
 \Tree [.$\lnot$ [.$\land$ $q_0$ $q_1$ ] ] 
-	$\rightarrow$
+    $\rightarrow$
 \Tree [.$\lnot$ $q_0$ ] 
-	$\rightarrow$
+    $\rightarrow$
 \Tree [.$q_1$ ] \\ \\
 
 2. $(a^nb^n light)$\\
@@ -404,9 +404,9 @@ $r(\varepsilon) = z$\\
 Das hei\ss t, $\exists r :$\\
 
 \begin{itemize}
-	\item $r (\varepsilon) = z$
-	\item $r (i) = z_i$
-	\item $\sigma (z_1, \dots, z_n) \rightarrow z \in \Delta_d$
+    \item $r (\varepsilon) = z$
+    \item $r (i) = z_i$
+    \item $\sigma (z_1, \dots, z_n) \rightarrow z \in \Delta_d$
 \end{itemize}
 
 Setze nun $r_{ |i } = r_i$, damit ist insbesondere 
@@ -452,11 +452,11 @@ $2^{n+1}$ Zust\"ande.
 Ein Automat $(\mathcal{A} = Q, \Sigma, F, \Delta)$ hei\ss t:
 
 \begin{itemize}
-	\item vollst\"andig, falls f\"ur jedes $f^{(n)} \in \Sigma$ und alle 
-		$q_1, \dots , q_n \in Q$ eine Regel 
-		$f(q_1, \dots, q_n) \rightarrow q \in \Delta$ existiert.
-	\item reduziert, falls f\"ur jeden Zustand $q \in Q$ ein Term $t \in T_\Sigma$ 
-		exisitert mit $f \rightarrow ^\ast_\mathcal{A} q$
+    \item vollst\"andig, falls f\"ur jedes $f^{(n)} \in \Sigma$ und alle 
+        $q_1, \dots , q_n \in Q$ eine Regel 
+        $f(q_1, \dots, q_n) \rightarrow q \in \Delta$ existiert.
+    \item reduziert, falls f\"ur jeden Zustand $q \in Q$ ein Term $t \in T_\Sigma$ 
+        exisitert mit $f \rightarrow ^\ast_\mathcal{A} q$
 \end{itemize}
 
 \subsection{Satz}
@@ -541,8 +541,8 @@ F\"ur $\mathcal{A} = (Q, \Sigma, F, \Delta)$ ist
 $L(\mathcal{A}) \neq \emptyset \Leftrightarrow \exists t \in L$ mit $ht(t) \leq |Q|$:
 
 \begin{itemize}
-	\item $L(\mathcal{A}) |$ nicht endlich 
-		$\Leftrightarrow \exists t \in L$ mit $|Q| < ht(t) \leq 2 |Q|$
+    \item $L(\mathcal{A}) |$ nicht endlich 
+        $\Leftrightarrow \exists t \in L$ mit $|Q| < ht(t) \leq 2 |Q|$
 \end{itemize}
 
 \subsection{Abschlusseigenschaften}
@@ -591,9 +591,9 @@ Wiederholung - \"Aquivalenzrelation:\\
 Eine \"Aquivalenzrelation $\sim $ auf einer Menge $M$ ist eine Relation mit
 
 \begin{itemize}
-	\item $\forall m \in M: m\sim m$
-	\item $\forall m, n \in M: m\sim n \Rightarrow n\sim m$
-	\item $\forall l, m, n \in M: l\sim m, m\sim n \Rightarrow l\sim n$
+    \item $\forall m \in M: m\sim m$
+    \item $\forall m, n \in M: m\sim n \Rightarrow n\sim m$
+    \item $\forall l, m, n \in M: l\sim m, m\sim n \Rightarrow l\sim n$
 \end{itemize}
 
 Insbesondere: Ist $\sim $ eine \"Aquivalenzrelation auf $M$, so induziert $\sim $ eine 
@@ -613,8 +613,8 @@ Beispiel:\\
 Die Relation $t \equiv t'$, falls $t$ und $t'$ die gleiche Anzahl Bl\"atter modulo 2 haben.
 
 \begin{itemize}
-	\item Au\ss erdem: $t \equiv t' \Leftrightarrow ht(t) = ht(t')$
-	\item Nicht: gleiche H\"ohe modulo 2
+    \item Au\ss erdem: $t \equiv t' \Leftrightarrow ht(t) = ht(t')$
+    \item Nicht: gleiche H\"ohe modulo 2
 \end{itemize}
 
 \subsection{Definition}
@@ -805,12 +805,12 @@ $h(g(a)) = \bar{h}_1(g)[x_1 \leftarrow h(a)] = $
 \Tree [.$\rho$ [.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] [.$\tau$ $\alpha$ $\alpha$ ] ]\\
 $h(f(a, g(a))) = \bar{h}_2(f)[x_1 \leftarrow h(a)][x_2 \leftarrow h(g(a))]$
 \Tree [.$\tau$ 
-	[.$\tau$ 
-		[.$\rho$ [.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] [.$\tau$ $\alpha$ $\alpha$ ] ] 
-		$\alpha$ ] 
-	[.$\rho$ 
-		[.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] 
-		[.$\tau$ $\alpha$ $\alpha$ ] ] ]\\
+    [.$\tau$ 
+        [.$\rho$ [.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] [.$\tau$ $\alpha$ $\alpha$ ] ] 
+        $\alpha$ ] 
+    [.$\rho$ 
+        [.$\rho$ $\alpha$ [.$\tau$ $\alpha$ $\alpha$ ] ] 
+        [.$\tau$ $\alpha$ $\alpha$ ] ] ]\\
 
 \subsubsection{lineare Terme}
 
@@ -826,9 +826,9 @@ $\bar{h}_n(f) \in T_{\Gamma \cup X_n}$ ist linear.\\
 
 Beispiel: im Allgemeinen erhalten Homomorphismen die Erkennbarkeit nicht.\\
 Betrachte\\ 
-	$\Sigma = \{ f^{(1)}, g^{(1)}, a^{(0)} \}, 
-	\Gamma = \{ \hat{f}^{(2)}, g^{(1)}, a^{(0)} \}\\
-	\bar{h}_0: a \to a, \bar{h}_1: g \to g(x_1), \bar{h}_1: f \to \hat{f}(x_1, x_1)$
+    $\Sigma = \{ f^{(1)}, g^{(1)}, a^{(0)} \}, 
+    \Gamma = \{ \hat{f}^{(2)}, g^{(1)}, a^{(0)} \}\\
+    \bar{h}_0: a \to a, \bar{h}_1: g \to g(x_1), \bar{h}_1: f \to \hat{f}(x_1, x_1)$
 
 F\"ur $L \subseteq T_\Sigma, L = \{f(g^i(a)) | i \in \mathbb{N} \}$ ist
 $h(L) = \{\hat{f}(g^i(a), g^i(a)) | i \in \mathbb{N} \}$ nicht erkennbar, 
@@ -843,20 +843,20 @@ Beweisskizze:\\
 Sei $A = (Q, \Sigma, F, \Delta)$ ein reduzierter DFTA mit $L(A) = L$
 
 \begin{itemize}
-	\item Seien $(\bar{h}_n)_{n=0}^r$ die erzeugenden Funktionen von $h$
-	\item Definiere NFTA $A' = (Q', \Gamma, F', \Delta)$ wie folgt:\\
-		f\"ur jede Regel $\rho: f(q_1, \dots , q_n) \to q \in \Delta:$\\
-			Setze $Q^\rho = \{ q_p^\rho | q \in pos(\bar{h}_n(f))\}$ und\\
-			$\Delta ^\rho$ f\"ur jedes $p \in pos(\bar{h}_n(f))$\\
-			falls $(\bar{h}_n f)(p) = g^{(k)} \in \Gamma^{(k)}$ f\"ur ein $k$,\\
-			$g(q_{p \cdot 1}^\rho, \dots, q_{p \cdot k}^\rho) \to q_p \in \Delta^\rho$\\
-			falls $(\bar{h}_n f)(g) = x_i$ f\"ur ein $i$\\
-			$q_i \to q_p^\rho \in \Delta^\rho$\\
-			$q_\varepsilon^\rho \to q \in \Delta^\rho$\\
-			OBdA $Q^\rho$ paarweise disjukt auch mit $Q$\\
-	\item $Q' = \bigcup\limits_{\rho \in \Delta} Q^\rho \cup Q$
-	\item $\Delta = \bigcup\limits_{\rho \in \Delta} \Delta^\rho \cup Q$
-	\item $F' = F$ 
+    \item Seien $(\bar{h}_n)_{n=0}^r$ die erzeugenden Funktionen von $h$
+    \item Definiere NFTA $A' = (Q', \Gamma, F', \Delta)$ wie folgt:\\
+        f\"ur jede Regel $\rho: f(q_1, \dots , q_n) \to q \in \Delta:$\\
+            Setze $Q^\rho = \{ q_p^\rho | q \in pos(\bar{h}_n(f))\}$ und\\
+            $\Delta ^\rho$ f\"ur jedes $p \in pos(\bar{h}_n(f))$\\
+            falls $(\bar{h}_n f)(p) = g^{(k)} \in \Gamma^{(k)}$ f\"ur ein $k$,\\
+            $g(q_{p \cdot 1}^\rho, \dots, q_{p \cdot k}^\rho) \to q_p \in \Delta^\rho$\\
+            falls $(\bar{h}_n f)(g) = x_i$ f\"ur ein $i$\\
+            $q_i \to q_p^\rho \in \Delta^\rho$\\
+            $q_\varepsilon^\rho \to q \in \Delta^\rho$\\
+            OBdA $Q^\rho$ paarweise disjukt auch mit $Q$\\
+    \item $Q' = \bigcup\limits_{\rho \in \Delta} Q^\rho \cup Q$
+    \item $\Delta = \bigcup\limits_{\rho \in \Delta} \Delta^\rho \cup Q$
+    \item $F' = F$ 
 \end{itemize}
 
 \subsubsection{Satz}
@@ -909,12 +909,12 @@ Ein nicht-deterministischer Top-Down Baumautomat ist ein Tupel
 $\mathcal{A} = (Q, \Sigma, I, \Delta)$ , wobei:
 
 \begin{itemize}
-	\item $Q$ eine enliche Menge Zust\"ande
-	\item $\Sigma$ ein Rangalphabet
-	\item $I \subseteq Q$ Initialzust\"ande
-	\item $\Delta$ eine endliche Menge Regeln der Form\\
-	$q(f(x_1, \dots, x_n)) \to f(q_1(x_1), \dots, q_n(x_n))$\\
-	bzw. f\"ur $n = 0$: $q(a) \to a$
+    \item $Q$ eine enliche Menge Zust\"ande
+    \item $\Sigma$ ein Rangalphabet
+    \item $I \subseteq Q$ Initialzust\"ande
+    \item $\Delta$ eine endliche Menge Regeln der Form\\
+    $q(f(x_1, \dots, x_n)) \to f(q_1(x_1), \dots, q_n(x_n))$\\
+    bzw. f\"ur $n = 0$: $q(a) \to a$
 \end{itemize}
 ist.\\
 
@@ -958,12 +958,12 @@ Top-Down Automaten sind nicht determinisierbar. Deterministische Top-Down TA erk
 Eine Grammatik ist ein Tupel $G = (S, N, \Sigma, R)$. Dabei ist:
 
 \begin{itemize}
-	\item $S$ Startsymbol ($S = S^{(0)}, S \in N$)
-	\item $N$ (Rangalphabet) nichtterminale Symbole
-	\item $\Sigma$ (Rangalphabet) terminale Symbole ($\Sigma \cap N = \emptyset$)
-	\item $R$ Regeln der Form $\alpha \to \beta$ mit:\\
-		$\alpha, \beta \in T_{\Sigma \cup N \cup X}$ ($X \cap (\Sigma \cup N) = \emptyset$ Variablen),\\
-		$\alpha$ enth\"alt mindestens ein Nichtterminal-Symbol
+    \item $S$ Startsymbol ($S = S^{(0)}, S \in N$)
+    \item $N$ (Rangalphabet) nichtterminale Symbole
+    \item $\Sigma$ (Rangalphabet) terminale Symbole ($\Sigma \cap N = \emptyset$)
+    \item $R$ Regeln der Form $\alpha \to \beta$ mit:\\
+        $\alpha, \beta \in T_{\Sigma \cup N \cup X}$ ($X \cap (\Sigma \cup N) = \emptyset$ Variablen),\\
+        $\alpha$ enth\"alt mindestens ein Nichtterminal-Symbol
 \end{itemize}
 
 Eine regul\"are Grammatik enth\"alt nur Regelnd der Form
@@ -1016,9 +1016,9 @@ Wir bezeichnen mit $L_G(A)$, $A \in N$, die von $G$ erzeugte Sprache mit $A$ als
 Sei $G = (S,N,\Sigma,R)$ eine regul\"are Grammatik und $ A \in N $.
 Dann hei\ss t $A$
 \begin{itemize}
-	\item erreichbar, falls ein Kontext $C \in T_\Sigma(x)$ existiert, so dass
-		$S \to_G^\ast C[A]$
-	\item produktiv, falls $L_G(A) \neq \emptyset$
+    \item erreichbar, falls ein Kontext $C \in T_\Sigma(x)$ existiert, so dass
+        $S \to_G^\ast C[A]$
+    \item produktiv, falls $L_G(A) \neq \emptyset$
 \end{itemize}
 
 G hei\ss t reduziert, falls alle $A \in N$ erreichbar und produktiv sind.
@@ -1034,8 +1034,8 @@ Nun: zu $G$ eine \glqq Normalform \grqq konstruieren.
 
 Eine regul\"are Grammatik $G$ hei\ss t normalisiert, falls alle Regeln aus $R$ die Form
 \begin{itemize}
-	\item $A \to f(A_1, \dots, A_n)$, $A, A_1, \dots, A_n \in N$, $v \in \Sigma^{(n)}$
-	\item $A \to a$, $A \in N$, $a \in \Sigma$
+    \item $A \to f(A_1, \dots, A_n)$, $A, A_1, \dots, A_n \in N$, $v \in \Sigma^{(n)}$
+    \item $A \to a$, $A \in N$, $a \in \Sigma$
 \end{itemize}
 
 \subsection{Satz}
@@ -1065,11 +1065,11 @@ Ist $L$ erkennbar, so existiert ein nicht-deterministischer Top-Down-TA
 $\mathcal{A} = (Q, \Sigma, I, \Delta)$ mit $L = L(\mathcal{A})$.
 Betrachte eine Grammatik $G = (S, N, \Sigma, R)$ mit
 \begin{itemize}
-	\item $S$ ist ein neues Symbol
-	\item $N = \{ A_q | q \in Q\}$
-	\item $R = \{ A_q \to f(A_{q_1}, \dots, A_{q_n}) | 
-		q(f(x_1, \dots, x_n)) \to f(q_1(x_1)), \dots, q_n(x_n) \in \Delta \} \cup 
-		\{ S \to A_{q_i} | q_i \in I \}$
+    \item $S$ ist ein neues Symbol
+    \item $N = \{ A_q | q \in Q\}$
+    \item $R = \{ A_q \to f(A_{q_1}, \dots, A_{q_n}) | 
+        q(f(x_1, \dots, x_n)) \to f(q_1(x_1)), \dots, q_n(x_n) \in \Delta \} \cup 
+        \{ S \to A_{q_i} | q_i \in I \}$
 \end{itemize}
 
 Offensichtlich ist $L(G) = L(A)$
@@ -1087,10 +1087,10 @@ $\Box_i$ sind Konstanten.\\
 Es seien $L_i \subseteq T_{\Sigma \cup k}$ Sprachen. Dann ist die Substitution
 $t\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$ induktiv wie folgt definiert:
 \begin{itemize}
-	\item $\Box_i\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = L_i$
-	\item $a\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = \{a\}$, $a \neq \Box_i$, $a \in \Sigma^0$
-	\item $f(s_1, \dots, s_n)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = 
-		\{f(t_1, \dots, t_n) | t_i \in s_i\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \}$
+    \item $\Box_i\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = L_i$
+    \item $a\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = \{a\}$, $a \neq \Box_i$, $a \in \Sigma^0$
+    \item $f(s_1, \dots, s_n)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = 
+        \{f(t_1, \dots, t_n) | t_i \in s_i\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \}$
 \end{itemize}
 
 Au\ss erdem setzen $L\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} = 
@@ -1111,8 +1111,8 @@ $L \cdot_\Box M = \bigcup\limits_{t \in L} t \{ \Box \leftarrow M\}$
 
 Des weiteren ergibt sich der Kleene-Stern:
 \begin{itemize}
-	\item $L^{0.\Box} = \{ \Box \}$
-	\item $L^{n+1.\Box} = L^{n.\Box} \cup L \cdot_\Box L^{n.\Box}$
+    \item $L^{0.\Box} = \{ \Box \}$
+    \item $L^{n+1.\Box} = L^{n.\Box} \cup L \cdot_\Box L^{n.\Box}$
 \end{itemize}
 
 $\Rightarrow L^{\ast.\Box} = \bigcup\limits_{n \geq L^{n.\Box}}$
@@ -1136,9 +1136,9 @@ Betrachte normalisierte Grammatiken $G, G_1, \dots, G_n$ mit $L(G) = L, L(G_1) =
 $G = (S,N,\Sigma \cup k,R), G_i =  (S_i,N_i,\Sigma \cup k, R_i)$. (alle Nichtterminale paarweise disjunkt)\\
 Konstruiere $G' = (S,N',\Sigma \cup k,R')$ mit:
 \begin{itemize}
-	\item $N' = N \cup N_1, \cup \dots \cup N_n$
-	\item $R'$ enth\"alt alle Regeln in $R, R_1, \dots , R_n$, wobei $A \to \Box_i$ ersetzt werden durch
-		$A \to S_i$
+    \item $N' = N \cup N_1, \cup \dots \cup N_n$
+    \item $R'$ enth\"alt alle Regeln in $R, R_1, \dots , R_n$, wobei $A \to \Box_i$ ersetzt werden durch
+        $A \to S_i$
 \end{itemize}
 
 Direkt zeigen: $L\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \subseteq L(G')$\\
@@ -1157,11 +1157,11 @@ L(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$\\
 Induktionsschritt: $A \to_{G'}^\ast s'$: zerlege $A \to){G'} s_1 \to^\ast_{G'} s'$
 F\"alle f\"ur $s_1$ (bzw. $A \to s_1$ )
 \begin{itemize}
-	\item $a \to f(A_1, \dots, A_m) \Rightarrow s' = f(t_1, \dots, t_n)$. Laut Induktionsvoraussetzung:
-		$t_i \in L(A_i)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \Rightarrow s' \in L(A)$
-	\item $A \to s_i \in R' \Rightarrow A \to \Box_i \in R$ (laut Konstruktion) 
-		$\Rightarrow \Box_i \in L(A) \Rightarrow s' \in L_i \Rightarrow s' \in 
-		L(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$
+    \item $a \to f(A_1, \dots, A_m) \Rightarrow s' = f(t_1, \dots, t_n)$. Laut Induktionsvoraussetzung:
+        $t_i \in L(A_i)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \} \Rightarrow s' \in L(A)$
+    \item $A \to s_i \in R' \Rightarrow A \to \Box_i \in R$ (laut Konstruktion) 
+        $\Rightarrow \Box_i \in L(A) \Rightarrow s' \in L_i \Rightarrow s' \in 
+        L(A)\{ \Box_1 \leftarrow L_1, \dots, \Box_n \leftarrow L_n \}$
 \end{itemize}
 
 Aussage gilt f\"ur  alle Nichtterminale $A_i$, also auch f\"ur Startsymbol $S$ . $\Box$
@@ -1173,9 +1173,9 @@ Beweis: Betrachte normalisierte Grammatik $G = (S, N, \Sigma \cup K, R)$ mit $L(
 Konstriere $G' = (S', N \cup \{S'\}, \Sigma \cup K, R')$ (mit $S' \notin N$) wie folgt:\\
 $R'$ enth\"alte alle Regeln aus $R$, wobei:
 \begin{itemize}
-	\item $A \to \Box$ wird ersetzt durch $A \to S'$
-	\item $S' \to S$
-	\item $S' \to \Box$ (damit $\Box \in L(G')$)
+    \item $A \to \Box$ wird ersetzt durch $A \to S'$
+    \item $S' \to S$
+    \item $S' \to \Box$ (damit $\Box \in L(G')$)
 \end{itemize}
 
 Induktion liefert: $L(G') = L^{\ast . \Box}$
@@ -1186,12 +1186,12 @@ Wir formalisieren nun die rationalen Ausdr\"ucke:\\
 Sei $\Sigma$ ein Rangalphabet, $K$ eine Menge Konstanten mit $\Box \in K$:
 Dann ist $Rat(\Sigma, K)$ die kleinste Menge, sodass:
 \begin{itemize}
-	\item $\emptyset \in Rat(\Sigma, K)$
-	\item $a \in \Sigma^0 \cup K 'Rightarrow a \in Rat(\Sigma, K)$
-	\item $f \in \sigma^n, E_1, \dots, E_n \in Rat(\Sigma, K) \Rightarrow f(E_1, \dots, E_n) \in Rat(\Sigma, K)$
-	\item $E_1, E_2 \in Rat(\Sigma, K) \Rightarrow E_1 \cup E_2 \in Rat(\Sigma, K)$
-	\item $E_1, E_2 \in Rat(\Sigma, K), \Box \in K \Rightarrow E_1 \cdot _\Box E_2 \in Rat(\Sigma, K)$
-	\item $E_1 \in Rat(\Sigma, K), \Box \in K \Rightarrow E_1^{\ast . \Box} \in Rat(\Sigma, K)$
+    \item $\emptyset \in Rat(\Sigma, K)$
+    \item $a \in \Sigma^0 \cup K 'Rightarrow a \in Rat(\Sigma, K)$
+    \item $f \in \sigma^n, E_1, \dots, E_n \in Rat(\Sigma, K) \Rightarrow f(E_1, \dots, E_n) \in Rat(\Sigma, K)$
+    \item $E_1, E_2 \in Rat(\Sigma, K) \Rightarrow E_1 \cup E_2 \in Rat(\Sigma, K)$
+    \item $E_1, E_2 \in Rat(\Sigma, K), \Box \in K \Rightarrow E_1 \cdot _\Box E_2 \in Rat(\Sigma, K)$
+    \item $E_1 \in Rat(\Sigma, K), \Box \in K \Rightarrow E_1^{\ast . \Box} \in Rat(\Sigma, K)$
 \end{itemize}
 
 Die Ausdr\"ucke $Rat(\Sigma, K)$ hei\ss en rational \"uber $\Sigma$ und $K$.
@@ -1199,12 +1199,12 @@ Ist $E$ ein ratoinaler Ausdruck in $Rat(\Sigma, K)$, dann repr\"asentiert $E$ ei
 $T_{\Sigma \cup K}$, bezeichnet mit $||E||$.
 
 \begin{itemize}
-	\item $||\emptyset|| = \emptyset$
-	\item $||a|| = \{a\}$
-	\item $f(E_1, \dots, E_n)|| = \{f(t_1, \dots, t_n) | t_i \in ||E_i||\}$
-	\item $||E_1 \cup E_2|| = ||E_1|| \cup ||E_2||$
-	\item $||E_1 \cdot E_2|| = ||E_1||\{\Box \Leftarrow ||E_2||\}$
-	\item $||E^{\ast . \Box}|| = ||E||^{\ast . \Box}$
+    \item $||\emptyset|| = \emptyset$
+    \item $||a|| = \{a\}$
+    \item $f(E_1, \dots, E_n)|| = \{f(t_1, \dots, t_n) | t_i \in ||E_i||\}$
+    \item $||E_1 \cup E_2|| = ||E_1|| \cup ||E_2||$
+    \item $||E_1 \cdot E_2|| = ||E_1||\{\Box \Leftarrow ||E_2||\}$
+    \item $||E^{\ast . \Box}|| = ||E||^{\ast . \Box}$
 \end{itemize}
 
 Beispiel: Der Ausdruck $(f(\Box, b))^{\ast . \Box} \cdot_\Box a$ ist rational und repr\"asentiert 
@@ -1227,8 +1227,8 @@ Wir zeigen: Es existiert ein rationaler Ausdruck $E$ aus $Rat(\Sigma. K)$ mit $|
 Betrachter hierzu f\"ur $1 \leq i,j \leq |Q|$ und $Z \subseteq Q$ Terme $T(i, j, Z)$ definiert wie folgt:
 $t \in T(i, j, Z)$, falls $t \in T_{\Sigma \cup K}$ mit einem Lauf $R$ in $t$, so dass:
 \begin{itemize}
-	\item $v(\varepsilon) = q_i$
-	\item ist $p \neq \varepsilon$ und $t(p) /in Z$, dann ist $r(p) \in \{q_1, \dots, q_j\}$
+    \item $v(\varepsilon) = q_i$
+    \item ist $p \neq \varepsilon$ und $t(p) /in Z$, dann ist $r(p) \in \{q_1, \dots, q_j\}$
 \end{itemize}
 
 Damit: $L(\mathcal{A}) = \bigcup\limits_{q_i \in F} T(i, |Q|, \emptyset)$
@@ -1236,10 +1236,10 @@ Damit: $L(\mathcal{A}) = \bigcup\limits_{q_i \in F} T(i, |Q|, \emptyset)$
 Induktion \"uber $j$: $T(i, j, Z) \in Rat(\Sigma, K)$
 $j = 0$: $t \in T(i, 0, Z)$ bedeutet, es existiert ein Lauf $r$
 \begin{itemize}
-	\item $r(\varepsilon) = q_i$
-	\item kein Symbol, das nicht nullstellig ist, darf gelabelt sein
-		$\Rightarrow t = a$ oder $t = f(a_1, \dots, a_n), a_1, \dots, a_n \in \Sigma^0$
-		$\Rightarrow$ endlich viele, also existiert ein rationaler Ausdruck
+    \item $r(\varepsilon) = q_i$
+    \item kein Symbol, das nicht nullstellig ist, darf gelabelt sein
+        $\Rightarrow t = a$ oder $t = f(a_1, \dots, a_n), a_1, \dots, a_n \in \Sigma^0$
+        $\Rightarrow$ endlich viele, also existiert ein rationaler Ausdruck
 \end{itemize}
 
 Induktionsschritt: Angenommen f\"ur $j' < j$ ist $T(i, j', Z) \in Rat(\Sigma, Q)$.\\
@@ -1249,9 +1249,9 @@ Ziel: Zusammenhang zwischen Baum- und Wortsprachen\\
 Neben der Pfadsprache (siehe \"Ubung) betrachten wir den sogenannten Yield-Operator, definiert wie folgt:
 
 \begin{itemize}
-	\item $Yield(a^{(0)}) = a$ f\"ur eine Konstante $a^{(0)} \in \Sigma$
-	\item $Yield(f(t_1, \dots, t_n)) = Yield(t_1) \cdot \dots \cdot Yield(t_n)$
-		f\"ur $f^{(n)} \in \Sigma, t_i \in T_\Sigma$
+    \item $Yield(a^{(0)}) = a$ f\"ur eine Konstante $a^{(0)} \in \Sigma$
+    \item $Yield(f(t_1, \dots, t_n)) = Yield(t_1) \cdot \dots \cdot Yield(t_n)$
+        f\"ur $f^{(n)} \in \Sigma, t_i \in T_\Sigma$
 \end{itemize}
 
 F\"ur Sprache $L$ gilt: $Yield(L) = \bigcup\limits_{ t \in \Sigma } Yield(t)$
@@ -1272,11 +1272,11 @@ mit $|\alpha| = m$.\\
 Zu einem Symbol $a \in T \cup N$ definieren wir die Menge der von $a$ ausgehenden Ableitungsb\"aume in $G$, $D(G,a)$, wie folgt:
 
 \begin{itemize}
-	\item $D(G,a) = \{ a \}$ f\"ur $a \in T$
-	\item $(a,0) (\varepsilon) \in D(G,a)$, falls $a \to \varepsilon \in R$
-	\item $(a,m)i (t_1, \dots, t_m) \in D(G,a)$, falls 
-		$t_i \in (G,a_i), a_i \in T \cup N, a \to a_1, \dots, a_m \in R$
-	\item Ableitungsb\"aume f\"ur $G$ sind $D(G) = \bigcup\limits_{a \in t \cup N} D(G, a)$
+    \item $D(G,a) = \{ a \}$ f\"ur $a \in T$
+    \item $(a,0) (\varepsilon) \in D(G,a)$, falls $a \to \varepsilon \in R$
+    \item $(a,m)i (t_1, \dots, t_m) \in D(G,a)$, falls 
+        $t_i \in (G,a_i), a_i \in T \cup N, a \to a_1, \dots, a_m \in R$
+    \item Ableitungsb\"aume f\"ur $G$ sind $D(G) = \bigcup\limits_{a \in t \cup N} D(G, a)$
 \end{itemize}
 
 Beispiel: $G = (S,N,T,R)$ mit $S \to aSb, S \to ab$. Dann ist
@@ -1293,16 +1293,16 @@ Bemerkung: Ist $G$ eine kontextfreie Grammatik, so ist nat\"urlich $Yield(D(G)) 
 Beweis:\\
 1.) Erzeuge Grammatik $G' = (S,N,\Sigma,R')$ mit:\\
 \begin{itemize}
-	\item $\Sigma = T \cup \{\varepsilon\} \cup \{ (A,m) | A \in N, A \to \alpha \in R$ mit $|\alpha| = m \}$
-	\item $A \to (A,0) (\varepsilon) \in R'$, falls $A \to \varepsilon \in R$
-	\item $A \to (A,m) (A_1, \dots, A_m) \in R'$, falls $A \to A_1 \dots A_m \in R$
+    \item $\Sigma = T \cup \{\varepsilon\} \cup \{ (A,m) | A \in N, A \to \alpha \in R$ mit $|\alpha| = m \}$
+    \item $A \to (A,0) (\varepsilon) \in R'$, falls $A \to \varepsilon \in R$
+    \item $A \to (A,m) (A_1, \dots, A_m) \in R'$, falls $A \to A_1 \dots A_m \in R$
 \end{itemize}
 damit ist offensichtlich $Yield(L(G')) = L(G)$.
 
 2.) Betrachte normalisierte Grammatik $G = (S,N,\Sigma,R)$ mit $L(G) = L$.\\
-	Erzeuge Wortgrammatik $G' = (S,N,\Sigma^{(0)},R')$ mit folgenden Regeln:
+    Erzeuge Wortgrammatik $G' = (S,N,\Sigma^{(0)},R')$ mit folgenden Regeln:
 \begin{itemize}
-	\item $A \to A_1, \dots, A_m$ ($A \to a$) $\in R'$, falls $A \to f(A_1, \dots, A_n)$ ($A \to a$) $\in R$ f\"ur $f^{(m)} \in \Sigma$
+    \item $A \to A_1, \dots, A_m$ ($A \to a$) $\in R'$, falls $A \to f(A_1, \dots, A_n)$ ($A \to a$) $\in R$ f\"ur $f^{(m)} \in \Sigma$
 \end{itemize}
 
 3.) \"Ubung\\
@@ -1310,8 +1310,8 @@ damit ist offensichtlich $Yield(L(G')) = L(G)$.
 Pfadsprache $\pi (n)$:
 
 \begin{itemize}
-	\item $a \in \Sigma ^ 0$ dann ist $\pi (a) = \{a\}$
-	\item $t = f(t_1, \dots, t_n)$, dann ist $\pi (t) = \bigcup\limits_{i=1}^n \{ fiw | w \in \pi (t_i) \}$
+    \item $a \in \Sigma ^ 0$ dann ist $\pi (a) = \{a\}$
+    \item $t = f(t_1, \dots, t_n)$, dann ist $\pi (t) = \bigcup\limits_{i=1}^n \{ fiw | w \in \pi (t_i) \}$
 \end{itemize}
 
 Beispiel: $t=$ \Tree [.f [.f a b ] b ]
@@ -1328,26 +1328,26 @@ Komplexit\"at\\
 Um den Input zu formalisieren, setze: (f\"ur $t \in T_\Sigma$)
 
 \begin{itemize}
-	\item $||t|| = 1$, falls $t$ Konstante
-	\item $||t|| = 1 + \sum\limits_{i = 1}^{n} ||t_i||$, falls $t = f(t_1, \dots, t_n)$\\
-		$\widehat{=} |Pos(t)|$
-	\item f\"ur einen Automaten $\mathcal{A}$: $||\mathcal{A}|| = |Q| + \sum\limits_{r \in \mathcal{A}} ||r||$,
-		wobei $||r|| = n + 2$ f\"ur $r = f(q_1, \dots, q_n) \to q$
+    \item $||t|| = 1$, falls $t$ Konstante
+    \item $||t|| = 1 + \sum\limits_{i = 1}^{n} ||t_i||$, falls $t = f(t_1, \dots, t_n)$\\
+        $\widehat{=} |Pos(t)|$
+    \item f\"ur einen Automaten $\mathcal{A}$: $||\mathcal{A}|| = |Q| + \sum\limits_{r \in \mathcal{A}} ||r||$,
+        wobei $||r|| = n + 2$ f\"ur $r = f(q_1, \dots, q_n) \to q$
 \end{itemize}
 
 Betrachte  nun:\\
 MEMBERSHIP
 \begin{itemize}
-	\item Input: $t \in T_\Sigma$
-	\item Output: \glqq Yes\grqq, dgw. $t \in L(\mathcal{A})$ f\"ur gegebenen Automaten $\mathcal{A}$
+    \item Input: $t \in T_\Sigma$
+    \item Output: \glqq Yes\grqq, dgw. $t \in L(\mathcal{A})$ f\"ur gegebenen Automaten $\mathcal{A}$
 \end{itemize}
 
 $\rightarrow$ linear\\
 
 UNIFORM MEMBERSHIP
 \begin{itemize}
-	\item Input: Input: $t \in T_\Sigma, \mathcal{A}$ bottom-up Baumautomat
-	\item Output: \glqq Yes\grqq, dgw. $t \in L(\mathcal{A})$
+    \item Input: Input: $t \in T_\Sigma, \mathcal{A}$ bottom-up Baumautomat
+    \item Output: \glqq Yes\grqq, dgw. $t \in L(\mathcal{A})$
 \end{itemize}
 
 $\rightarrow$ deterministischer TA: $rightarrow$ linear\\
@@ -1356,8 +1356,8 @@ $\rightarrow$ nichtdeterministischer TA: $rightarrow$ $O(||t|| \cdot ||\mathcal{
 
 EMPTYNESS
 \begin{itemize}
-	\item Input: $\mathcal{A}$ bottom-up Baumautomat
-	\item Output: \glqq Yes\grqq gdw. $L(\mathcal{A}) = \emptyset$
+    \item Input: $\mathcal{A}$ bottom-up Baumautomat
+    \item Output: \glqq Yes\grqq gdw. $L(\mathcal{A}) = \emptyset$
 \end{itemize}
 
 $\rightarrow$ \"ubersetze in Horn-Formeln\\
@@ -1365,16 +1365,16 @@ $\rightarrow$ linear\\
 
 UNIVERSALITY
 \begin{itemize}
-	\item Input: $\mathcal{A}$
-	\item Output: \glqq Yes\grqq gdw. $L(\mathcal{A}) = T_\Sigma$
+    \item Input: $\mathcal{A}$
+    \item Output: \glqq Yes\grqq gdw. $L(\mathcal{A}) = T_\Sigma$
 \end{itemize}
 
 $\rightarrow$ Exptime-vollst\"andig (Determinisierten, bevor $\mathcal{A}^c$ gebildet werden kann)\\
 
 FINITENESS
 \begin{itemize}
-	\item Input: $\mathcal{A}$
-	\item Output: \glqq Yes\grqq gdw. $L(\mathcal{A})$ endlich
+    \item Input: $\mathcal{A}$
+    \item Output: \glqq Yes\grqq gdw. $L(\mathcal{A})$ endlich
 \end{itemize}
 
 $\rightarrow$ Pumping: Exptime\\
@@ -1395,9 +1395,9 @@ Es sei $\Sigma$ eine endliche Menge (von Symbolen) und $Q$ ein Alphabet (von Bl\
 $Q \cap \Sigma = \emptyset$.
 Die Menge $T_{\Sigma, Q}$ der $\Sigma$-B\"aume mit $Q$-Bl\"attern ist induktiv definiert wie folgt:
 \begin{itemize}
-	\item $q \in Q \Rightarrow q \in T_{\Sigma, Q}$
-	\item $n \geq 1, f \in \Sigma, t_1, \dots, t_n \in T_{\Sigma, Q}
-		\Rightarrow f(t_1, \dots, t_n) \in T_{\Sigma, Q}$
+    \item $q \in Q \Rightarrow q \in T_{\Sigma, Q}$
+    \item $n \geq 1, f \in \Sigma, t_1, \dots, t_n \in T_{\Sigma, Q}
+        \Rightarrow f(t_1, \dots, t_n) \in T_{\Sigma, Q}$
 \end{itemize}
 
 Die Menge $Pos(t)$ der Positionen eines Terms $t \in T_{\Sigma, Q}$ sowie Teilb\"aume etc. sind
@@ -1413,10 +1413,10 @@ $A \to \alpha _1, \dots, \alpha _n \Rightarrow$ \Tree [.A $\alpha _1$ $\dots$ $\
 Eine lokale Baumgrammatik (LTG) ist eine kontextfreie Grammatik $G = (\Sigma _0 \Sigma, Q, R)$.
 Ein Term $t \in T_{\Sigma, Q}$ wird von $G$ erzeugt, falls
 \begin{itemize}
-	\item $t(\varepsilon) \in \Sigma _0$
-	\item Ist $w$ interene Posotion ($w \in Pos(t))$ mit $\{ i | wi \in Pos(t) \} = \{ 1, \dots, n \} \neq \emptyset$,\\
-		dann ist $t(w) \to t(w_1) \cdot \dots \cdot t(w_n) \in R$
-	\item Ist $w$ ein Blatt, dann ist $t(w) \in Q$
+    \item $t(\varepsilon) \in \Sigma _0$
+    \item Ist $w$ interene Posotion ($w \in Pos(t))$ mit $\{ i | wi \in Pos(t) \} = \{ 1, \dots, n \} \neq \emptyset$,\\
+        dann ist $t(w) \to t(w_1) \cdot \dots \cdot t(w_n) \in R$
+    \item Ist $w$ ein Blatt, dann ist $t(w) \in Q$
 \end{itemize}
 
 Lokale Baumsprache (LTL): $L(G) = \{ t \in T_{\Sigma, Q} | $G erzeugt t$ \}$\\
@@ -1451,18 +1451,18 @@ Nun: Gr\"o\ss ere \glqq Bausteine\grqq f\"ur Ba\"ume
 \subsection{Definition}
 
 Eine Baumsubstitutionsgrammatik (TSG) ist ein Tupel $G = (\Sigma _0, \Sigma, Q, R)$, wobei
-$R \subseteq T_{\Sigma, Q}$ (mit nicht notwendigerweise $\Sigma \cap Q = \emptyset$ eine endliche
+$R \subseteq T_{\Sigma, Q}$ (mit nicht notwendigerweise $\Sigma \cap Q = \emptyset$) eine endliche
 (Menge von Fragmenten) ist.\\
 
 Wir setzen $t \to_{TSG} t'$, falls
 \begin{itemize}
-	\item $p \in R$ Fragment
-	\item $C \in T_{\Sigma,Q} (x)$ Kontext
+    \item $p \in R$ Fragment
+    \item $C \in T_{\Sigma,Q} (x)$ Kontext
 \end{itemize}
 
 existieren mit
 \begin{itemize}
-	\item $t = C[p(\varepsilon]$, $t' = C[p]$
+    \item $t = C[p(\varepsilon)]$, $t' = C[p]$
 \end{itemize}
 
 Beispiel: \Tree [.f [.f a b ] b ] \\
@@ -1477,5 +1477,140 @@ Beispiel (Schnitt): Seien $x_i \in \{a,b\}$\\
 $L_1=$ \Tree [.S $x_1$ [.S $x_1$ [.S $x_2$ [.S $x_2$ [.$\dots$ [.S $x_n$ c ] ] ] ] ] ] \\
 $L_2=$ \Tree [.S $x_1$ [.S $x_2$ [.S $x_2$ [.S $x_3$ [.$\dots$ [.S $x_{n + 1}$ c ] ] ] ] ] ] \\
 $L_1 \cap L_2=$ \Tree [.S $x_1$ [.S $x_1$ [.S $x_1$ [.S $x_1$ [.$\dots$ [.S $1$ c ] ] ] ] ] ] \\
+
+Ziel: gewichtete Baumautomaten\\
+Diese werden analog zu gewichteten Wortautomaten definiert.
+Betrachte hierzu einen Wortautomaten $\mathcal{A} = (Q,A,I,F,\delta)$ mit $\delta \subseteq Q \times A \times Q$.\\
+$\rightarrow$ ungewichtete Automaten k\"onnen Eigenschaften testen, z.B.:\\
+
+\begin{tikzpicture}[shorten >= 1pt, node distance=2cm, on grid, auto]
+    \node[state, initial] (q0) {$ q_0 $};
+    \node[state, accepting] (q1) [right=of q0 ] {$ q_1 $};
+
+    \path[->]   (q0)    edge                    node    {a} (q1);
+    \path[->]   (q0)    edge    [loop above]    node    {a,b}   ();
+    \path[->]   (q1)    edge    [loop above]    node    {a,b}   ();
+\end{tikzpicture}
+pr\"uft, ob $w$ ein a enth\"alt.\\
+Gewichtete Automaten k\"onnen u.a. z\"ahlen, wie oft, d.h. in diesem Fall
+$||\mathcal{A}||(w) = |w|_a$\\
+
+Definition:\\
+Ein Tupel $(S,+,\cdot,0,1)$ hei\ss t Semiring, falls
+\begin{itemize}
+    \item $(S,+,0)$ kommutativer Monoid
+    \item $(S,\cdot,1)$ Monoid
+    \item Distributivit\"at $(a+b) \cdot c = a \cdot c + b \cdot c$,
+        $c \cdot (a+b) = c \cdot a + c \cdot b$ $\forall a,b,c \in S$
+    \item $0$ absorbiert: $0 \cdot x = x \cdot 0 = 0$ $\forall x \in S$
+\end{itemize}
+
+$S$ hei\ss t kommutativ, falls $\cdot$ kommutativ ist.\\
+$S$ hei\ss t Ring, falls $(S, +, 0)$ eine Gruppe ist.\\
+
+Beispiel:
+\begin{itemize}
+    \item $(N,+,\cdot,0,1)$ (N mit 0)
+    \item $B = (\{0,1\},\lor,\land,0,1)$
+    \item max-plus $(R_+ \cup \{-\infty\},max,+,-\infty,0)$
+    \item min-plus $(R_+ \cup \{\infty\},min,+,\infty,0)$
+\end{itemize}
+
+Definition:\\
+Sei $A$ ein Alphabet, $S$ ein Semiring. Ein gewichteter Automat $\mathcal{A}$ \"uber $S$ und $A$ ist ein Tupel
+$\mathcal{A} = (Q, in, wt, out)$ mit:
+\begin{itemize}
+    \item $Q$ endliche Menge von Zust\"anden
+    \item $wt$ $Q \times A \times Q \to S$
+    \item $in$, $out$ $Q \to S$
+\end{itemize}
+
+Betrachte $w = a_1, \dots, a_n$ mit Pfad $p = t_1, \dots, t_n$, d.h. $t_i = (q_{i-1}, a_i, q_i)$\\
+Dann setzen wir
+\begin{itemize}
+    \item $wt(p) = wt(t_1) \cdot \dots \cdot wt(t_n)$
+    \item $weight(p) = in(q_0) wt(p) out(q_n)$
+\end{itemize}
+
+Das Verhalten von $\mathcal{A}$ ist nun\\
+$||\mathcal{A}|| A^\ast \to S$ mit\\
+$||\mathcal{A}|| (w) = \sum\limits_{q_i, q_j \in Q} in(q_i)wt(p)out(q_j)$ (f\"ur $q_i$ nach $q_j$)\\
+$=\sum\limits_{\text{p Pfad f\"ur w}} weight(p)$\\
+
+Beispiel: $S = (N,+,\cdot,0,1)$\\
+\begin{tikzpicture}[shorten >= 1pt, node distance=2cm, on grid, auto]
+    \node[state, initial] (q0) {$ q_0 $};
+    \node[state, accepting] (q1) [right=of q0 ] {$ q_1 $};
+
+    \path[->]   (q0)    edge                    node    {a,1} (q1);
+    \path[->]   (q0)    edge    [loop above]    node    {a,1;b,1}   ();
+    \path[->]   (q1)    edge    [loop above]    node    {a,1;b,1}   ();
+\end{tikzpicture}
+
+Dann ist $||\mathcal{A}||(w) = |w|_a$\\
+
+Nun: Baumautomaten. Betrachte ein Rangalphabet $\Sigma$
+
+\subsection{Definition}
+
+Sei $\Sigma$ ein Rangalphabet und $S$ ein kommutativer Semiring. Ein gewichteter Baumautomat (WTA) ist
+ein Tupel $\mathcal{A}(Q,\sigma,F,wt)$, wobei:
+\begin{itemize}
+    \item $Q$ endliche Menge an Zust\"anden
+    \item $\Sigma \cap Q = \emptyset$
+    \item $F \subseteq Q$ Finalzust\"ande
+\end{itemize}
+
+und $(wt_f)_{f \in \Sigma}$ mit $wt_f: Q^{rk(f)} \times Q \to S$\\
+
+Beispiel: \Tree [.f [.f a b ] b ] mit Run \Tree [.$q_f$ [.$q_a$ $q_a$ $q_b$ ] $q_b$ ]
+
+$wt_a(q_a) = 1$\\
+$wt_b(q_b) = 1$\\
+$wt_f((q_a,q_b),q_a) = 2$\\
+$wt_f((q_a,q_b),q_f) = 3$\\
+
+\Tree [.3 [.2 1 1 ] 1 ]
+
+Ein Run f\"ur $t \in T_\Sigma$ ist ein Baum $r$ mit $Pos(r) = Pos(t)$ und Labels in $Q$.\\
+Betrachte Pos $p$ mit $t(p) = f$, $rk(f) = n$. Dann ist das Gewicht von $r$ an $p$ f\"ur $t$
+gegeben durch\\
+$wt(r) = \prod\limits_{p \in Pos(r)} wt(r,p)$\\
+
+wir nennen $S$ valid, falls $wt(r,p) \neq 0$ $\forall p \in Pos(r)$.
+Das bedeutet i.A. nicht, dass dann auch $wt(r)\neq 0 ist.$\\
+Ein Run $r$ hei\ss t akzeptiert, falls $wt(r) \neq 0$ und $r(\varepsilon) \in F$.\\
+Das Verhalten von $\mathcal{a}$ ist nun $||\mathcal{A}||: T_\Sigma \to S$ mit\\
+$||\mathcal{A}|| (w) = \sum\limits_{q \in F} \sum\limits_{r valid \text{ mit } r(\varepsilon) = q} wt(r)$\\
+$= \sum\limits_{\text{r akzeptiert}} wt(r)$\\
+
+Beispiel:\\
+Sei $\Sigma = \{ a^{(0)}, f^{(2)} \}$, $Q = \{ q_0, q_1 \}$, $F = \{ q_1 \}$\\
+Setze 
+$wt_a(q_1) = 1$\\
+$wt_a(q_0) = 1$\\
+$wt_f((q_0,q_0),q_1) = 0$\\
+$wt_f((q_0,q_1),q_1) = 1$\\
+$wt_f((q_1,q_0),q_1) = 1$\\
+$wt_f((q_1,q_1),q_1) = 1$\\
+$wt_f((q_0,q_0),q_0) = 1$\\
+$wt_f((q_0,q_1),q_0) = 0$\\
+$wt_f((q_1,q_0),q_0) = 0$\\
+$wt_f((q_1,q_1),q_0) = 0$\\
+
+$||\mathcal{A}||(t) = 2^{|t|_a} - 1$\\
+
+Setze $wt_f((q_1,q_1),q_1) = 0$ und alle anderen wie oben,
+dann ist $||\mathcal{A}(t)|| = |t|_a$
+
+\subsection{Satz}
+
+Ist $L \subseteq T_\Sigma$ erkennbar und $S$ ein beliebiger kommutativer Semiring,
+dann ist die charakteristische Funktion $\mathbb{I}_L$ erkennbar, d.h. es existiert $\mathcal{a}$ mit
+$\mathbb{I}_L = ||\mathcal{A}||$.\\
+
+Beweis: Betrachte det. vollst. TA $\mathcal{A}$ mit $L(\mathcal{A} = L$,
+$\mathcal{A} = (Q,\Sigma,F,\Delta)$. Konstruiere WTA $\mathcal{A}' = (Q,\Sigma,F,wt)$,
+wobei $wt_f((q_1, \dots, q_n),q) = 1 \Leftrightarrow f(q_1, \dots, q_n) \to q \in \Delta$
 
 \end{document} 
