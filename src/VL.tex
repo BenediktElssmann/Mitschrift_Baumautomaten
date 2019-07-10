@@ -44,7 +44,7 @@ Daf\"ur gibt es Erweiterungen, wie etwa:
     \begin{itemize}
         \item $\omega$-W\"orter $ w = a_1 \dots a_n $ 
         \item Graphen
-        \item B\"aume\\
+        \item B\"aume
         \item Kombinationen dieser
     \end{itemize}
 
@@ -1612,5 +1612,88 @@ $\mathbb{I}_L = ||\mathcal{A}||$.\\
 Beweis: Betrachte det. vollst. TA $\mathcal{A}$ mit $L(\mathcal{A} = L$,
 $\mathcal{A} = (Q,\Sigma,F,\Delta)$. Konstruiere WTA $\mathcal{A}' = (Q,\Sigma,F,wt)$,
 wobei $wt_f((q_1, \dots, q_n),q) = 1 \Leftrightarrow f(q_1, \dots, q_n) \to q \in \Delta$
+
+Betrachte einen gewichteten Wortautomaten $\mathcal{A}$. Die Berechnung von
+$||\mathcal{A}||(w) = \sum\limits_{\text{p run f\"ur w}} weight(p)$\\
+ist im schlimmsten Fall exponentiell.
+Die Matrixdarstellung ist effizienter, weil Matrixmultiplikation schneller geht.\\
+
+Betrachte\\
+\begin{tikzpicture}[shorten >= 1pt, node distance=2cm, on grid, auto]
+    \node[state, initial, initial text=1] (q1) {$ q_1 $};
+    \node[state] (q3) [below=of q1 ] {$ q_3 $};
+    \node[state, initial, initial text=2] (q2) [below=of q3 ] {$ q_2 $};
+    \node[state, accepting] (q4) [right=of q3 ] {$ q_4 $};
+
+    \path[->]   (q1)    edge                    node    {$a|2$} (q3);
+    \path[->]   (q1)    edge                    node    {$a|5$} (q4);
+    \path[->]   (q1)    edge    [loop above]    node    {$a|2$} ();
+    \path[->]   (q2)    edge                    node    {$a|1$} (q3);
+    \path[->]   (q2)    edge                    node    {$a|4$} (q4);
+    \path[->]   (q2)    edge    [loop below]    node    {$a|2$} ();
+    \path[->]   (q3)    edge                    node    {$a|3$} (q4);
+\end{tikzpicture}
+
+$\lambda = (1,2,0,0)$, 
+$\gamma = (0,0,0,2)$, 
+$\mu =
+\begin{pmatrix}
+    2 & 0 & 2 & 5 \\
+    0 & 2 & 1 & 4 \\
+    0 & 0 & 0 & 3 \\
+    0 & 0 & 0 & 0
+\end{pmatrix}$\\
+
+$w = aa$\\
+$||\mathcal{A}||(w) = \lambda \underbrace{\mu (a) \mu (a)}_{\mu (aa)} \gamma^T$\\
+$=\lambda \mu (w) \gamma^T$\\
+
+Betrachte $\lambda \mu (a) = \begin{pmatrix}1 & 2 & 0 & 0\end{pmatrix} \cdot 
+\begin{pmatrix}
+    2 & 0 & 2 & 5 \\
+    0 & 2 & 1 & 4 \\
+    0 & 0 & 0 & 3 \\
+    0 & 0 & 0 & 0
+\end{pmatrix}
+= \begin{pmatrix}2 & 4 & 4 & 13\end{pmatrix}$
+
+d.h. Zwischenschritt nach 1. gelesen a:
+
+\begin{tikzpicture}[shorten >= 1pt, node distance=2cm, on grid, auto]
+    \node[state] (q1) {$ 2 $};
+    \node[state] (q3) [below=of q1 ] {$ 4 $};
+    \node[state] (q2) [below=of q3 ] {$ 4 $};
+    \node[state, accepting] (q4) [right=of q3 ] {$ 13 $};
+
+    \path[dashed]   (q1)    edge    node    {$a|2$} (q3);
+    \path[dashed]   (q2)    edge    node    {$a|1$} (q3);
+    \path[dashed]   (q3)    edge    node    {$a|3$} (q4);
+\end{tikzpicture}
+
+Weiter ist $\begin{pmatrix}2 & 4 & 4 & 13\end{pmatrix} \cdot \mu (a) = \begin{pmatrix}4 & 8 & 8 & 38\end{pmatrix}$\\
+und dann $||\mathcal{A}||(aa) = \begin{pmatrix}4 & 8 & 8 & 38\end{pmatrix} \cdot \gamma^T = 76$\\
+
+Um die Darstellung auf Baumautomaten zu \"ubertragen, betrachte:\\
+\begin{itemize}
+    \item $v_0 (w) = \lambda$
+    \item f\"ur $(v_n(w))_q \in S^Q $ und $n \leq |w|$: $(v_n(w))_q = \sum\limits_{q_i \in Q} (v_{n-1})_{q_i} wt(q_i,w_n,q)$
+\end{itemize}
+
+$v_1 (aa) = \begin{pmatrix}2 & 4 & 4 & 13\end{pmatrix}$\\
+$v_1 (aa) = \begin{pmatrix}4 & 8 & 8 & 38\end{pmatrix}$\\
+$||\mathcal{A}||(w) = v_{|w|}(w) \gamma^T$\\
+
+F\"ur einen WTA $\mathcal{A} = (Q, \Sigma, F, (wt_f)_{f \in \Sigma})$
+ergibt sich nun analog:
+Sei $t \in T_\Sigma$ und $p \in Pos(t)$ ($t(p) = a$) ein Blatt, dann ist:
+\begin{itemize}
+    \item $v_p(t) = (wt_a(q_1),\dots, wt_a(q_n))\in \Sigma^Q$
+\end{itemize}
+und f\"ur ein nicht-Blattsymbol $q \in Pos(t)$, etwa $t(p) = f$ mit $rk(f) = n$:
+\begin{itemize}
+    \item $(v_p(t))_q $ $(\in Sigma^Q)$ $ = \sum\limits{q_1, \dots, q_n \in Q} (v_{p_1})_{q_1} \dots (v_{p_n})_{q_n} wt((q_1, \dots, q_n),q)$
+\end{itemize}
+
+Damit ergibt sich $||\mathcal{A}||(t) = \sum\limits_{q \in F}(v_\varepsilon(t))_q$
 
 \end{document} 
